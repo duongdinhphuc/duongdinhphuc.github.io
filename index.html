@@ -1,257 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Đếm ngược đến Tết Nguyên Đán 2019</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="Còn bao nhiêu ngày nữa đến Tết Nguyên Đán Kỷ Hợi 2019?"/>
+        <meta property="og:title" content="Đếm ngược đến Tết"/>
+        <meta property="og:description" content="Còn bao nhiêu ngày nữa đến Tết Nguyên Đán Kỷ Hợi 2019?"/>
+        <meta property="og:url" content="https://nam.name.vn/"/>
+        <meta property="og:site_name" content="Sắp Tết"/>
+        <meta property="og:image" content="saptet.com.png"/>
+        <script src='jquery-3.2.1.min.js'></script>
+        <script src="js.js"></script>
+        <style type="text/css">
+            html,body,div,span,h1,h2 {
+                padding: 0;
+                border: 0;
+                margin: 0;
+                background: transparent;
+                font-size: 100%;
+                font-weight: inherit;
+                vertical-align: baseline;
+            }
 
-<html>
-<head>
+            .clearfix:after {
+                content: "\00A0";
+                display: block;
+                clear: both;
+                visibility: hidden;
+                line-height: 0;
+                height: 0;
+            }
 
-	<script src="js/MotionPathPlugin.js"></script>	
+            html[xmlns] .clearfix {
+                display: block;
+            }
 
-	<title>Lễ KHÔNG tình nhân</title>
-    <meta content="Lễ KHÔNG tình nhân" name="description" />
+            * html .clearfix {
+                height: 1%;
+            }
 
-    <meta property="og:image" content="img/thumb.jpg" />
-    <meta property="og:title" content="Lễ KHÔNG tình nhân" />
-    <meta property="og:type" content="website" />
+            html {
+                height: 100%;
+                background: radial-gradient(ellipse at bottom, #e82219 10%, #33201a 100%);
+                overflow: hidden;
+                text-align: center;
+            }
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<meta charset="UTF-8">
-	<meta property="og:image" content="" />
+            body {
+                font-size: 1.6em;
+                background: transparent;
+                color: #ffffff;
+                font-family: 'Dancing Script',Helvetica,Arial,sans-serif;
+            }
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            #topbar {
+                background-color: #000;
+                padding: 5px 0;
+            }
 
-	<script src="js/TweenMax.min.js"></script>
-	<script src="js/JsBarcode.all.min.js"></script>
-	<script src="js/jquery-barcode.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-	<script src="js/jquery.cookie.js"></script>
+            #main {
+                max-width: 1100px;
+                margin: auto;
+                margin-top: 5%;
+            }
 
-	
+            .colorlight {
+                text-shadow: 0 0 10px #efe81d,0 0 20px #efe81d,0 0 30px #efe81d,0 0 40px #f80f1f,0 0 70px #f80f1f,0 0 80px #f80f1f,0 0 100px #f80f1f,0 0 150px #f80f1f;
+            }
 
+            h1 {
+                font-size: 3em;
+                margin: .35em 0 0;
+            }
 
-	<link rel="Stylesheet" type="text/css" href="css/croppie.css" />
-    <link rel="Stylesheet" type="text/css" href="css/demo.css" />
-    <link href="css/style.css" type="text/css" rel="stylesheet" />
-	<link href="css/style-notmobile.css" type="text/css" rel="stylesheet" />
-	<link href="css/whack.css" type="text/css" rel="stylesheet" />
-	<script>
-	
-  
+            h2 {
+                margin: 0;
+            }
 
-	$scrollallow = false;
-	document.addEventListener("touchmove", function(event){
-    if (!$scrollallow) {
-    	event.preventDefault();
-    }
-	}, { passive: false });
-	</script>
+            .clock {
+                float: left;
+                overflow: hidden;
+                background-color: #fff;
+                color: #222;
+                border-radius: 30%;
+                position: relative;
+                width: 20%;
+                height: 0;
+                padding-bottom: 20%;
+                margin: 3% 0 3% 4%;
+            }
 
+            .clock .num {
+                font-size: 350%;
+                font-weight: 700;
+                height: 0;
+                line-height: 190%;
+            }
 
+            .clock .text {
+                font-size: 130%;
+                text-transform: uppercase;
+                background-color: #eee;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                line-height: 180%;
+            }
 
-<!-- Google Tag Manager -->
+            .clock.tet {
+                background-color: #f6361e;
+            }
 
-<!-- End Google Tag Manager -->
+            .clock.tet .text {
+                background-color: #d00120;
+            }
 
-</head>
+            #taitro {
+                margin-top: 3.4em;
+            }
 
-<body>
-	
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v13.0&appId=450134445809850&autoLogAppEvents=1" nonce="D71o1tmm"></script>
-<div class="se-pre-con"><span>Chờ một xíu..<span></div>
-<style>
-.se-pre-con {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: url(img/preloader-r.gif) center no-repeat #fff;
-}
-.se-pre-con span
-{
-	display: block;
-	position: absolute;
-	top: calc(50% + 60px);
-	font-size: 16px;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
+            #taitro a {
+                color: #f7e158;
+                text-decoration: none;
+                font-size: 1.5em;
+            }
 
-</style>
-<script>
-	
+            #footer {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+            }
 
-</script>
-<div class="gradient-bg">
-</div>
-<div class="container home-screen" style="display: block;">
-	<img class="title" src="img/title.png">
-	<a href="/"><img class="logo" src="img/logo.png"></a>
-	<img class="urgo" src="img/footer.png">
+            @media (max-width: 767px) {
+                body {
+                    font-size:14px;
+                }
 
-	<div class="intro">
-		<p class="tagline">
-			<b class="bigger">Bạn Ế ư?</b>
-		</p>
-		<p class="tagline">
-			Đừng lo, có tui<br>bạn vẫn ế bỏ xừ!!! ahihi
-		</p>
-	<div class="button start">Bắt đầu nào</div>
-	</div>
-</div>
-<div class="container background" style="display: none">
-	<img class="title" src="img/title-small.png">
-	<img class="urgo" src="img/footer.png">
+                h2 {
+                    font-size: 1.6em;
+                }
 
-</div>
-<div class="container quiz" style="display: none"><!-- original none -->
-		<p class="question">
-	
-	
-	<div class="quiz-body quiz-01" style="display: block">
-		<p class="question">
-			Đối tượng bạn thích hẹn hò là…
-		</p>
-		
-		<div class="button answer" answerval="a">Nam</div>
-		<div class="button answer" answerval="b">Nữ</div>
-	</div>
+                @media (max-width: 480px) {
+                    .clock {
+                        width:35%;
+                        padding-bottom: 35%;
+                        margin: 5% 0 0 10%;
+                    }
 
-	<div class="quiz-body quiz-02" style="left:100%"><!-- original left `100% -->
-		<p class="question">
-			Thế bạn đã từng có mảnh tình vắt vai nào chưa?
-		</p>
-		
-		<div class="button answer ex" answerval="1">Đã được nếm mùi lợi hại <b class="emoji">😩</b></div>
-		<div class="button answer zin" answerval="2">Team Ế trường tồn <b class="emoji">😤😤😤</b></div>
-	</div>
+                    h1 {
+                        margin-top: .55em;
+                    }
+                }
 
-	<div class="zin-answer">
-	<p class="omnomnom">
-	<b>“Ế” là vì chờ người <u>tử tế</u> để yêu <b class="emoji">😤</b></b><br>
-	Tìm ngay tình yêu đích thực<br>của bạn tại đây!
-	</p>
-	</div>
+                @media only screen and (max-width: 767px) and (orientation: landscape) {
+                    #main {
+                        margin-top:1%;
+                    }
 
-	<div class="quiz-body quiz-03" style="left:00%; display: none">
-		<p class="question">
-			Với bạn, ngoại hình của người ấy cỡ nào là đủ?
-		</p>
-		
-		<div class="button answer longanswer" answerval="a"><span>Body chuẩn như người mẫu,<br> khuôn mặt thanh tú</span></div>
-		<div class="button answer longanswer" answerval="b"><span>Chí ít thì mặt cũng dễ thương,<br> thân hình tương đối</span></div>
-		<div class="button answer longanswer" answerval="c"><span>Ngoại hình không quan trọng,<br> quan trọng là số dư thẻ</span></div>
-	</div>
-
-	<div class="quiz-body quiz-04" style="left:100%; display: block">
-		<p class="question">
-			Bạn thích người có tính cách thế nào?
-		</p>
-		
-		<div class="button answer " answerval="a"><span>Hài hước, vui vẻ</span></div>
-		<div class="button answer " answerval="b"><span>Trầm tĩnh, chín chắn</span></div>
-		<div class="button answer longanswer" answerval="c"><span>Không có tiêu chuẩn,<br> cứ thích là nhích thôi!</span></div>
-	</div>
-
-	<div class="button end-quiz long-btn" style="display: none" ><span>Click để xem hình ảnh<br>người yêu tương lai của bạn</span></div>
-
-</div>
-
-
-<div class="container photo-screen" style="display: none">
-	<div class="photo-frame">
-		<div class="photo-container">
-			<img class="crush" src="" src="https://i.imgur.com/R8NehCA.jpg">
-		</div>
-	</div>
-</div>
-
-<div class="photo-ending-screen" style="display: none">
-	<div class="amulet scr-target" >
-		<p class="subtitle" style="line-height: 22px;">Tặng bạn 01 lá bùa yêu,<br>chúc bạn “thả đâu trúng đó” và thoát kiếp FA trong thời gian tới <b class="emoji">😂😂</b></p>
-		<div class="amulet-photo">
-			<img src="img/amulet.png" class="buayeu" style="display: none;">
-			<img src="img/bua-2.png" class="bua-2" style="display: none;">
-		</div>
-		<div class="barcode-guide">
-			<div class="button long-btn replay" ><span>CHƠI TIẾP ĐỂ GIẢI NGHIỆP <b>#FREE!</b></span></div>
-			<div class="button long-btn share" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
-				<img src="img/f.png" style="">
-				<span><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://fajizy.github.io/lekhongtinhnhanh">Share để rủ bạn bè<br>cùng chơi nào!</a></span>
-			</div>
-			<p class="link"><a href="https://fb.com/fajizy">Facebook of me</a></p>
-		</div>
-
-		<script>
-			
-		</script>
-	</div>
-</div>
-
-
-
-
-<div class="container upandcrop" style="display: none">
-	<div class="upfile" >
-		<div class="des">
-			Upload ảnh người đã cho bạn “nếm mùi” và “đấm không trượt” phát nào luôn cho hả dạ nè!
-		</div>
-		<a class="button upload--btn file-btn">
-			<span>Upload</span>
-			<input type="file" id="upload" value="Choose a file" accept="image/*" />
-		</a>
-	</div>
-	<div class="upload-demo-wrap" style="display: none">
-		<div class="des">
-			Đặt bản mặt của "hắn" thật khớp trước đã..
-		</div>
-	<div id="upload-demo"></div>
-	<div class="button play">Đấm thôi</div>
-
-	</div>
-
-</div>
-
-<div class="game" style="display: none;">
-	<div class="wrapper">
-	
-	<header style="display: block;">
-		
-		<div class="score-box" id="score-box">
-			<img class="score-ec" src="img/ec.png" style="display: none;">
-						<h2 class="score-out" id="score-out"></h2>
-
-		</div><!-- end score-box -->
-	</header>		
-		<div class="game-container" style="display: block">
-			
-			
-		</div><!-- end game-container -->
-	</div><!-- end wrapper -->
-	<img class="dead" src="img/dead.png">
-</div>
-
-<img class="dead-bubble" src="img/dead-bubble.png" style="display: none">
-<div class="scr-btn" style="display: none">
-	<div class="scr-arrow bouncing"></div>
-</div>
-<img class="hammer " src="img/hammer.png">
-<!--
-<a class="btn file-btn">
-<span>Upload</span>
-<input type="file" id="upload" value="Choose a file" accept="image/*" />
-</a>
-<button class="upload-result">Result</button>
-
-
-<div class="output"></div>
--->
-<script src="js/main.js"></script>
-<script src="js/croppie.js"></script>
-<script src="js/upcrop.js"></script>
-<script src="js/whack.js"></script>
-<script>
-            UpCrop.init();
-</script>
-</body>
-</html>
+                    h1 {
+                        margin-top: 0;
+                    }
+                }
+            </style>
+            <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700&amp;subset=vietnamese" rel="stylesheet">
+        </head>
+        <body>
+          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NT7TLWH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <div id="main">
+                <h2 id="tetornot" class="">Sắp Tết rồi!!!</h2>
+                <div class="clearfix">
+                    <div class="clock">
+                        <div id="days" class="num">&nbsp;</div>
+                        <div id="days-text" class="text">Ngày</div>
+                    </div>
+                    <div class="clock">
+                        <div id="hours" class="num">&nbsp;</div>
+                        <div id="hours-text" class="text">Giờ</div>
+                    </div>
+                    <div class="clock">
+                        <div id="mins" class="num">&nbsp;</div>
+                        <div id="mins-text" class="text">Phút</div>
+                    </div>
+                    <div class="clock">
+                        <div id="secs" class="num">&nbsp;</div>
+                        <div id="secs-text" class="text">Giây</div>
+                        
+                    </div>
+                </div>
+                <!---h1 id="tet" class=""></h1---->
+                <div id="taitro">
+                    <!--a href="#" target="_blank"></a-->
+                    <a href="#">
+                        Đếm ngược<br/>
+                      Tết Nguyên Đán <span id="tentet">&nbsp;</span><br/>
+                    </a>
+                </div>
+            </div>
+        <iframe src="https://www.nhaccuatui.com/mh/background/51RoIKr6JYQR" width="1" height="1" frameborder="0"
+            allowfullscreen allow="autoplay"></iframe>
+        </body>
+    </html>
