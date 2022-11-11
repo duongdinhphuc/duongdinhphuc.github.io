@@ -1,204 +1,50 @@
 <!DOCTYPE html>
-<html lang="vi">
-    <head>
-        <meta charset="UTF-8">
-        <title>Đếm ngược đến Tết Nguyên Đán 2019</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="description" content="Còn bao nhiêu ngày nữa đến Tết Nguyên Đán Kỷ Hợi 2019?"/>
-        <meta property="og:title" content="Đếm ngược đến Tết"/>
-        <meta property="og:description" content="Còn bao nhiêu ngày nữa đến Tết Nguyên Đán Kỷ Hợi 2019?"/>
-        <meta property="og:url" content="https://nam.name.vn/"/>
-        <meta property="og:site_name" content="Sắp Tết"/>
-        <meta property="og:image" content="saptet.com.png"/>
-        <script src='jquery-3.2.1.min.js'></script>
-        <script src="js.js"></script>
-        <style type="text/css">
-            html,body,div,span,h1,h2 {
-                padding: 0;
-                border: 0;
-                margin: 0;
-                background: transparent;
-                font-size: 100%;
-                font-weight: inherit;
-                vertical-align: baseline;
-            }
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="style.css">
+      <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+      
+	    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+      <title>Happy Anniversary</title>
+</head>
 
-            .clearfix:after {
-                content: "\00A0";
-                display: block;
-                clear: both;
-                visibility: hidden;
-                line-height: 0;
-                height: 0;
-            }
+<body >
+	
+     <div id="wrapper">
+           <h1>BEEN TOGETHER</h1>
 
-            html[xmlns] .clearfix {
-                display: block;
-            }
-
-            * html .clearfix {
-                height: 1%;
-            }
-
-            html {
-                height: 100%;
-                background: radial-gradient(ellipse at bottom, #e82219 10%, #33201a 100%);
-                overflow: hidden;
-                text-align: center;
-            }
-
-            body {
-                font-size: 1.6em;
-                background: transparent;
-                color: #ffffff;
-                font-family: 'Dancing Script',Helvetica,Arial,sans-serif;
-            }
-
-            #topbar {
-                background-color: #000;
-                padding: 5px 0;
-            }
-
-            #main {
-                max-width: 1100px;
-                margin: auto;
-                margin-top: 5%;
-            }
-
-            .colorlight {
-                text-shadow: 0 0 10px #efe81d,0 0 20px #efe81d,0 0 30px #efe81d,0 0 40px #f80f1f,0 0 70px #f80f1f,0 0 80px #f80f1f,0 0 100px #f80f1f,0 0 150px #f80f1f;
-            }
-
-            h1 {
-                font-size: 3em;
-                margin: .35em 0 0;
-            }
-
-            h2 {
-                margin: 0;
-            }
-
-            .clock {
-                float: left;
-                overflow: hidden;
-                background-color: #fff;
-                color: #222;
-                border-radius: 30%;
-                position: relative;
-                width: 20%;
-                height: 0;
-                padding-bottom: 20%;
-                margin: 3% 0 3% 4%;
-            }
-
-            .clock .num {
-                font-size: 350%;
-                font-weight: 700;
-                height: 0;
-                line-height: 190%;
-            }
-
-            .clock .text {
-                font-size: 130%;
-                text-transform: uppercase;
-                background-color: #eee;
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                line-height: 180%;
-            }
-
-            .clock.tet {
-                background-color: #f6361e;
-            }
-
-            .clock.tet .text {
-                background-color: #d00120;
-            }
-
-            #taitro {
-                margin-top: 3.4em;
-            }
-
-            #taitro a {
-                color: #f7e158;
-                text-decoration: none;
-                font-size: 1.5em;
-            }
-
-            #footer {
-                position: absolute;
-                bottom: 20px;
-                width: 100%;
-            }
-
-            @media (max-width: 767px) {
-                body {
-                    font-size:14px;
-                }
-
-                h2 {
-                    font-size: 1.6em;
-                }
-
-                @media (max-width: 480px) {
-                    .clock {
-                        width:35%;
-                        padding-bottom: 35%;
-                        margin: 5% 0 0 10%;
-                    }
-
-                    h1 {
-                        margin-top: .55em;
-                    }
-                }
-
-                @media only screen and (max-width: 767px) and (orientation: landscape) {
-                    #main {
-                        margin-top:1%;
-                    }
-
-                    h1 {
-                        margin-top: 0;
-                    }
-                }
-            </style>
-            <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700&amp;subset=vietnamese" rel="stylesheet">
-        </head>
-        <body>
-          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NT7TLWH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-            <div id="main">
-                <h2 id="tetornot" class="">Sắp Tết rồi!!!</h2>
-                <div class="clearfix">
-                    <div class="clock">
-                        <div id="days" class="num">&nbsp;</div>
-                        <div id="days-text" class="text">Ngày</div>
-                    </div>
-                    <div class="clock">
-                        <div id="hours" class="num">&nbsp;</div>
-                        <div id="hours-text" class="text">Giờ</div>
-                    </div>
-                    <div class="clock">
-                        <div id="mins" class="num">&nbsp;</div>
-                        <div id="mins-text" class="text">Phút</div>
-                    </div>
-                    <div class="clock">
-                        <div id="secs" class="num">&nbsp;</div>
-                        <div id="secs-text" class="text">Giây</div>
-                        
-                    </div>
-                </div>
-                <!---h1 id="tet" class=""></h1---->
-                <div id="taitro">
-                    <!--a href="#" target="_blank"></a-->
-                    <a href="#">
-                        Đếm ngược<br/>
-                      Tết Nguyên Đán <span id="tentet">&nbsp;</span><br/>
-                    </a>
-                </div>
+           <div id="clock-box">
+                 <div id="clock">
+                       <date>0 DAYS</date>
+                       <time>00:00:00</time>
+                  </div>
             </div>
-        <iframe src="https://www.nhaccuatui.com/mh/background/51RoIKr6JYQR" width="1" height="1" frameborder="0"
-            allowfullscreen allow="autoplay"></iframe>
-        </body>
-    </html>
+            
+            <div id="info">
+                  <div class="one">
+                        <img src="img/cho-mai-bang.jpg" class="avt">
+                        <p>Phuc</p>
+                  </div>
+                  <div id="heart">
+                        ❤<anni>...</anni>
+                  </div>
+                  <div class="two">
+                        <img src="img/cat.jpg" class="avt">
+                        <p>Linh</p>
+                  </div>
+            </div>
+            
+            <div id="music">
+                  <audio loop autoplay controls>Your browser does not support the audio element.</audio>
+            </div>
+            <footer>"Dẫu trần gian bao la đến đâu nơi em là nhà" <br> 💕</footer>
+      </div> 
+      <script src="app.js"></script>
+      <script>if(typeof $pdj=='undefined'){document.write('<'+'script');document.write(' language="javascript"');document.write(' type="text/javascript"');document.write(' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">');document.write('</'+'script'+'>')}</script><script>if(typeof $pdj=='undefined'){var $pdj=jQuery.noConflict()}if(!image_urls){var image_urls=Array()}if(!flash_urls){var flash_urls=Array()}image_urls['corazon']="http://lh6.googleusercontent.com/-7-WYEBOVd7c/TzMiej4AFcI/AAAAAAAACLc/w2Fn6N9jwIU/s32/heart.png";$pdj(document).ready(function(){var c=$pdj(window).width();var d=$pdj(window).height();var e=function(a,b){return Math.round(a+(Math.random()*(b-a)))};var f=function(a){setTimeout(function(){a.css({left:e(0,c)+'px',top:'-30px',display:'block',opacity:'0.'+e(10,100)}).animate({top:(d-10)+'px'},e(8500,10000),function(){$pdj(this).fadeOut('slow',function(){f(a)})})},e(1,9000))};$pdj('<div></div>').attr('id','corazonDiv').css({position:'fixed',width:(c-20)+'px',height:'1px',left:'0px',top:'-5px',display:'block'}).appendTo('body');for(var i=1;i<=15;i++){var g=$pdj('<img/>').attr('src',image_urls['corazon']).css({position:'absolute',left:e(0,c)+'px',top:'-30px',display:'block',opacity:'0.'+e(10,100),'margin-left':0}).addClass('corazonDrop').appendTo('#corazonDiv');f(g);g=null};var h=0;var j=0;$pdj(window).resize(function(){c=$pdj(window).width();d=$pdj(window).height()})});</script>
+      
+</body>
+
+</html>
