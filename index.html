@@ -1,50 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <link rel="stylesheet" href="style.css">
-      <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
-      
-	    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-      <title>Happy Anniversary</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
 
-<body >
-	
-     <div id="wrapper">
-           <h1>BEEN TOGETHER</h1>
+    <link
+      href="https://fonts.googleapis.com/css?family=Pacifico"
+      rel="stylesheet"
+    />
+    <title>Happy Anniversary</title>
+  </head>
 
-           <div id="clock-box">
-                 <div id="clock">
-                       <date>0 DAYS</date>
-                       <time>00:00:00</time>
-                  </div>
-            </div>
-            
-            <div id="info">
-                  <div class="one">
-                        <img src="img/phuc-2.jpg" class="avt">
-                        <p>chubedan</p>
-                  </div>
-                  <div id="heart">
-                        ❤<anni>...</anni>
-                  </div>
-                  <div class="two">
-                        <img src="img/linh.jpg" class="avt">
-                        <p>embeiuanh</p>
-                  </div>
-            </div>
-            
-            <div id="music">
-                  <audio loop autoplay controls>Your browser does not support the audio element.</audio>
-            </div>
-            <footer>"Dẫu trần gian bao la đến đâu nơi em là nhà" <br> 💕</footer>
-      </div> 
-      <script src="app.js"></script>
-      <script>if(typeof $pdj=='undefined'){document.write('<'+'script');document.write(' language="javascript"');document.write(' type="text/javascript"');document.write(' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">');document.write('</'+'script'+'>')}</script><script>if(typeof $pdj=='undefined'){var $pdj=jQuery.noConflict()}if(!image_urls){var image_urls=Array()}if(!flash_urls){var flash_urls=Array()}image_urls['corazon']="http://lh6.googleusercontent.com/-7-WYEBOVd7c/TzMiej4AFcI/AAAAAAAACLc/w2Fn6N9jwIU/s32/heart.png";$pdj(document).ready(function(){var c=$pdj(window).width();var d=$pdj(window).height();var e=function(a,b){return Math.round(a+(Math.random()*(b-a)))};var f=function(a){setTimeout(function(){a.css({left:e(0,c)+'px',top:'-30px',display:'block',opacity:'0.'+e(10,100)}).animate({top:(d-10)+'px'},e(8500,10000),function(){$pdj(this).fadeOut('slow',function(){f(a)})})},e(1,9000))};$pdj('<div></div>').attr('id','corazonDiv').css({position:'fixed',width:(c-20)+'px',height:'1px',left:'0px',top:'-5px',display:'block'}).appendTo('body');for(var i=1;i<=15;i++){var g=$pdj('<img/>').attr('src',image_urls['corazon']).css({position:'absolute',left:e(0,c)+'px',top:'-30px',display:'block',opacity:'0.'+e(10,100),'margin-left':0}).addClass('corazonDrop').appendTo('#corazonDiv');f(g);g=null};var h=0;var j=0;$pdj(window).resize(function(){c=$pdj(window).width();d=$pdj(window).height()})});</script>
-      
-</body>
+  <body>
+    <div id="wrapper">
+      <h1>BEEN TOGETHER</h1>
 
+      <div id="clock-box">
+        <div id="clock">
+          <date>0 DAYS</date>
+          <time>00:00:00</time>
+        </div>
+      </div>
+
+      <div id="info">
+        <div class="one">
+          <img src="img/phuc-2.jpg" class="avt" />
+          <p>phuc</p>
+        </div>
+        <div id="heart">❤<anni>...</anni></div>
+        <div class="two">
+          <img src="img/linh.jpg" class="avt" />
+          <p>linh</p>
+        </div>
+      </div>
+
+      <div id="music">
+        <audio loop autoplay controls>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <footer>
+        "Dẫu trần gian bao la đến đâu nơi em là nhà" <br />
+        💕
+      </footer>
+    </div>
+    <script src="app.js"></script>
+    <script>
+      if (typeof $pdj == "undefined") {
+        document.write("<" + "script");
+        document.write(' language="javascript"');
+        document.write(' type="text/javascript"');
+        document.write(
+          ' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">'
+        );
+        document.write("</" + "script" + ">");
+      }
+    </script>
+    <script>
+      if (typeof $pdj == "undefined") {
+        var $pdj = jQuery.noConflict();
+      }
+      if (!image_urls) {
+        var image_urls = Array();
+      }
+      if (!flash_urls) {
+        var flash_urls = Array();
+      }
+      image_urls["corazon"] =
+        "http://lh6.googleusercontent.com/-7-WYEBOVd7c/TzMiej4AFcI/AAAAAAAACLc/w2Fn6N9jwIU/s32/heart.png";
+      $pdj(document).ready(function () {
+        var c = $pdj(window).width();
+        var d = $pdj(window).height();
+        var e = function (a, b) {
+          return Math.round(a + Math.random() * (b - a));
+        };
+        var f = function (a) {
+          setTimeout(function () {
+            a.css({
+              left: e(0, c) + "px",
+              top: "-30px",
+              display: "block",
+              opacity: "0." + e(10, 100),
+            }).animate({ top: d - 10 + "px" }, e(8500, 10000), function () {
+              $pdj(this).fadeOut("slow", function () {
+                f(a);
+              });
+            });
+          }, e(1, 9000));
+        };
+        $pdj("<div></div>")
+          .attr("id", "corazonDiv")
+          .css({
+            position: "fixed",
+            width: c - 20 + "px",
+            height: "1px",
+            left: "0px",
+            top: "-5px",
+            display: "block",
+          })
+          .appendTo("body");
+        for (var i = 1; i <= 15; i++) {
+          var g = $pdj("<img/>")
+            .attr("src", image_urls["corazon"])
+            .css({
+              position: "absolute",
+              left: e(0, c) + "px",
+              top: "-30px",
+              display: "block",
+              opacity: "0." + e(10, 100),
+              "margin-left": 0,
+            })
+            .addClass("corazonDrop")
+            .appendTo("#corazonDiv");
+          f(g);
+          g = null;
+        }
+        var h = 0;
+        var j = 0;
+        $pdj(window).resize(function () {
+          c = $pdj(window).width();
+          d = $pdj(window).height();
+        });
+      });
+    </script>
+  </body>
 </html>
