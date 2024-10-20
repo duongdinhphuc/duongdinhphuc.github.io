@@ -1,185 +1,59 @@
 html,
 body {
-  background-color: #f6f6f6;
+  width: 100%;
+  height: 100%;
+  background: -webkit-radial-gradient(rgba(242, 209, 216, 0.5), #f2d1d8);
+  background: radial-gradient(rgba(242, 209, 216, 0.5), #f2d1d8);
+}
+
+* {
+  border: 0;
   margin: 0;
   padding: 0;
+  font-family: "Clicker Script", cursive;
 }
 
-img {
-  max-width: 100%;
-}
-
-body {
-  display: grid;
-  font-family: "Segoe UI", sans-serif;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: minmax(auto, auto);
-  color: #3e3e3e;
-  text-shadow: 0.4px 0.4px 0.4px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
-  font-weight: lighter;
-  grid-column: span 3;
+.warpper {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   text-align: center;
-  color: #ec407a;
-  font-family: "Pacifico", cursive;
+  justify-content: space-around;
+  margin: auto;
+  padding-top: 3em;
+  padding-bottom: 3em;
 }
 
-#wrapper {
-  display: grid;
-  grid-column: 3 / 11;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(auto, auto);
-  grid-row-gap: 10px;
-  margin-top: 3.6rem;
+.timer .description {
+  font-size: 80px;
+  margin: 0 auto;
 }
 
-#clock-box,
-#info {
-  grid-column: span 3;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-}
-
-#clock-box #clock {
-  grid-column: 4 / 10;
-  background-color: #f8c8c8;
-  padding: 0.6rem 2rem;
-  padding-top: 0.8rem;
+.timer ul li {
+  list-style-type: none;
+  display: inline-block;
+  font-size: 32px;
   text-align: center;
-  font-size: 2.4rem;
-  border-radius: 10rem;
+  width: 145px;
 }
 
-date,
-time {
+.timer ul li span {
   display: block;
+  font-size: 80px;
 }
 
-date {
-  font-size: 18px;
+#calendar {
+  font-size: 40px;
+  line-height: 200px;
 }
 
-time {
-  font-family: "Arial", sans-serif;
-  line-height: 3.2rem;
-  letter-spacing: 2px;
+.totalDays {
+  font-size: 40px;
 }
 
-.avt {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-#info {
-  margin-top: 2.6rem;
-}
-#info p {
-  font-family: "Pacifico", cursive;
-  font-size: 22px;
-}
-
-#heart {
-  grid-column: span 2;
-  display: grid;
-  grid-template-rows: 2;
-  font-size: 44px;
-  color: #b90d46;
-  align-self: center;
-  padding-bottom: 2.6rem;
-  text-align: center;
-  animation: heart 2s linear infinite;
-}
-@keyframes heart {
-  0% {
-    transform: scale(0.8);
-  }
-  25% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.8);
-  }
-  75% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.8);
-  }
-}
-
-anni {
-  font-size: 16px;
-  letter-spacing: 0.2px;
-}
-
-#info .one {
-  grid-column: 3 / 6;
-  text-align: center;
-}
-
-#info .two {
-  grid-column: 8 / 11;
-  text-align: center;
-}
-
-footer {
-  grid-column: span 3;
-  text-align: center;
-  font-size: 1.6rem;
-  font-weight: lighter;
-  margin-top: 1.2rem;
-  font-family: "Pacifico", cursive;
-  font-size: 22px;
-}
-
-#music {
-  grid-column: 2;
-  position: relative;
-  z-index: 1000;
-  opacity: 0.4;
-}
-
-#mask {
-  background-image: linear-gradient(to top, #6d44cc5d 0%, #f09cd880 100%);
-  opacity: 0.42;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-@media (max-width: 992px) {
-  #wrapper {
-    grid-column: span 12;
-  }
-
-  #clock-box #clock {
-    grid-column: 2 / 12;
-  }
-
-  .avt {
-    width: 120px;
-    height: 120px;
-  }
-
-  #info .one,
-  #info .two {
-    grid-column: span 12;
-  }
-
-  #heart {
-    grid-column: span 12;
-    padding-bottom: 1rem;
-  }
-
-  footer {
-    font-size: 1.2rem;
-    margin: 0;
-    padding-bottom: 2rem;
-  }
+#totalDays {
+  font-size: 43px;
+  color: #f23221;
 }
