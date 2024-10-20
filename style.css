@@ -57,3 +57,17 @@ body {
   font-size: 43px;
   color: #f23221;
 }
+
+@media only screen and (max-width: 435px) {
+  .timer .description {
+    font-size: 60px;
+  }
+
+  .info {
+    padding: 0 10px;
+  }
+
+  #calendar {
+    line-height: 50px;
+  }
+}

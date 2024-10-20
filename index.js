@@ -20,7 +20,7 @@ setInterval(function () {
   document.getElementById("hours").innerHTML = h;
   document.getElementById("minutes").innerHTML = m;
   document.getElementById("seconds").innerHTML = s;
-}, second);
+}, 200);
 
 function verifyDateTime(obj) {
   if (obj < 10) return "0" + obj;
