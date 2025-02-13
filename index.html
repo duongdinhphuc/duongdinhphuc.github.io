@@ -3,131 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
     <link
-      href="https://fonts.googleapis.com/css?family=Clicker+Script"
+      href="https://fonts.googleapis.com/css?family=Pacifico"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/x-icon" href="/img/birthday-cake.png" />
-    <title>Birthday</title>
+    <title>Happy Anniversary</title>
   </head>
+
   <body>
-    <div class="warpper">
-      <div class="timer">
-        <div class="description">
-          My birthday is in...
-          <div class="loader">
-            <div class="spinner">
-              <svg
-                width="58px"
-                height="58px"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 100 100"
-                preserveAspectRatio="xMidYMid"
-                class="uil-hourglass"
-              >
-                <rect
-                  x="0"
-                  y="0"
-                  width="100"
-                  height="100"
-                  fill="none"
-                  class="bk"
-                ></rect>
-                <g>
-                  <path
-                    fill="none"
-                    stroke="black"
-                    stroke-width="5"
-                    stroke-miterlimit="10"
-                    d="M58.4,51.7c-0.9-0.9-1.4-2-1.4-2.3s0.5-0.4,1.4-1.4 C70.8,43.8,79.8,30.5,80,15.5H70H30H20c0.2,15,9.2,28.1,21.6,32.3c0.9,0.9,1.4,1.2,1.4,1.5s-0.5,1.6-1.4,2.5 C29.2,56.1,20.2,69.5,20,85.5h10h40h10C79.8,69.5,70.8,55.9,58.4,51.7z"
-                    class="glass"
-                  ></path>
-                  <clipPath id="uil-hourglass-clip1">
-                    <rect x="15" y="20" width="70" height="25" class="clip">
-                      <animate
-                        attributeName="height"
-                        from="25"
-                        to="0"
-                        dur="1s"
-                        repeatCount="indefinite"
-                        vlaues="25;0;0"
-                        keyTimes="0;0.5;1"
-                      ></animate>
-                      <animate
-                        attributeName="y"
-                        from="20"
-                        to="45"
-                        dur="1s"
-                        repeatCount="indefinite"
-                        vlaues="20;45;45"
-                        keyTimes="0;0.5;1"
-                      ></animate>
-                    </rect>
-                  </clipPath>
-                  <clipPath id="uil-hourglass-clip2">
-                    <rect x="15" y="55" width="70" height="25" class="clip">
-                      <animate
-                        attributeName="height"
-                        from="0"
-                        to="25"
-                        dur="1s"
-                        repeatCount="indefinite"
-                        vlaues="0;25;25"
-                        keyTimes="0;0.5;1"
-                      ></animate>
-                      <animate
-                        attributeName="y"
-                        from="80"
-                        to="55"
-                        dur="1s"
-                        repeatCount="indefinite"
-                        vlaues="80;55;55"
-                        keyTimes="0;0.5;1"
-                      ></animate>
-                    </rect>
-                  </clipPath>
-                  <path
-                    d="M29,23c3.1,11.4,11.3,19.5,21,19.5S67.9,34.4,71,23H29z"
-                    clip-path="url(#uil-hourglass-clip1)"
-                    fill="#ffab00"
-                    class="sand"
-                  ></path>
-                  <path
-                    d="M71.6,78c-3-11.6-11.5-20-21.5-20s-18.5,8.4-21.5,20H71.6z"
-                    clip-path="url(#uil-hourglass-clip2)"
-                    fill="#ffab00"
-                    class="sand"
-                  ></path>
-                  <animateTransform
-                    attributeName="transform"
-                    type="rotate"
-                    from="0 50 50"
-                    to="180 50 50"
-                    repeatCount="indefinite"
-                    dur="1s"
-                    values="0 50 50;0 50 50;180 50 50"
-                    keyTimes="0;0.7;1"
-                  ></animateTransform>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div>
-          <ul>
-            <li><span id="days"></span>days</li>
-            <li><span id="hours"></span>hours</li>
-            <li><span id="minutes"></span>minutes</li>
-            <li><span id="seconds"></span>seconds</li>
-          </ul>
+    <div id="wrapper">
+      <h1>BEEN TOGETHER</h1>
+
+      <div id="clock-box">
+        <div id="clock">
+          <date>0 DAYS</date>
+          <time>00:00:00</time>
         </div>
       </div>
-      <div class="info">
-        <h2 id="calendar"></h2>
+
+      <div id="info">
+        <div class="one">
+          <img src="img/cho-mai-bang.jpg" class="avt" />
+          <p>anh</p>
+        </div>
+        <div id="heart">❤<anni>...</anni></div>
+        <div class="two">
+          <img src="img/cat.jpg" class="avt" />
+          <p>em</p>
+        </div>
       </div>
-      <p class="totalDays">Today is the <span id="totalDays"></span> days</p>
+
+      <div id="music">
+        <audio loop autoplay controls>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <footer>
+        "Dẫu trần gian bao la đến đâu nơi em là nhà" <br />
+        💕
+      </footer>
     </div>
-    <script src="./index.js"></script>
+    <script src="app.js"></script>
+    <script>
+      if (typeof $pdj == "undefined") {
+        document.write("<" + "script");
+        document.write(' language="javascript"');
+        document.write(' type="text/javascript"');
+        document.write(
+          ' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">'
+        );
+        document.write("</" + "script" + ">");
+      }
+    </script>
+    <script>
+      if (typeof $pdj == "undefined") {
+        var $pdj = jQuery.noConflict();
+      }
+      if (!image_urls) {
+        var image_urls = Array();
+      }
+      if (!flash_urls) {
+        var flash_urls = Array();
+      }
+      image_urls["corazon"] =
+        "http://lh6.googleusercontent.com/-7-WYEBOVd7c/TzMiej4AFcI/AAAAAAAACLc/w2Fn6N9jwIU/s32/heart.png";
+      $pdj(document).ready(function () {
+        var c = $pdj(window).width();
+        var d = $pdj(window).height();
+        var e = function (a, b) {
+          return Math.round(a + Math.random() * (b - a));
+        };
+        var f = function (a) {
+          setTimeout(function () {
+            a.css({
+              left: e(0, c) + "px",
+              top: "-30px",
+              display: "block",
+              opacity: "0." + e(10, 100),
+            }).animate({ top: d - 10 + "px" }, e(8500, 10000), function () {
+              $pdj(this).fadeOut("slow", function () {
+                f(a);
+              });
+            });
+          }, e(1, 9000));
+        };
+        $pdj("<div></div>")
+          .attr("id", "corazonDiv")
+          .css({
+            position: "fixed",
+            width: c - 20 + "px",
+            height: "1px",
+            left: "0px",
+            top: "-5px",
+            display: "block",
+          })
+          .appendTo("body");
+        for (var i = 1; i <= 15; i++) {
+          var g = $pdj("<img/>")
+            .attr("src", image_urls["corazon"])
+            .css({
+              position: "absolute",
+              left: e(0, c) + "px",
+              top: "-30px",
+              display: "block",
+              opacity: "0." + e(10, 100),
+              "margin-left": 0,
+            })
+            .addClass("corazonDrop")
+            .appendTo("#corazonDiv");
+          f(g);
+          g = null;
+        }
+        var h = 0;
+        var j = 0;
+        $pdj(window).resize(function () {
+          c = $pdj(window).width();
+          d = $pdj(window).height();
+        });
+      });
+    </script>
   </body>
 </html>
