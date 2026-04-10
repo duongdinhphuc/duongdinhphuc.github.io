@@ -1,7 +1,6 @@
 html,
 body {
     width: 100%;
-    height: 100%;
     background: -webkit-radial-gradient(rgba(242, 209, 216, 0.5), #f2d1d8);
     background: radial-gradient(rgba(242, 209, 216, 0.5), #f2d1d8);
 }
