@@ -1,4 +1,4 @@
-var birthday = new Date("5 Dec 1998");
+var birthday = new Date("Dec 5, 1998 00:00:00");
 var nextBirthday = new Date("Dec 5, 2026 00:00:00");
 
 let second = 1000,
