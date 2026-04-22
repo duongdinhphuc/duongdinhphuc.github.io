@@ -39,7 +39,7 @@ if (months < 0) {
     years = years - 1;
     months = 12 + months;
 }
-var totalDays = Math.floor((today - birthday) / (24 * 3600 * 1000)) - 1;
+var totalDays = Math.floor((today - birthday) / (24 * 3600 * 1000));
 document.getElementById("calendar").innerHTML =
     "We have been together for " +
     years +
