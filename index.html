@@ -249,6 +249,11 @@
   .preview h4{font-size:2.4rem;font-weight:normal;margin:.3rem 0;position:relative;z-index:1;line-height:1.2}
   .preview p{white-space:pre-wrap;margin:1rem 0;position:relative;z-index:1;font-size:1.05rem}
   .preview .from{font-style:italic;opacity:.9;position:relative;z-index:1;font-size:1.3rem}
+  #pvCanvas{display:none}
+  .preview.cv{padding:0;min-height:0;aspect-ratio:4/5;background:none!important}
+  .preview.cv::before,.preview.cv::after{display:none}
+  .preview.cv>:not(canvas){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .preview.cv #pvCanvas{display:block;width:100%;height:100%}
   .fs-dancing h4,.fs-dancing .from{font-family:"Dancing Script",cursive;font-weight:700}
   .fs-vibes h4,.fs-vibes .from{font-family:"Great Vibes",cursive;font-size:2.8rem}
   .fs-vibes .from{font-size:1.7rem}
@@ -557,6 +562,7 @@
         <h4 id="pvTo">Gửi bạn thân mến</h4>
         <p id="pvMsg">Chúc bạn một mùa Giáng Sinh an lành và hạnh phúc!</p>
         <div class="from" id="pvFrom">— Một người bạn</div>
+        <canvas id="pvCanvas" width="540" height="675" aria-hidden="true"></canvas>
       </div>
     </div>
   </section>
@@ -937,7 +943,21 @@ const cardMsg=()=> $('msg').value.trim()||'Chúc bạn một mùa Giáng Sinh an
 const cardFrom=()=> '— '+($('from').value.trim()||'Một người bạn');
 function render(){
   $('pvTo').textContent=cardTo();$('pvMsg').textContent=cardMsg();$('pvFrom').textContent=cardFrom();
-  const t=$('theme').value;$('preview').className='preview '+t+' fs-'+$('font').value;$('pvIcon').textContent=icons[t];
+  const t=$('theme').value;$('preview').className='preview '+t+' fs-'+$('font').value+(pvReady?' cv':'');$('pvIcon').textContent=icons[t];
+  schedulePv();
+}
+/* Khung xem trước dùng chính hàm vẽ ảnh PNG -> luôn giống ảnh tải về */
+let pvReady=false,pvT=0,pvBusy=false,pvAgain=false;
+function schedulePv(){clearTimeout(pvT);pvT=setTimeout(drawPv,120)}
+async function drawPv(){
+  if(pvBusy){pvAgain=true;return}pvBusy=true;
+  try{const c=await cardCanvas(),pv=$('pvCanvas'),g=pv.getContext('2d');
+    const cw=Math.min(1080,Math.round(($('preview').clientWidth||540)*Math.min(devicePixelRatio||1,2)));
+    if(pv.width!==cw){pv.width=cw;pv.height=Math.round(cw*1.25)}
+    g.clearRect(0,0,pv.width,pv.height);g.drawImage(c,0,0,pv.width,pv.height);
+    if(!pvReady){pvReady=true;$('preview').classList.add('cv')}}
+  catch(e){console.warn('preview',e)}
+  pvBusy=false;if(pvAgain){pvAgain=false;drawPv()}
 }
 ['to','msg','from','theme','font'].forEach(id=>$(id).addEventListener('input',render));
 if(params.has('to')||params.has('msg')){
@@ -1018,7 +1038,8 @@ async function cardCanvas(){
   const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
   const gr=tk==='snow'?g.createLinearGradient(0,0,W,H):g.createRadialGradient(W*.3,H*.2,0,W*.5,H*.5,H*.85);
   gr.addColorStop(0,th.a);gr.addColorStop(1,th.b);g.fillStyle=gr;g.fillRect(0,0,W,H);
-  for(let i=0;i<260;i++){g.fillStyle=`rgba(${th.d},${rand(.2,.55).toFixed(2)})`;g.beginPath();g.arc(rand(0,W),rand(0,H),rand(1.2,4),0,7);g.fill()}
+  let sd=12345;const sr=(a,b)=>{sd=(sd*16807)%2147483647;return a+(b-a)*sd/2147483647};
+  for(let i=0;i<260;i++){g.fillStyle=`rgba(${th.d},${sr(.2,.55).toFixed(2)})`;g.beginPath();g.arc(sr(0,W),sr(0,H),sr(1.2,4),0,7);g.fill()}
   g.save();rr(g,34,34,W-68,H-68,36);g.clip();cardDeco(g,W,H,tk);g.restore();
   g.strokeStyle=tk==='snow'?th.t:'#f2c14e';g.globalAlpha=.6;g.lineWidth=3;rr(g,34,34,W-68,H-68,36);g.stroke();
   g.globalAlpha=.3;g.lineWidth=1.5;g.setLineDash([8,8]);rr(g,52,52,W-104,H-104,26);g.stroke();g.setLineDash([]);g.globalAlpha=1;
@@ -1037,6 +1058,7 @@ async function cardCanvas(){
   g.globalAlpha=1;g.fillStyle='#b0242d';g.font='600 30px "Be Vietnam Pro", sans-serif';g.fillText('✦  Merry Christmas '+new Date().getFullYear()+'  ✦',W/2,H-62);
   return c;
 }
+schedulePv();                       /* vẽ khung xem trước lần đầu */
 $('dlCard').onclick=async()=>{
   const c=await cardCanvas();
   c.toBlob(async b=>{
