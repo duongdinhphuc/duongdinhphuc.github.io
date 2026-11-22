@@ -17,3 +17,4 @@ Link thiệp cũ dạng `/?to=...&msg=...` được trang chủ tự chuyển sa
 
 Trang mới chỉ cần nạp 3 file này và gọi `Site.init({homeHref:'../', music:{start,stop}})`.
 
+Khi sửa file trong `assets/`, tăng số `?v=` ở các thẻ `<link>`/`<script>` của mọi trang để trình duyệt tải bản mới (GitHub Pages cho trình duyệt giữ file cũ khoảng 10 phút).

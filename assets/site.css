@@ -1,3 +1,31 @@
+/* =========================================================
+   BỘ CHỮ CHUNG CHO MỌI TRANG
+   Cùng một vai trò (tiêu đề trang, tiêu đề phần, tiêu đề thẻ, chữ thường…)
+   thì dùng cùng font và cùng cỡ ở mọi trang.
+   Font tải bằng cùng một link Google Fonts ở đầu mỗi trang (xem README).
+   ========================================================= */
+:root {
+  --font-display: "Great Vibes", cursive;                  /* tiêu đề lớn viết tay (tên trang) */
+  --font-heading: "Playfair Display", Georgia, serif;      /* tiêu đề phần, tiêu đề thẻ, số đếm ngược */
+  --font-accent: "Dancing Script", cursive;                /* chữ ký, tên người gửi, lời nhắn ngắn */
+  --font-body: "Be Vietnam Pro", system-ui, sans-serif;    /* mô tả, chữ thường, nút bấm */
+
+  --fs-display: clamp(3rem, 10vw, 5.5rem);   /* tiêu đề trang */
+  --fs-h2: clamp(1.7rem, 4vw, 2.5rem);       /* tiêu đề phần */
+  --fs-h3: 1.3rem;                           /* tiêu đề thẻ */
+  --fs-h4: 1.05rem;                          /* tiêu đề nhỏ trong thẻ */
+  --fs-lead: clamp(1.05rem, 2.8vw, 1.2rem);  /* dòng mô tả dưới tiêu đề trang */
+  --fs-accent: 2rem;                         /* chữ viết tay cỡ vừa (lời cảm ơn, tên trên thiệp…) */
+  --fs-body: 1rem;                           /* chữ thường */
+  --fs-body-sm: .95rem;                      /* chữ trong thẻ, dòng hướng dẫn */
+  --fs-button: .95rem;                       /* nút bấm */
+  --fs-label: .85rem;                        /* nhãn ô nhập, chip, footer */
+  --fs-small: .78rem;                        /* chữ phụ nhỏ nhất (đơn vị đếm ngược, huy hiệu) */
+  --fw-body: 400;
+  --fw-heading: 600;
+  --lh-body: 1.6;
+}
+
 /* Nút dùng chung cho mọi trang: về trang chủ, bật/tắt nhạc, đổi ngày/đêm */
 .site-ctrls, .site-home {
   --ctl-bg: rgba(20, 28, 52, .78); --ctl-fg: #f6f1e7; --ctl-line: rgba(255, 255, 255, .14); --ctl-accent: #ff9fb8;

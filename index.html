@@ -8,8 +8,8 @@
   /* Link thiệp cũ (gửi trước khi trang Giáng Sinh chuyển vào /christmas/) vẫn mở đúng thiệp */
   (function(){var q=location.search;if(/[?&](to|msg|from|theme|font)=/.test(q))location.replace('christmas/'+q+location.hash);})();
 </script>
-<script src="assets/theme-init.js"></script>
-<link rel="stylesheet" href="assets/site.css">
+<script src="assets/theme-init.js?v=2"></script>
+<link rel="stylesheet" href="assets/site.css?v=2">
 <meta name="description" content="Những trang nhỏ cho những dịp đặc biệt: sinh nhật, Giáng Sinh, Tết…">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://duongdinhphuc.github.io/">
@@ -22,7 +22,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
   @property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
   :root{
@@ -40,7 +40,7 @@
     --t1:#c0392b;--t2:#d9488f;--t3:#7a4cf0;--spark:230,170,60;--blob:.35}
 
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:"Be Vietnam Pro",system-ui,sans-serif;color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden}
+  body{font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden}
 
   /* ---------- Nền: các đốm màu trôi chậm + lấp lánh ---------- */
   .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
@@ -61,15 +61,15 @@
 
   /* ---------- Phần đầu ---------- */
   header{text-align:center;margin-bottom:52px}
-  .hello{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--muted);background:var(--surface2);
+  .hello{display:inline-flex;align-items:center;gap:.5rem;font-size:var(--fs-label);color:var(--muted);background:var(--surface2);
          border:1px solid var(--line);padding:.4rem .95rem;border-radius:999px;margin-bottom:18px}
   .hello .ico{display:inline-block;animation:wave 2.6s ease-in-out infinite;transform-origin:70% 70%}
   @keyframes wave{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(14deg)}20%{transform:rotate(-8deg)}30%{transform:rotate(12deg)}40%{transform:rotate(-4deg)}}
-  h1{font-family:"Great Vibes",cursive;font-weight:400;font-size:clamp(3.3rem,11vw,5.8rem);line-height:1.08;padding:0 .1em;
+  h1{font-family:var(--font-display);font-weight:400;font-size:var(--fs-display);line-height:1.08;padding:0 .1em;
      background:linear-gradient(100deg,var(--t1) 0%,var(--t2) 30%,var(--t3) 50%,var(--t2) 70%,var(--t1) 100%);background-size:250% 100%;
      -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
   @keyframes shine{to{background-position:-250% 0}}
-  .lead{color:var(--muted);font-size:clamp(1rem,2.6vw,1.12rem);max-width:520px;margin:12px auto 0;line-height:1.6}
+  .lead{color:var(--muted);font-size:var(--fs-lead);max-width:520px;margin:12px auto 0;line-height:1.6}
 
   /* ---------- Ô các dịp ---------- */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;perspective:1100px}
@@ -105,19 +105,19 @@
   .tile:hover .emo{animation-duration:1.2s}
   .mini{position:absolute;font-size:26px;z-index:1;animation:hover var(--t,4s) ease-in-out infinite;animation-delay:var(--d,0s)}
   @keyframes hover{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(4px,-10px) rotate(10deg)}}
-  .badge{position:absolute;top:14px;left:14px;z-index:2;font-size:.75rem;font-weight:600;letter-spacing:.02em;
+  .badge{position:absolute;top:14px;left:14px;z-index:2;font-size:var(--fs-small);font-weight:600;letter-spacing:.02em;
          background:rgba(255,255,255,.94);color:#1d2840;padding:.3rem .7rem;border-radius:999px;display:inline-flex;align-items:center;gap:.4rem}
   .badge .dot{width:7px;height:7px;border-radius:50%;background:#2fbf71;animation:ping 1.6s ease-out infinite}
   @keyframes ping{0%{box-shadow:0 0 0 0 rgba(47,191,113,.55)}100%{box-shadow:0 0 0 8px rgba(47,191,113,0)}}
 
   .body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
-  .card h2{font-size:1.35rem;font-weight:700;margin-bottom:6px}
-  .card p{color:var(--muted);font-size:.95rem;line-height:1.55;flex:1}
+  .card h2{font-family:var(--font-heading);font-size:var(--fs-h3);font-weight:var(--fw-heading);margin-bottom:6px}
+  .card p{color:var(--muted);font-size:var(--fs-body-sm);line-height:1.55;flex:1}
   .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)}
   .count{display:flex;align-items:baseline;gap:6px}
-  .count b{font-size:1.75rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
-  .count span{color:var(--muted);font-size:.85rem}
-  .go{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.92rem;color:#fff;padding:.58rem 1.05rem;border-radius:999px;
+  .count b{font-family:var(--font-heading);font-size:1.75rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+  .count span{color:var(--muted);font-size:var(--fs-label)}
+  .go{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:var(--fs-button);color:#fff;padding:.58rem 1.05rem;border-radius:999px;
       background:linear-gradient(135deg,var(--c1),var(--c2));white-space:nowrap;transition:gap .25s,box-shadow .25s}
   .tile:hover .go{gap:.75rem;box-shadow:0 8px 20px color-mix(in srgb,var(--c1) 45%,transparent)}
   .soon{cursor:default}
@@ -172,7 +172,7 @@
          background:var(--text);color:var(--bg);padding:.7rem 1.2rem;border-radius:999px;font-size:.92rem;font-weight:500;box-shadow:var(--shadow)}
   .toast.show{transform:translate(-50%,0);opacity:1}
 
-  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:56px;line-height:1.7}
+  footer{text-align:center;color:var(--muted);font-size:var(--fs-label);margin-top:56px;line-height:1.7}
 
 
   @media (max-width:520px){.wrap{padding-top:52px}.art{height:156px}.emo{font-size:70px}}
@@ -246,7 +246,7 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=2"></script>
 <script>
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* Chạy fn khi trang chủ đã hiện (sau màn mở đầu, hoặc ngay nếu không có màn mở đầu) */
