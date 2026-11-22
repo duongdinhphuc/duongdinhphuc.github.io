@@ -7,6 +7,13 @@
 <script>
   /* Link thiệp cũ (gửi trước khi trang Giáng Sinh chuyển vào /christmas/) vẫn mở đúng thiệp */
   (function(){var q=location.search;if(/[?&](to|msg|from|theme|font)=/.test(q))location.replace('christmas/'+q+location.hash);})();
+  /* Ngày/đêm: 6h–18h là ban ngày. Người xem tự bấm đổi thì giữ lựa chọn tới lần chuyển giờ kế tiếp (6h hoặc 18h) */
+  window.__period=function(d){d=d||new Date();var h=d.getHours(),x=new Date(d);if(h<6)x.setDate(x.getDate()-1);
+    return x.getFullYear()+'-'+(x.getMonth()+1)+'-'+x.getDate()+(h>=6&&h<18?'d':'n')};
+  window.__autoTheme=function(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark'};
+  window.__wantedTheme=function(){var c=null;try{c=JSON.parse(localStorage.getItem('themeChoice')||'null')}catch(e){}
+    return c&&c.p===__period()&&(c.t==='light'||c.t==='dark')?c.t:__autoTheme()};
+  document.documentElement.dataset.theme=__wantedTheme();
 </script>
 <meta name="description" content="Những trang nhỏ cho những dịp đặc biệt: sinh nhật, Giáng Sinh, Tết…">
 <meta property="og:type" content="website">
@@ -42,6 +49,8 @@
 
   /* ---------- Nền: các đốm màu trôi chậm + lấp lánh ---------- */
   .bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  #sky{position:absolute;inset:0;width:100%;height:100%}
+  #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
   .blob{position:absolute;width:62vmax;height:62vmax;border-radius:50%;opacity:var(--blob);will-change:transform;
         background:radial-gradient(circle,var(--bc) 0%,transparent 62%);animation:drift var(--t) ease-in-out infinite alternate}
   .b1{--bc:rgba(255,120,170,.55);left:-22vmax;top:-26vmax;--t:22s}
@@ -170,12 +179,45 @@
 
   footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:56px;line-height:1.7}
 
+  /* ---------- Nút ngày/đêm + nhạc ---------- */
+  .ctrls{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:8px}
+  .cbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.18);
+        display:grid;place-items:center;cursor:pointer;color:var(--text);transition:transform .2s,box-shadow .2s;padding:0}
+  .cbtn:hover{transform:translateY(-2px) scale(1.05)}
+  .cbtn:active{transform:scale(.94)}
+  .cbtn:focus-visible{outline:2px solid var(--t2);outline-offset:3px}
+  /* mặt trăng khuyết <-> mặt trời có tia */
+  .orb{position:relative;width:20px;height:20px;border-radius:50%;background:transparent;box-shadow:inset 7px -5px 0 0 #ffd98a;
+       transform:rotate(-30deg);transition:box-shadow .5s cubic-bezier(.4,0,.2,1),background .5s,transform .6s cubic-bezier(.4,0,.2,1)}
+  .orb::after{content:"";position:absolute;inset:-7px;border-radius:50%;opacity:0;transform:scale(.4) rotate(0);transition:opacity .4s,transform .6s cubic-bezier(.3,1.4,.5,1);
+       background:radial-gradient(circle,transparent 58%,#f6a623 59% 66%,transparent 67%);
+       -webkit-mask:repeating-conic-gradient(#000 0 14deg,transparent 14deg 45deg);mask:repeating-conic-gradient(#000 0 14deg,transparent 14deg 45deg)}
+  .day .orb{width:16px;height:16px;background:#f6a623;box-shadow:0 0 0 0 #f6a623,0 0 14px rgba(246,166,35,.6);transform:rotate(90deg)}
+  .day .orb::after{opacity:1;transform:scale(1) rotate(45deg)}
+  /* nút nhạc: nốt nhạc khi tắt, cột sóng nhảy khi bật */
+  .eq{display:flex;align-items:flex-end;gap:2px;height:16px}
+  .eq i{width:3px;height:5px;border-radius:2px;background:var(--text);opacity:.75;transition:height .3s}
+  #musicBtn.on .eq i{background:var(--t2);opacity:1;animation:eq .9s ease-in-out infinite alternate}
+  #musicBtn.on .eq i:nth-child(2){animation-delay:-.3s;animation-duration:.7s}
+  #musicBtn.on .eq i:nth-child(3){animation-delay:-.6s;animation-duration:1.1s}
+  #musicBtn.on .eq i:nth-child(4){animation-delay:-.15s;animation-duration:.8s}
+  @keyframes eq{from{height:3px}to{height:16px}}
+  #musicBtn:not(.on) .eq i:nth-child(1){height:6px}#musicBtn:not(.on) .eq i:nth-child(2){height:10px}#musicBtn:not(.on) .eq i:nth-child(3){height:7px}#musicBtn:not(.on) .eq i:nth-child(4){height:12px}
+  #musicBtn.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--t2) 30%,transparent),0 6px 18px rgba(0,0,0,.18)}
+
+  /* chuyển cảnh ngày/đêm: vòng tròn lan (View Transitions) */
+  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+  ::view-transition-new(root){z-index:2}
+  /* trình duyệt chưa hỗ trợ View Transitions: đổi màu mượt */
+  .fade-theme,.fade-theme *{transition:background-color .6s,color .6s,border-color .6s,box-shadow .6s!important}
+
   @media (max-width:520px){.wrap{padding-top:52px}.art{height:156px}.emo{font-size:70px}}
   @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rise{opacity:1}}
 </style>
 </head>
 <body class="ready">
-<div class="bg" id="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+<div class="bg" id="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><canvas id="sky"></canvas></div>
+<canvas id="fx" aria-hidden="true"></canvas>
 
 <div class="wrap">
   <header>
@@ -196,7 +238,7 @@
         </div>
         <div class="body">
           <h2>Sinh nhật</h2>
-          <p>Sinh nhật mình 05/12: ghé thổi nến bằng micro và để lại lời chúc nhé!</p>
+          <p>Ghé thổi nến và để lại lời chúc nhé!</p>
           <div class="meta"><div class="count"><b>–</b><span>ngày nữa</span></div><span class="go">Thổi nến <span aria-hidden="true">→</span></span></div>
         </div>
       </div>
@@ -206,7 +248,7 @@
       <div class="card">
         <div class="glare"></div>
         <div class="art">
-          <span class="badge" hidden><span class="dot"></span><span class="bt">Đang mùa Noel</span></span>
+          <span class="badge" hidden><span class="dot"></span><span class="bt">Sắp tới</span></span>
           <span class="mini" style="top:20%;right:15%;--t:4.6s">❄️</span><span class="mini" style="bottom:18%;left:14%;--t:3.8s;--d:-1.4s">🎁</span>
           <span class="mini" style="top:22%;left:24%;font-size:20px;--t:5.2s;--d:-2.5s">⭐</span>
           <span class="emo">🎄</span>
@@ -214,7 +256,7 @@
         <div class="body">
           <h2>Giáng Sinh</h2>
           <p>Mở hộp quà, nhận lời chúc từ những chiếc tất bên lò sưởi và tạo thiệp Noel gửi người thân.</p>
-          <div class="meta"><div class="count"><b>–</b><span>ngày nữa</span></div><span class="go">Vào xem <span aria-hidden="true">→</span></span></div>
+          <div class="meta"><div class="count"><b>–</b><span>ngày nữa</span></div><span class="go">Nhận quà <span aria-hidden="true">→</span></span></div>
         </div>
       </div>
     </a>
@@ -229,7 +271,7 @@
         </div>
         <div class="body">
           <h2>Tết Nguyên Đán</h2>
-          <p>Lì xì online, câu đối và lời chúc năm mới. Trang đang được chuẩn bị.</p>
+          <p>Lắc cây hái lộc đầu năm, gửi lì xì online và treo điều ước lên cành mai. Trang đang được chuẩn bị.</p>
           <div class="meta"><div class="count"><b>–</b><span>ngày nữa</span></div><span class="go">Sắp ra mắt</span></div>
         </div>
       </div>
@@ -237,6 +279,10 @@
   </main>
 
   <footer class="rise" style="--rd:.6s">© <span id="y">2026</span> · duongdinhphuc.github.io</footer>
+</div>
+<div class="ctrls">
+  <button class="cbtn" id="musicBtn" aria-pressed="false" aria-label="Bật nhạc nhẹ"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <button class="cbtn" id="modeBtn" aria-label="Đổi ngày/đêm"><span class="orb" aria-hidden="true"></span></button>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -248,11 +294,18 @@ function whenReady(fn){if(document.body.classList.contains('ready'))fn();else ad
 document.querySelectorAll('.rise').forEach(el=>el.addEventListener('animationend',e=>{
   if(e.target===el&&(e.animationName==='rise'||e.animationName==='riseTile'))el.classList.remove('rise')}));
 
-/* Lời chào theo giờ */
+/* Lời chào theo giờ: cập nhật theo thời gian thực (kiểm tra mỗi 30 giây, đổi chữ có hiệu ứng mờ) */
 (function(){
-  const h=new Date().getHours();
-  const [ico,txt]=h<5?['🌙','Khuya rồi, ngủ ngon nhé']:h<11?['☀️','Chào buổi sáng']:h<13?['🍚','Chào buổi trưa']:h<18?['🌤️','Chào buổi chiều']:['🌙','Chào buổi tối'];
-  document.getElementById('hiIco').textContent=ico;document.getElementById('hi').textContent=txt;
+  const ico=document.getElementById('hiIco'),hi=document.getElementById('hi'),box=hi.parentElement;let cur='';
+  const pick=h=>h<5?['🌙','Khuya rồi, ngủ ngon nhé']:h<11?['☀️','Chào buổi sáng']:h<13?['🍚','Chào buổi trưa']:h<18?['🌤️','Chào buổi chiều']:['🌙','Chào buổi tối'];
+  function update(){
+    const [i,t]=pick(new Date().getHours());if(t===cur)return;
+    const first=!cur;cur=t;
+    if(first||reduce){ico.textContent=i;hi.textContent=t;return}
+    box.animate([{opacity:1},{opacity:0}],{duration:250,fill:'forwards'}).onfinish=()=>{ico.textContent=i;hi.textContent=t;box.animate([{opacity:0},{opacity:1}],{duration:350,fill:'forwards'})};
+  }
+  update();setInterval(update,30000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)update()});   // quay lại tab là cập nhật ngay
   document.getElementById('y').textContent=new Date().getFullYear();
 })();
 
@@ -360,6 +413,170 @@ addEventListener('pageshow',e=>{if(!e.persisted)return;porting=false;
   document.querySelectorAll('.portal,.pemo,.pop').forEach(n=>n.remove());
   document.querySelectorAll('.emo').forEach(n=>n.style.visibility='');
   document.querySelectorAll('.tile').forEach(t=>{t.classList.remove('live');t.style.setProperty('--rx','0deg');t.style.setProperty('--ry','0deg')})});
+
+/* =========================================================
+   BẦU TRỜI SAO TƯƠNG TÁC
+   - sao trôi chậm, lấp lánh; sao gần nhau nối thành chòm sao
+   - con trỏ: sao gần đó nối dây tới con trỏ và bị hút nhẹ
+   - vệt bụi sao vàng theo con trỏ; bấm chỗ trống bung vòng sao
+   - thỉnh thoảng có sao băng
+   ========================================================= */
+(function(){
+  if(reduce)return;
+  const sky=document.getElementById('sky'),sg=sky.getContext('2d'),fx=document.getElementById('fx'),fg=fx.getContext('2d');
+  const small=innerWidth<600,DPR=Math.min(devicePixelRatio||1,small?2:1.5),LINK=small?95:130,PULL=small?120:170;
+  let W=0,H=0,stars=[],dust=[],shoot=null,nextShoot=performance.now()+4000,mx=-9999,my=-9999,mOn=false,rgb='255,236,180',light=false;
+  const R=(a,b)=>a+Math.random()*(b-a);
+  function theme(){rgb=getComputedStyle(document.documentElement).getPropertyValue('--spark').trim()||'255,236,180';
+    light=matchMedia('(prefers-color-scheme: light)').matches&&document.documentElement.dataset.theme!=='dark'||document.documentElement.dataset.theme==='light'}
+  theme();matchMedia('(prefers-color-scheme: light)').addEventListener('change',theme);window.__skyTheme=theme;
+  function size(){W=innerWidth;H=innerHeight;for(const c of [sky,fx]){c.width=W*DPR;c.height=H*DPR}sg.setTransform(DPR,0,0,DPR,0,0);fg.setTransform(DPR,0,0,DPR,0,0);
+    const n=Math.round(Math.min(small?42:85,W*H/16000));
+    while(stars.length<n)stars.push({x:R(0,W),y:R(0,H),vx:R(-.12,.12),vy:R(-.08,.08),r:R(.7,2),ph:R(0,6.28),sp:R(.01,.03)});stars.length=n}
+  size();addEventListener('resize',size);
+
+  // bụi sao vẽ sẵn thành ảnh nhỏ có quầng sáng (nhanh hơn vẽ gradient từng hạt)
+  function sprite(col){const c=document.createElement('canvas'),s=32;c.width=c.height=s;const g=c.getContext('2d');
+    const gr=g.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);gr.addColorStop(0,`rgba(${col},1)`);gr.addColorStop(.25,`rgba(${col},.75)`);gr.addColorStop(1,`rgba(${col},0)`);
+    g.fillStyle=gr;g.fillRect(0,0,s,s);g.fillStyle='#fff';g.beginPath();g.moveTo(s/2,s*.18);g.lineTo(s*.56,s*.44);g.lineTo(s*.82,s/2);g.lineTo(s*.56,s*.56);g.lineTo(s/2,s*.82);g.lineTo(s*.44,s*.56);g.lineTo(s*.18,s/2);g.lineTo(s*.44,s*.44);g.closePath();g.fill();return c}
+  const SPR=['255,217,138','255,159,184','159,211,255','255,255,255'].map(sprite);
+  function addDust(x,y,o={}){if(dust.length>220)dust.splice(0,dust.length-220);
+    dust.push({x,y,vx:o.vx??R(-.6,.6),vy:o.vy??R(-.9,.2),s:o.s??R(8,16),life:1,dec:o.dec??R(.02,.035),spr:SPR[o.k??((Math.random()*SPR.length)|0)],rot:R(0,6.28),vr:R(-.08,.08)})}
+
+  let last=performance.now();
+  function frame(t){
+    const dt=Math.min((t-last)/16.67,3);last=t;
+    // --- chòm sao ---
+    sg.clearRect(0,0,W,H);
+    for(const s of stars){
+      s.x+=s.vx*dt;s.y+=s.vy*dt;s.ph+=s.sp*dt;
+      if(mOn){const dx=mx-s.x,dy=my-s.y,d=Math.hypot(dx,dy);if(d<PULL&&d>1){const f=(1-d/PULL)*.35*dt;s.x+=dx/d*f;s.y+=dy/d*f}}
+      if(s.x<-20)s.x=W+20;else if(s.x>W+20)s.x=-20;if(s.y<-20)s.y=H+20;else if(s.y>H+20)s.y=-20;
+    }
+    sg.lineWidth=1;
+    for(let i=0;i<stars.length;i++){const a=stars[i];
+      for(let j=i+1;j<stars.length;j++){const b=stars[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;if(d2>LINK*LINK)continue;
+        sg.strokeStyle=`rgba(${rgb},${((1-Math.sqrt(d2)/LINK)*(light?.35:.28)).toFixed(3)})`;sg.beginPath();sg.moveTo(a.x,a.y);sg.lineTo(b.x,b.y);sg.stroke()}
+      if(mOn){const dx=a.x-mx,dy=a.y-my,d=Math.hypot(dx,dy);if(d<PULL){sg.strokeStyle=`rgba(${rgb},${((1-d/PULL)*(light?.6:.55)).toFixed(3)})`;sg.beginPath();sg.moveTo(a.x,a.y);sg.lineTo(mx,my);sg.stroke()}}
+    }
+    for(const s of stars){const tw=.45+.55*Math.sin(s.ph);sg.fillStyle=`rgba(${rgb},${(light?.55:.35+.6*tw).toFixed(3)})`;sg.beginPath();sg.arc(s.x,s.y,s.r*(.8+.35*tw),0,6.283);sg.fill()}
+    // --- sao băng ---
+    if(!shoot&&t>nextShoot){const fromLeft=Math.random()<.5;shoot={x:fromLeft?R(-50,W*.4):R(W*.6,W+50),y:R(-20,H*.35),vx:(fromLeft?1:-1)*R(9,13),vy:R(3.5,5.5),life:1}}
+    if(shoot){shoot.x+=shoot.vx*dt;shoot.y+=shoot.vy*dt;shoot.life-=.012*dt;
+      const tx=shoot.x-shoot.vx*12,ty=shoot.y-shoot.vy*12,gr=sg.createLinearGradient(shoot.x,shoot.y,tx,ty);
+      gr.addColorStop(0,`rgba(${rgb},${Math.max(0,shoot.life)})`);gr.addColorStop(1,`rgba(${rgb},0)`);
+      sg.strokeStyle=gr;sg.lineWidth=2.2;sg.lineCap='round';sg.beginPath();sg.moveTo(shoot.x,shoot.y);sg.lineTo(tx,ty);sg.stroke();
+      sg.fillStyle=`rgba(255,255,255,${Math.max(0,shoot.life)})`;sg.beginPath();sg.arc(shoot.x,shoot.y,2.2,0,6.283);sg.fill();
+      if(shoot.life<=0||shoot.x<-200||shoot.x>W+200||shoot.y>H+100){shoot=null;nextShoot=t+R(6000,13000)}}
+    // --- bụi sao theo con trỏ ---
+    fg.clearRect(0,0,W,H);
+    if(dust.length){fg.globalCompositeOperation=light?'source-over':'lighter';
+      for(const p of dust){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=.02*dt;p.rot+=p.vr*dt;p.life-=p.dec*dt;if(p.life<=0)continue;
+        const s=p.s*(.4+.6*p.life);fg.globalAlpha=Math.min(1,p.life*1.4);fg.save();fg.translate(p.x,p.y);fg.rotate(p.rot);fg.drawImage(p.spr,-s/2,-s/2,s,s);fg.restore()}
+      fg.globalAlpha=1;fg.globalCompositeOperation='source-over';dust=dust.filter(p=>p.life>0)}
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // con trỏ / ngón tay
+  let lx=-1,ly=-1;
+  addEventListener('pointermove',e=>{
+    mx=e.clientX;my=e.clientY;mOn=e.pointerType==='mouse'||e.buttons>0;
+    if(e.pointerType!=='mouse')return;
+    const d=lx<0?0:Math.hypot(mx-lx,my-ly);if(lx>=0&&d<8)return;lx=mx;ly=my;
+    for(let i=0;i<Math.min(3,1+(d/30|0));i++)addDust(mx+R(-5,5),my+R(-5,5),{s:R(6,13)});
+  },{passive:true});
+  addEventListener('pointerleave',()=>{mOn=false});
+  document.addEventListener('mouseleave',()=>{mOn=false});
+  addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')mOn=false});
+  // bấm chỗ trống: một vòng sao bung ra (bấm vào ô thì đã có cửa dịch chuyển)
+  addEventListener('pointerdown',e=>{
+    if(e.target.closest&&e.target.closest('a,button,.tile,input,textarea'))return;
+    for(let i=0;i<18;i++){const a=i/18*6.283,sp=R(2.6,4.2);addDust(e.clientX,e.clientY,{vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,s:R(10,18),dec:R(.016,.024)})}
+    for(let i=0;i<8;i++)addDust(e.clientX,e.clientY,{vx:R(-1.5,1.5),vy:R(-2.5,-.5),s:R(12,20),k:0,dec:R(.014,.02)});
+  });
+})();
+
+/* =========================================================
+   NGÀY / ĐÊM: vòng tròn lan ra từ nút bấm (View Transitions),
+   trình duyệt cũ thì đổi màu mượt bằng transition thường
+   ========================================================= */
+(function(){
+  const btn=document.getElementById('modeBtn'),root=document.documentElement;
+  const sync=()=>{const day=root.dataset.theme==='light';btn.classList.toggle('day',day);
+    btn.setAttribute('aria-label',day?'Chuyển sang ban đêm':'Chuyển sang ban ngày');btn.title=day?'Chuyển sang ban đêm':'Chuyển sang ban ngày'};
+  sync();
+  function switchTo(next,save){
+    if(root.dataset.theme===next)return;
+    const apply=()=>{root.dataset.theme=next;
+      try{save?localStorage.setItem('themeChoice',JSON.stringify({t:next,p:__period()})):localStorage.removeItem('themeChoice')}catch(e){}
+      sync();window.__skyTheme&&window.__skyTheme()};
+    const r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,rad=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
+    if(reduce||!document.startViewTransition||document.hidden){root.classList.add('fade-theme');apply();setTimeout(()=>root.classList.remove('fade-theme'),700);return}
+    const vt=document.startViewTransition(apply);
+    vt.ready.then(()=>root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${rad}px at ${x}px ${y}px)`]},
+      {duration:900,easing:'cubic-bezier(.65,0,.25,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
+  }
+  btn.addEventListener('click',()=>switchTo(root.dataset.theme==='light'?'dark':'light',true));
+  // tự đổi theo giờ thực: tới 6h / 18h thì chuyển (bằng hiệu ứng vòng tròn), trừ khi người xem vừa tự chọn trong buổi này
+  const check=()=>{const w=__wantedTheme();if(w!==root.dataset.theme)switchTo(w,false)};
+  setInterval(check,30000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+})();
+
+/* =========================================================
+   NHẠC NHẸ: hộp nhạc tạo bằng Web Audio (không cần file, không bản quyền)
+   Cmaj7 – Am7 – Fmaj7 – G6, mỗi hợp âm ~4 giây, nốt rải ngẫu nhiên nhẹ nhàng + tiếng vọng
+   ========================================================= */
+(function(){
+  const btn=document.getElementById('musicBtn');let ac=null,master=null,delay=null,on=false,timer=0,nextT=0,step=0,padNodes=[];
+  const MIDI=n=>440*Math.pow(2,(n-69)/12);
+  const CH=[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,64]];   // C E G B · A C E G · F A C E · G B D E
+  function setup(){
+    ac=new (window.AudioContext||window.webkitAudioContext)();
+    master=ac.createGain();master.gain.value=0;
+    const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3200;master.connect(lp).connect(ac.destination);
+    delay=ac.createDelay(1);delay.delayTime.value=.42;const fb=ac.createGain();fb.gain.value=.38;const dlp=ac.createBiquadFilter();dlp.type='lowpass';dlp.frequency.value=1800;
+    const wet=ac.createGain();wet.gain.value=.45;delay.connect(dlp).connect(fb).connect(delay);dlp.connect(wet).connect(master);
+  }
+  function bell(n,t,v){const f=MIDI(n),o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),g2=ac.createGain();
+    o.type='sine';o2.type='sine';o.frequency.value=f;o2.frequency.value=f*3.01;g2.gain.value=.12;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0008,t+2.4);
+    o.connect(g);o2.connect(g2).connect(g);g.connect(master);g.connect(delay);o.start(t);o2.start(t);o.stop(t+2.5);o2.stop(t+2.5)}
+  function pad(ch,t,len){padNodes=padNodes.filter(n=>n.end>ac.currentTime);
+    ch.slice(0,3).forEach((n,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=MIDI(n-12);o.detune.value=(i-1)*6;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.035,t+1.2);g.gain.setValueAtTime(.035,t+len-1);g.gain.linearRampToValueAtTime(0,t+len+.4);
+      o.connect(g).connect(master);o.start(t);o.stop(t+len+.5);padNodes.push({end:t+len+.5})})}
+  const BEAT=.5;
+  function schedule(){
+    while(nextT<ac.currentTime+.25){
+      const bar=Math.floor(step/8)%CH.length,ch=CH[bar],b=step%8;
+      if(b===0)pad(ch,nextT,8*BEAT);
+      // rải nốt: phách mạnh luôn có, phách nhẹ thỉnh thoảng bỏ trống cho thoáng
+      if(b%2===0||Math.random()<.45){const pool=[...ch,ch[0]+12,ch[1]+12,ch[2]+12],n=pool[(Math.random()*pool.length)|0]+12;
+        bell(n,nextT+(b%2?.02:0),b===0?.16:.08+Math.random()*.05)}
+      nextT+=BEAT;step++;
+    }
+  }
+  function start(){
+    if(!ac)setup();if(ac.state==='suspended')ac.resume();
+    nextT=ac.currentTime+.1;master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);
+    master.gain.linearRampToValueAtTime(.55,ac.currentTime+2.5);
+    clearInterval(timer);timer=setInterval(schedule,90);schedule();on=true;ui();
+  }
+  function stop(){
+    if(!ac)return;on=false;ui();clearInterval(timer);
+    master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.8);
+    setTimeout(()=>{if(!on)ac.suspend()},900);
+  }
+  function ui(){btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on);btn.title=on?'Tắt nhạc':'Bật nhạc nhẹ'}
+  btn.addEventListener('click',()=>on?stop():start());
+  // chuyển tab thì tạm dừng, quay lại thì phát tiếp
+  document.addEventListener('visibilitychange',()=>{if(!ac||!on)return;if(document.hidden){clearInterval(timer);ac.suspend()}else{ac.resume();nextT=ac.currentTime+.1;timer=setInterval(schedule,90)}});
+  // rời trang (cửa dịch chuyển): giảm dần âm lượng cho êm
+  addEventListener('pagehide',()=>{if(on&&ac){master.gain.setValueAtTime(master.gain.value,ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.3)}});
+  ui();
+})();
 </script>
 </body>
 </html>
