@@ -7,14 +7,9 @@
 <script>
   /* Link thiệp cũ (gửi trước khi trang Giáng Sinh chuyển vào /christmas/) vẫn mở đúng thiệp */
   (function(){var q=location.search;if(/[?&](to|msg|from|theme|font)=/.test(q))location.replace('christmas/'+q+location.hash);})();
-  /* Ngày/đêm: 6h–18h là ban ngày. Người xem tự bấm đổi thì giữ lựa chọn tới lần chuyển giờ kế tiếp (6h hoặc 18h) */
-  window.__period=function(d){d=d||new Date();var h=d.getHours(),x=new Date(d);if(h<6)x.setDate(x.getDate()-1);
-    return x.getFullYear()+'-'+(x.getMonth()+1)+'-'+x.getDate()+(h>=6&&h<18?'d':'n')};
-  window.__autoTheme=function(){var h=new Date().getHours();return h>=6&&h<18?'light':'dark'};
-  window.__wantedTheme=function(){var c=null;try{c=JSON.parse(localStorage.getItem('themeChoice')||'null')}catch(e){}
-    return c&&c.p===__period()&&(c.t==='light'||c.t==='dark')?c.t:__autoTheme()};
-  document.documentElement.dataset.theme=__wantedTheme();
 </script>
+<script src="assets/theme-init.js"></script>
+<link rel="stylesheet" href="assets/site.css">
 <meta name="description" content="Những trang nhỏ cho những dịp đặc biệt: sinh nhật, Giáng Sinh, Tết…">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://duongdinhphuc.github.io/">
@@ -179,37 +174,6 @@
 
   footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:56px;line-height:1.7}
 
-  /* ---------- Nút ngày/đêm + nhạc ---------- */
-  .ctrls{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:8px}
-  .cbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.18);
-        display:grid;place-items:center;cursor:pointer;color:var(--text);transition:transform .2s,box-shadow .2s;padding:0}
-  .cbtn:hover{transform:translateY(-2px) scale(1.05)}
-  .cbtn:active{transform:scale(.94)}
-  .cbtn:focus-visible{outline:2px solid var(--t2);outline-offset:3px}
-  /* mặt trăng khuyết <-> mặt trời có tia */
-  .orb{position:relative;width:20px;height:20px;border-radius:50%;background:transparent;box-shadow:inset 7px -5px 0 0 #ffd98a;
-       transform:rotate(-30deg);transition:box-shadow .5s cubic-bezier(.4,0,.2,1),background .5s,transform .6s cubic-bezier(.4,0,.2,1)}
-  .orb::after{content:"";position:absolute;inset:-7px;border-radius:50%;opacity:0;transform:scale(.4) rotate(0);transition:opacity .4s,transform .6s cubic-bezier(.3,1.4,.5,1);
-       background:radial-gradient(circle,transparent 58%,#f6a623 59% 66%,transparent 67%);
-       -webkit-mask:repeating-conic-gradient(#000 0 14deg,transparent 14deg 45deg);mask:repeating-conic-gradient(#000 0 14deg,transparent 14deg 45deg)}
-  .day .orb{width:16px;height:16px;background:#f6a623;box-shadow:0 0 0 0 #f6a623,0 0 14px rgba(246,166,35,.6);transform:rotate(90deg)}
-  .day .orb::after{opacity:1;transform:scale(1) rotate(45deg)}
-  /* nút nhạc: nốt nhạc khi tắt, cột sóng nhảy khi bật */
-  .eq{display:flex;align-items:flex-end;gap:2px;height:16px}
-  .eq i{width:3px;height:5px;border-radius:2px;background:var(--text);opacity:.75;transition:height .3s}
-  #musicBtn.on .eq i{background:var(--t2);opacity:1;animation:eq .9s ease-in-out infinite alternate}
-  #musicBtn.on .eq i:nth-child(2){animation-delay:-.3s;animation-duration:.7s}
-  #musicBtn.on .eq i:nth-child(3){animation-delay:-.6s;animation-duration:1.1s}
-  #musicBtn.on .eq i:nth-child(4){animation-delay:-.15s;animation-duration:.8s}
-  @keyframes eq{from{height:3px}to{height:16px}}
-  #musicBtn:not(.on) .eq i:nth-child(1){height:6px}#musicBtn:not(.on) .eq i:nth-child(2){height:10px}#musicBtn:not(.on) .eq i:nth-child(3){height:7px}#musicBtn:not(.on) .eq i:nth-child(4){height:12px}
-  #musicBtn.on{box-shadow:0 0 0 3px color-mix(in srgb,var(--t2) 30%,transparent),0 6px 18px rgba(0,0,0,.18)}
-
-  /* chuyển cảnh ngày/đêm: vòng tròn lan (View Transitions) */
-  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
-  ::view-transition-new(root){z-index:2}
-  /* trình duyệt chưa hỗ trợ View Transitions: đổi màu mượt */
-  .fade-theme,.fade-theme *{transition:background-color .6s,color .6s,border-color .6s,box-shadow .6s!important}
 
   @media (max-width:520px){.wrap{padding-top:52px}.art{height:156px}.emo{font-size:70px}}
   @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rise{opacity:1}}
@@ -280,12 +244,9 @@
 
   <footer class="rise" style="--rd:.6s">© <span id="y">2026</span> · duongdinhphuc.github.io</footer>
 </div>
-<div class="ctrls">
-  <button class="cbtn" id="musicBtn" aria-pressed="false" aria-label="Bật nhạc nhẹ"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
-  <button class="cbtn" id="modeBtn" aria-label="Đổi ngày/đêm"><span class="orb" aria-hidden="true"></span></button>
-</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="assets/site.js"></script>
 <script>
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* Chạy fn khi trang chủ đã hiện (sau màn mở đầu, hoặc ngay nếu không có màn mở đầu) */
@@ -497,86 +458,8 @@ addEventListener('pageshow',e=>{if(!e.persisted)return;porting=false;
   });
 })();
 
-/* =========================================================
-   NGÀY / ĐÊM: vòng tròn lan ra từ nút bấm (View Transitions),
-   trình duyệt cũ thì đổi màu mượt bằng transition thường
-   ========================================================= */
-(function(){
-  const btn=document.getElementById('modeBtn'),root=document.documentElement;
-  const sync=()=>{const day=root.dataset.theme==='light';btn.classList.toggle('day',day);
-    btn.setAttribute('aria-label',day?'Chuyển sang ban đêm':'Chuyển sang ban ngày');btn.title=day?'Chuyển sang ban đêm':'Chuyển sang ban ngày'};
-  sync();
-  function switchTo(next,save){
-    if(root.dataset.theme===next)return;
-    const apply=()=>{root.dataset.theme=next;
-      try{save?localStorage.setItem('themeChoice',JSON.stringify({t:next,p:__period()})):localStorage.removeItem('themeChoice')}catch(e){}
-      sync();window.__skyTheme&&window.__skyTheme()};
-    const r=btn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,rad=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
-    if(reduce||!document.startViewTransition||document.hidden){root.classList.add('fade-theme');apply();setTimeout(()=>root.classList.remove('fade-theme'),700);return}
-    const vt=document.startViewTransition(apply);
-    vt.ready.then(()=>root.animate({clipPath:[`circle(0px at ${x}px ${y}px)`,`circle(${rad}px at ${x}px ${y}px)`]},
-      {duration:900,easing:'cubic-bezier(.65,0,.25,1)',pseudoElement:'::view-transition-new(root)'})).catch(()=>{});
-  }
-  btn.addEventListener('click',()=>switchTo(root.dataset.theme==='light'?'dark':'light',true));
-  // tự đổi theo giờ thực: tới 6h / 18h thì chuyển (bằng hiệu ứng vòng tròn), trừ khi người xem vừa tự chọn trong buổi này
-  const check=()=>{const w=__wantedTheme();if(w!==root.dataset.theme)switchTo(w,false)};
-  setInterval(check,30000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
-})();
-
-/* =========================================================
-   NHẠC NHẸ: hộp nhạc tạo bằng Web Audio (không cần file, không bản quyền)
-   Cmaj7 – Am7 – Fmaj7 – G6, mỗi hợp âm ~4 giây, nốt rải ngẫu nhiên nhẹ nhàng + tiếng vọng
-   ========================================================= */
-(function(){
-  const btn=document.getElementById('musicBtn');let ac=null,master=null,delay=null,on=false,timer=0,nextT=0,step=0,padNodes=[];
-  const MIDI=n=>440*Math.pow(2,(n-69)/12);
-  const CH=[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,64]];   // C E G B · A C E G · F A C E · G B D E
-  function setup(){
-    ac=new (window.AudioContext||window.webkitAudioContext)();
-    master=ac.createGain();master.gain.value=0;
-    const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3200;master.connect(lp).connect(ac.destination);
-    delay=ac.createDelay(1);delay.delayTime.value=.42;const fb=ac.createGain();fb.gain.value=.38;const dlp=ac.createBiquadFilter();dlp.type='lowpass';dlp.frequency.value=1800;
-    const wet=ac.createGain();wet.gain.value=.45;delay.connect(dlp).connect(fb).connect(delay);dlp.connect(wet).connect(master);
-  }
-  function bell(n,t,v){const f=MIDI(n),o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),g2=ac.createGain();
-    o.type='sine';o2.type='sine';o.frequency.value=f;o2.frequency.value=f*3.01;g2.gain.value=.12;
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0008,t+2.4);
-    o.connect(g);o2.connect(g2).connect(g);g.connect(master);g.connect(delay);o.start(t);o2.start(t);o.stop(t+2.5);o2.stop(t+2.5)}
-  function pad(ch,t,len){padNodes=padNodes.filter(n=>n.end>ac.currentTime);
-    ch.slice(0,3).forEach((n,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=MIDI(n-12);o.detune.value=(i-1)*6;
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.035,t+1.2);g.gain.setValueAtTime(.035,t+len-1);g.gain.linearRampToValueAtTime(0,t+len+.4);
-      o.connect(g).connect(master);o.start(t);o.stop(t+len+.5);padNodes.push({end:t+len+.5})})}
-  const BEAT=.5;
-  function schedule(){
-    while(nextT<ac.currentTime+.25){
-      const bar=Math.floor(step/8)%CH.length,ch=CH[bar],b=step%8;
-      if(b===0)pad(ch,nextT,8*BEAT);
-      // rải nốt: phách mạnh luôn có, phách nhẹ thỉnh thoảng bỏ trống cho thoáng
-      if(b%2===0||Math.random()<.45){const pool=[...ch,ch[0]+12,ch[1]+12,ch[2]+12],n=pool[(Math.random()*pool.length)|0]+12;
-        bell(n,nextT+(b%2?.02:0),b===0?.16:.08+Math.random()*.05)}
-      nextT+=BEAT;step++;
-    }
-  }
-  function start(){
-    if(!ac)setup();if(ac.state==='suspended')ac.resume();
-    nextT=ac.currentTime+.1;master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);
-    master.gain.linearRampToValueAtTime(.55,ac.currentTime+2.5);
-    clearInterval(timer);timer=setInterval(schedule,90);schedule();on=true;ui();
-  }
-  function stop(){
-    if(!ac)return;on=false;ui();clearInterval(timer);
-    master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.8);
-    setTimeout(()=>{if(!on)ac.suspend()},900);
-  }
-  function ui(){btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on);btn.title=on?'Tắt nhạc':'Bật nhạc nhẹ'}
-  btn.addEventListener('click',()=>on?stop():start());
-  // chuyển tab thì tạm dừng, quay lại thì phát tiếp
-  document.addEventListener('visibilitychange',()=>{if(!ac||!on)return;if(document.hidden){clearInterval(timer);ac.suspend()}else{ac.resume();nextT=ac.currentTime+.1;timer=setInterval(schedule,90)}});
-  // rời trang (cửa dịch chuyển): giảm dần âm lượng cho êm
-  addEventListener('pagehide',()=>{if(on&&ac){master.gain.setValueAtTime(master.gain.value,ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.3)}});
-  ui();
-})();
+/* Nút ngày/đêm + nhạc dùng chung (assets/site.js); đổi ngày/đêm thì bầu trời sao đổi màu theo */
+Site.init({home:true,onTheme:()=>window.__skyTheme&&window.__skyTheme()});
 </script>
 </body>
 </html>

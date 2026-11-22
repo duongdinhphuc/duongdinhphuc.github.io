@@ -20,9 +20,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;600&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
 <script>
-  /* Bật JS-mode và chọn cảnh ngày/đêm trước khi trang hiển thị (tránh nháy màn hình) */
-  (function(){var d=document.documentElement,h=new Date().getHours();d.classList.add('js');if(h>=6&&h<17)d.classList.add('day');})();
+  /* Bật JS-mode trước khi trang hiển thị (tránh nháy màn hình) */
+  document.documentElement.classList.add('js');
 </script>
+<!-- Ngày/đêm dùng chung cho cả trang web: theo giờ (6h–18h) hoặc lựa chọn của người xem -->
+<script src="../assets/theme-init.js"></script>
+<link rel="stylesheet" href="../assets/site.css">
 <style>
   :root{
     --bg:#081426; --bg2:#13294a; --red:#d1323b; --green:#1f7a4d;
@@ -71,6 +74,7 @@
   @keyframes blink{from{opacity:.35}to{opacity:1}}
 
   nav{display:flex;justify-content:center;gap:1.4rem;padding:3.2rem 1rem 1rem;flex-wrap:wrap}
+  @media(max-width:760px){nav{padding-top:4.6rem}}          /* chừa chỗ cho nút Trang chủ / nhạc / ngày-đêm cố định ở trên */
   nav a{color:var(--muted);text-decoration:none;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
   nav a:hover{color:var(--gold)}
 
@@ -263,14 +267,13 @@
   footer{text-align:center;color:var(--muted);padding:2rem 1rem 5rem;font-size:.9rem}
   footer .script{font-family:var(--f-script);font-size:2rem;color:var(--gold);display:block}
 
-  /* ===== Floating controls ===== */
-  #controls{position:fixed;right:1rem;bottom:1rem;z-index:6;display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
-  #controls button{padding:.45rem .85rem;font-size:.78rem;margin:0;color:#fff;background:rgba(19,41,74,.85);box-shadow:none;
-                   border:1px solid rgba(255,255,255,.15)}
-  .day #controls button{background:rgba(31,45,66,.6)}
-  #controls #musicBtn.on{background:rgba(242,193,78,.9);color:#2a1a08}
-  #controls button{white-space:nowrap}
-  @media(max-width:600px){#controls{right:50%;transform:translateX(50%);bottom:.7rem;flex-wrap:nowrap}#controls button{padding:.42rem .7rem;font-size:.74rem}}
+  /* ===== Nút tuyết (nằm trong nhóm nút tròn dùng chung ở góc trên) ===== */
+  .snow-btn{position:relative;line-height:0}
+  .snow-btn svg{display:block}
+  .snow-btn span{display:inline-block;transition:opacity .3s,transform .4s}
+  .snow-btn:not(.is-off) span{animation:snowSpin 6s linear infinite}
+  @keyframes snowSpin{to{transform:rotate(360deg)}}
+  /* tuyết đang rơi: bông tuyết xoay chậm; tắt tuyết: đứng yên */
 
   .toast{position:fixed;bottom:4.5rem;left:50%;transform:translateX(-50%) translateY(120px);opacity:0;
          background:var(--gold);color:#1a1a1a;padding:.7rem 1.4rem;border-radius:999px;z-index:50;transition:transform .3s,opacity .3s;font-weight:400}
@@ -346,14 +349,10 @@
 <svg id="garland" aria-hidden="true"></svg>
 <div id="sleigh" aria-hidden="true"><span>🦌</span><span>🦌</span><span>🛷</span><span class="santa">🎅</span></div>
 
-<div id="controls">
-  <button id="musicBtn" title="Bật/tắt nhạc">🎵 Nhạc</button>
-  <button id="modeBtn" title="Đổi cảnh ngày/đêm">🌙 Đêm</button>
-  <button id="snowToggle" title="Bật/tắt tuyết">❄️ Tuyết</button>
-</div>
+<button id="snowToggle" class="site-btn snow-btn" type="button" aria-pressed="true" aria-label="Tắt tuyết" title="Tắt tuyết"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5M3 10.5l3.4-.9L5.5 6.2M21 13.5l-3.4.9.9 3.4M3 13.5l3.4.9-.9 3.4M21 10.5l-3.4-.9.9-3.4"/></svg></span></button>
 
 <nav>
-  <a href="#home">Trang chủ</a>
+  <a href="#home">Đầu trang</a>
   <a href="#countdown">Đếm ngược</a>
   <a href="#fireplace">Lò sưởi</a>
   <a href="#traditions">Truyền thống</a>
@@ -582,6 +581,7 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="../assets/site.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
@@ -626,25 +626,21 @@ const synth=(()=>{
 const bgm=new Audio('music.mp3');bgm.loop=true;bgm.volume=.55;bgm.preload='auto';
 let useSynth=false,musicOn=false;
 bgm.addEventListener('error',()=>{useSynth=true;if(musicOn)synth.start()});
-function musicUI(){const b=$('musicBtn');b.textContent=musicOn?'🎵 Nhạc: Bật':'🔇 Nhạc: Tắt';b.classList.toggle('on',musicOn)}
+function musicUI(){window.Site&&Site.setMusic(musicOn)}            // nút nhạc dùng chung (assets/site.js)
 function startMusic(){
   musicOn=true;synth.unlock();musicUI();
   if(useSynth){synth.start();return}
   bgm.play().catch(()=>{useSynth=true;if(musicOn)synth.start()});
 }
 function stopMusic(){musicOn=false;bgm.pause();synth.stop();musicUI()}
-$('musicBtn').onclick=()=>musicOn?stopMusic():startMusic();
 musicUI();
 
 /* =========================================================
    2. CẢNH NGÀY / ĐÊM theo giờ (6h–17h là ban ngày)
    ========================================================= */
-let manualMode=false,dayMode=root.classList.contains('day');
-function applyMode(day){dayMode=day;root.classList.toggle('day',day);$('modeBtn').textContent=day?'☀️ Ngày':'🌙 Đêm'}
-const isDayHour=()=>{const h=new Date().getHours();return h>=6&&h<17};
-applyMode(dayMode);
-setInterval(()=>{if(!manualMode)applyMode(isDayHour())},60000);
-$('modeBtn').onclick=()=>{manualMode=true;applyMode(!dayMode)};
+/* Ngày/đêm do nút dùng chung điều khiển (assets/site.js): tự đổi lúc 6h/18h, hiệu ứng vòng tròn */
+let dayMode=root.classList.contains('day');
+function applyMode(day){dayMode=day;root.classList.toggle('day',day)}
 
 /* ---------- Stars ---------- */
 (function(){
@@ -771,7 +767,8 @@ if('IntersectionObserver' in window){
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)last=performance.now()});
 resize();requestAnimationFrame(frame);
 const st=$('snowToggle');
-st.onclick=()=>{snowOn=!snowOn;st.textContent=snowOn?'❄️ Tuyết':'❄️ Tắt tuyết'};
+st.onclick=()=>{snowOn=!snowOn;st.classList.toggle('is-off',!snowOn);st.setAttribute('aria-pressed',snowOn);
+  const t=snowOn?'Tắt tuyết':'Bật tuyết';st.title=t;st.setAttribute('aria-label',t)};
 
 /* ---------- Sleigh ---------- */
 function startSleigh(){
@@ -1077,6 +1074,10 @@ function copy(text,msg){
   (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(()=>toast(msg)).catch(()=>{prompt('Sao chép thủ công:',text)});
 }
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
+
+/* Nút Trang chủ + ngày/đêm + nhạc dùng chung */
+Site.init({homeHref:'../',music:{start:startMusic,stop:stopMusic},onTheme:t=>applyMode(t==='light')});
+document.querySelector('.site-ctrls').prepend($('snowToggle'));
 </script>
 </body>
 </html>
