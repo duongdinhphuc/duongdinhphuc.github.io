@@ -134,6 +134,7 @@
   .wallhead h4{font-size:1.05rem}
   .wallhead .n{font-size:.85rem;color:var(--muted);background:var(--surface2);border:1px solid var(--line);padding:.25rem .7rem;border-radius:999px}
   .wishes{columns:2 240px;column-gap:18px;margin-top:14px}
+  .wishes.is-empty{columns:auto}            /* tường trống: không chia cột để dòng thông báo không bị cắt đôi */
   .wish{--rot:0deg;position:relative;break-inside:avoid;display:inline-block;width:100%;margin:14px 0 8px;padding:22px 18px 16px;border-radius:6px 6px 14px 6px;
         background:linear-gradient(170deg,rgba(255,255,255,.55),rgba(255,255,255,0) 40%),var(--nb);color:#33263f;
         box-shadow:0 10px 22px rgba(0,0,0,.16),0 2px 4px rgba(0,0,0,.08);transform:rotate(var(--rot));
@@ -174,6 +175,7 @@
          background:var(--text);color:var(--bg);padding:.7rem 1.2rem;border-radius:999px;font-size:.92rem;font-weight:500;box-shadow:var(--shadow);max-width:90vw;text-align:center}
   .toast.show{transform:translate(-50%,0);opacity:1}
   #confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+  #fx{position:fixed;inset:0;pointer-events:none;z-index:45}
   footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:40px}
   [hidden]{display:none!important}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.bl{display:none}.flame i{animation:none}}
@@ -182,6 +184,7 @@
 <body>
 <div class="balloons" id="balloons" aria-hidden="true"></div>
 <canvas id="confetti" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
 
 <div class="wrap">
   <div class="top">
@@ -271,7 +274,8 @@
 
   </main>
 
-  <footer>Làm bằng 💖 · <a href="../">duongdinhphuc.github.io</a></footer>
+  <footer>© <span class="yr">2026</span> · duongdinhphuc.github.io</footer>
+  <script>document.querySelectorAll(".yr").forEach(e=>e.textContent=new Date().getFullYear())</script>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -450,7 +454,7 @@ function hsh(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCode
 let allWishes=[],newKey='';
 function renderWishes(list){
   allWishes=list.slice().sort((a,b)=>b.ts-a.ts);
-  const box=$('wishes');box.innerHTML='';$('wishN').textContent=`${allWishes.length} lời chúc`;
+  const box=$('wishes');box.innerHTML='';box.classList.toggle('is-empty',!allWishes.length);$('wishN').textContent=`${allWishes.length} lời chúc`;
   if(!allWishes.length){box.innerHTML=`<p class="empty">${hasDB?'Chưa có lời chúc nào. Hãy là người đầu tiên dán lên tường nhé 📌':'Viết lời chúc rồi bấm Gửi để chia sẻ qua Zalo/Messenger cho mình nhé.'}</p>`;startSpot();return}
   allWishes.forEach((w,i)=>{
     const h=hsh(w.text+w.ts),d=document.createElement('div'),key=w.ts+w.text;
@@ -551,6 +555,70 @@ async function addBlow(){
 }
 loadBlows();
 
+/* =========================================================
+   HIỆU ỨNG CHUỘT
+   - rê chuột: vệt pháo giấy + lấp lánh rơi theo con trỏ (máy có chuột)
+   - bấm chỗ trống: bung một chùm pháo giấy nhỏ
+   - bấm trúng bóng bay ở nền: bóng nổ "bụp", bắn pháo giấy cùng màu
+   ========================================================= */
+(function(){
+  if(reduce)return;
+  const cv=$('fx'),g=cv.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),COL=['#ff7eb3','#ffd166','#8a5cf6','#7ad7f0','#8ef0b5','#ff9a6b','#ffffff'];
+  let W=0,H=0,ps=[],run=false,lx=-1,ly=-1;
+  const size=()=>{W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;g.setTransform(DPR,0,0,DPR,0,0)};size();addEventListener('resize',size);
+  const R=(a,b)=>a+Math.random()*(b-a);
+  function add(x,y,o={}){
+    if(ps.length>260)ps.splice(0,ps.length-260);
+    const kind=o.kind||(Math.random()<.3?'star':Math.random()<.5?'dot':'rect');
+    ps.push({x,y,vx:o.vx??R(-1.2,1.2),vy:o.vy??R(-1.5,.3),g:o.g??.12,r:R(0,6.28),vr:R(-.25,.25),s:o.s??R(3,6.5),c:o.c||COL[(Math.random()*COL.length)|0],life:1,dec:o.dec??R(.018,.03),kind});
+    if(!run){run=true;last=performance.now();requestAnimationFrame(loop)}
+  }
+  function star(x,y,r){g.beginPath();for(let i=0;i<8;i++){const a=i*Math.PI/4,q=i%2?r*.38:r;g.lineTo(x+Math.cos(a)*q,y+Math.sin(a)*q)}g.closePath();g.fill()}
+  let last=performance.now();
+  function loop(t){
+    const dt=Math.min((t-last)/16.67,3);last=t;g.clearRect(0,0,W,H);
+    for(const p of ps){p.vy+=p.g*dt;p.vx*=.99;p.x+=p.vx*dt;p.y+=p.vy*dt;p.r+=p.vr*dt;p.life-=p.dec*dt;if(p.life<=0)continue;
+      g.globalAlpha=Math.min(1,p.life*1.6);g.fillStyle=p.c;
+      if(p.kind==='star')star(p.x,p.y,p.s*.9);
+      else if(p.kind==='dot'){g.beginPath();g.arc(p.x,p.y,p.s*.45,0,6.283);g.fill()}
+      else{g.save();g.translate(p.x,p.y);g.rotate(p.r);g.scale(1,Math.cos(p.r*1.7));g.fillRect(-p.s/2,-p.s*.35,p.s,p.s*.7);g.restore()}}
+    g.globalAlpha=1;ps=ps.filter(p=>p.life>0);
+    if(ps.length)requestAnimationFrame(loop);else{run=false;g.clearRect(0,0,W,H)}
+  }
+  const isUI=el=>!!(el&&el.closest&&el.closest('a,button,input,textarea,select,label,.candle,.spot'));
+  // bóng bay nằm dưới nội dung, nên tự dò xem điểm bấm có trúng quả nào không
+  function hitBalloon(x,y){for(const b of document.querySelectorAll('.bl')){if(b.dataset.popped)continue;const r=b.getBoundingClientRect();
+      const cx=r.left+r.width/2,cy=r.top+r.height/2;if(((x-cx)/(r.width/2))**2+((y-cy)/(r.height/2))**2<=1.15)return b}return null}
+
+  // 1. Vệt theo con trỏ (chỉ máy có chuột) + con trỏ bàn tay khi rê qua bóng
+  if(matchMedia('(hover: hover) and (pointer: fine)').matches){
+    addEventListener('pointermove',e=>{
+      if(e.pointerType!=='mouse')return;
+      const d=lx<0?0:Math.hypot(e.clientX-lx,e.clientY-ly);if(lx>=0&&d<7)return;lx=e.clientX;ly=e.clientY;
+      const n=Math.min(3,1+(d/28|0));for(let i=0;i<n;i++)add(e.clientX+R(-4,4),e.clientY+R(-4,4),{vx:R(-.8,.8),vy:R(-.6,.6),g:.06,s:R(2.5,5),dec:R(.022,.035)});
+      document.body.style.cursor=!isUI(e.target)&&hitBalloon(e.clientX,e.clientY)?'pointer':'';
+    },{passive:true});
+  }
+
+  function popSound(){if(!ac)return;const n=ac.sampleRate*.12,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,6);
+    const s=ac.createBufferSource(),f=ac.createBiquadFilter(),gn=ac.createGain();f.type='highpass';f.frequency.value=700;gn.gain.value=.55;s.buffer=b;s.connect(f).connect(gn).connect(ac.destination);s.start()}
+  function popBalloon(b){
+    const r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,c=getComputedStyle(b).getPropertyValue('--c').trim();
+    b.dataset.popped=1;ensureAudio();popSound();try{navigator.vibrate&&navigator.vibrate(18)}catch(e){}
+    const an=b.animate([{scale:'1',opacity:.55},{scale:'1.4',opacity:0}],{duration:140,easing:'ease-out',fill:'forwards'});
+    for(let i=0;i<26;i++){const a=R(0,6.283),sp=R(2,7.5);add(x,y,{vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1.5,c:i%3?c:COL[(Math.random()*COL.length)|0],s:R(4,8),g:.18,dec:R(.012,.02)})}
+    setTimeout(()=>{an.cancel();                                   // một quả bóng mới bay lên từ dưới
+      b.style.left=R(2,94).toFixed(1)+'%';b.style.setProperty('--d','0s');b.style.animation='none';void b.offsetWidth;b.style.animation='';delete b.dataset.popped},1400);
+  }
+  // 2 + 3. Bấm
+  addEventListener('pointerdown',e=>{
+    if(isUI(e.target))return;
+    const b=hitBalloon(e.clientX,e.clientY);
+    if(b){popBalloon(b);return}
+    if(e.target.closest&&e.target.closest('.stage'))return;          // bánh kem: để dành cho việc thổi nến
+    for(let i=0;i<16;i++){const a=R(-Math.PI,0),sp=R(2,6);add(e.clientX,e.clientY,{vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,g:.16,s:R(3.5,7),dec:R(.014,.024)})}
+  });
+})();
 </script>
 </body>
 </html>
