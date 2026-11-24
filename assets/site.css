@@ -81,6 +81,27 @@ html[data-theme="light"] .site-ctrls, html[data-theme="light"] .site-home {
 .site-btn.is-on { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctl-accent) 30%, transparent), 0 6px 18px rgba(0, 0, 0, .18); }
 @keyframes site-eq { from { height: 3px; } to { height: 16px; } }
 
+/* Bình minh / hoàng hôn: lớp ánh sáng nằm trên nền trời, dưới nội dung.
+   Mặc định z-index -1 (trên nền body / .bg); trang nào có lớp trời riêng thì đặt --tint-z cho phù hợp. */
+.site-tint { position: fixed; inset: 0; pointer-events: none; z-index: var(--tint-z, -1); }
+.site-tint i { position: absolute; inset: 0; opacity: 0; transition: opacity 2.5s ease; }
+.site-tint .dawn {
+  background:
+    radial-gradient(130% 65% at 50% 112%, rgba(255, 146, 120, .55), rgba(255, 186, 150, .26) 42%, transparent 76%),
+    radial-gradient(40% 30% at 18% 100%, rgba(255, 214, 140, .35), transparent 70%),
+    linear-gradient(to bottom, rgba(255, 196, 176, .14), transparent 38%);
+}
+.site-tint .dusk {
+  background:
+    radial-gradient(130% 65% at 50% 112%, rgba(255, 122, 60, .55), rgba(196, 92, 160, .30) 46%, transparent 78%),
+    radial-gradient(40% 30% at 84% 100%, rgba(255, 170, 80, .35), transparent 70%),
+    linear-gradient(to bottom, rgba(110, 76, 170, .20), transparent 46%);
+}
+html[data-phase="dawn"] .site-tint .dawn, html[data-phase="dusk"] .site-tint .dusk { opacity: 1; }
+/* ban ngày nền sáng: giảm bớt để không bị chói */
+html[data-theme="light"] .site-tint i { filter: saturate(1.1); }
+html[data-theme="light"][data-phase] .site-tint .dawn, html[data-theme="light"][data-phase] .site-tint .dusk { mix-blend-mode: multiply; }
+
 /* Chuyển cảnh ngày/đêm: vòng tròn lan ra từ nút (View Transitions) */
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-new(root) { z-index: 2; }

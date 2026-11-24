@@ -24,8 +24,8 @@
   document.documentElement.classList.add('js');
 </script>
 <!-- Ngày/đêm dùng chung cho cả trang web: theo giờ (6h–18h) hoặc lựa chọn của người xem -->
-<script src="../assets/theme-init.js?v=2"></script>
-<link rel="stylesheet" href="../assets/site.css?v=2">
+<script src="../assets/theme-init.js?v=3"></script>
+<link rel="stylesheet" href="../assets/site.css?v=3">
 <style>
   :root{
     --bg:#081426; --bg2:#13294a; --red:#d1323b; --green:#1f7a4d;
@@ -286,6 +286,7 @@
   footer .script{font-family:var(--f-script);font-size:2rem;color:var(--gold);display:block}
 
   /* ===== Nút tuyết (nằm trong nhóm nút tròn dùng chung ở góc trên) ===== */
+  :root{--tint-z:0}      /* lớp bình minh/hoàng hôn nằm trên #sky (z 0), dưới mặt trăng và nội dung */
   .snow-btn{position:relative;line-height:0}
   .snow-btn svg{display:block}
   .snow-btn span{display:inline-block;transition:opacity .3s,transform .4s}
@@ -599,7 +600,7 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="../assets/site.js?v=2"></script>
+<script src="../assets/site.js?v=3"></script>
 <script>
 const $=id=>document.getElementById(id);
 const root=document.documentElement;

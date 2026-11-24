@@ -19,7 +19,13 @@
     try { c = JSON.parse(localStorage.getItem('themeChoice') || 'null'); } catch (e) {}
     return c && c.p === __period() && (c.t === 'light' || c.t === 'dark') ? c.t : __autoTheme();
   };
+  /* Buổi chuyển tiếp: bình minh 5h–7h, hoàng hôn 17h–19h (lớp ánh sáng màu trên nền trời) */
+  window.__phase = function () {
+    var h = new Date().getHours();
+    return h >= 5 && h < 7 ? 'dawn' : h >= 17 && h < 19 ? 'dusk' : '';
+  };
   var t = __wantedTheme();
   d.dataset.theme = t;
   d.classList.toggle('day', t === 'light');
+  d.dataset.phase = __phase();
 })();

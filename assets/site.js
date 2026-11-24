@@ -37,7 +37,10 @@ window.Site = (function () {
       { duration: 900, easing: 'cubic-bezier(.65,0,.25,1)', pseudoElement: '::view-transition-new(root)' }
     )).catch(() => {});
   }
-  function autoCheck() { const w = __wantedTheme(); if (w !== root.dataset.theme) switchTo(w, false); }
+  function autoCheck() {
+    const p = __phase(); if (root.dataset.phase !== p) root.dataset.phase = p;   // bình minh / hoàng hôn: lớp ánh sáng tự mờ dần vào/ra
+    const w = __wantedTheme(); if (w !== root.dataset.theme) switchTo(w, false);
+  }
 
   /* ---------------- Nhạc ---------------- */
   function musicUI() {
@@ -124,6 +127,9 @@ window.Site = (function () {
       a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>';
       document.body.appendChild(a);
     }
+    const tint = document.createElement('div'); tint.className = 'site-tint'; tint.setAttribute('aria-hidden', 'true');
+    tint.innerHTML = '<i class="dawn"></i><i class="dusk"></i>';
+    document.body.appendChild(tint);
     const box = document.createElement('div'); box.className = 'site-ctrls';
     box.innerHTML =
       '<button class="site-btn" type="button" data-site="music" aria-pressed="false"><span class="site-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>' +

@@ -12,7 +12,7 @@ Link thiệp cũ dạng `/?to=...&msg=...` được trang chủ tự chuyển sa
 
 ## Phần dùng chung (`assets/`)
 
-- `theme-init.js`: nạp trong `<head>`, chọn ngày/đêm trước khi trang hiện (6h–18h là ngày, hoặc theo lựa chọn của người xem tới mốc giờ kế tiếp).
+- `theme-init.js`: nạp trong `<head>`, chọn ngày/đêm trước khi trang hiện (6h–18h là ngày, hoặc theo lựa chọn của người xem tới mốc giờ kế tiếp). Thêm lớp ánh sáng **bình minh** (5h–7h) và **hoàng hôn** (17h–19h) trên nền trời (`html[data-phase]`, lớp `.site-tint`).
 - `site.css` + `site.js`: nút **← Trang chủ** (trang con), nút **nhạc** và nút **ngày/đêm** (hiệu ứng vòng tròn). Cuối trang gọi `Site.init({...})`, xem chú thích đầu `site.js`.
 
 Trang mới chỉ cần nạp 3 file này và gọi `Site.init({homeHref:'../', music:{start,stop}})`.
