@@ -18,21 +18,21 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <script>
   /* Bật JS-mode trước khi trang hiển thị (tránh nháy màn hình) */
   document.documentElement.classList.add('js');
 </script>
 <!-- Ngày/đêm dùng chung cho cả trang web: theo giờ (6h–18h) hoặc lựa chọn của người xem -->
-<script src="../assets/theme-init.js?v=3"></script>
-<link rel="stylesheet" href="../assets/site.css?v=3">
+<script src="../assets/theme-init.js?v=5"></script>
+<link rel="stylesheet" href="../assets/site.css?v=5">
 <style>
   :root{
     --bg:#081426; --bg2:#13294a; --red:#d1323b; --green:#1f7a4d;
     --gold:#f2c14e; --cream:#fdf6e9; --muted:#a9b8cc;
     --f-script:var(--font-display,"Great Vibes",cursive);   /* dùng bộ chữ chung (assets/site.css), có dự phòng */
-    --f-head:var(--font-heading,"Playfair Display",Georgia,serif);
-    --f-body:var(--font-body,"Be Vietnam Pro",system-ui,sans-serif);
+    --f-head:var(--font-heading,"Nunito",system-ui,sans-serif);
+    --f-body:var(--font-body,"Nunito",system-ui,sans-serif);
   }
   :root.day{--bg:#e9f2fb;--cream:#1f2d42;--muted:#51627a;--gold:#b8332f}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -600,7 +600,7 @@
 </div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="../assets/site.js?v=3"></script>
+<script src="../assets/site.js?v=5"></script>
 <script>
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
@@ -1051,7 +1051,7 @@ function dDivider(g,x,y,col){g.save();g.strokeStyle=col;g.fillStyle=col;g.global
   g.globalAlpha=1;dStar(g,x,y,16,'#f2c14e');dStar(g,x-24,y,6,'#f2c14e');dStar(g,x+24,y,6,'#f2c14e');g.restore()}
 async function cardCanvas(){
   const tk=$('theme').value,th=THEMES[tk],fm=FAM[$('font').value];
-  try{await Promise.all([document.fonts.load(`${fm.w} 80px ${fm.f}`),document.fonts.load('italic 500 40px "Playfair Display"'),document.fonts.load('600 26px "Be Vietnam Pro"')])}catch(e){}
+  try{await Promise.all([document.fonts.load(`${fm.w} 80px ${fm.f}`),document.fonts.load('italic 500 40px "Playfair Display"'),document.fonts.load('600 26px "Nunito"')])}catch(e){}
   const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
   const gr=tk==='snow'?g.createLinearGradient(0,0,W,H):g.createRadialGradient(W*.3,H*.2,0,W*.5,H*.5,H*.85);
   gr.addColorStop(0,th.a);gr.addColorStop(1,th.b);g.fillStyle=gr;g.fillRect(0,0,W,H);
@@ -1072,7 +1072,7 @@ async function cardCanvas(){
   dDivider(g,W/2,y+divH/2,th.t);y+=divH+gap;g.fillStyle=th.t;
   g.font=`italic 500 ${ms}px "Playfair Display", Georgia, serif`;lines.forEach(l=>{g.fillText(l,W/2,y+ms);y+=lh});y+=gap;
   g.globalAlpha=.92;g.font=`${fm.w} ${fm.from}px ${fm.f}`;g.fillText(from,W/2,y+fm.from*.9);
-  g.globalAlpha=1;g.fillStyle='#b0242d';g.font='600 30px "Be Vietnam Pro", sans-serif';g.fillText('✦  Merry Christmas '+new Date().getFullYear()+'  ✦',W/2,H-62);
+  g.globalAlpha=1;g.fillStyle='#b0242d';g.font='600 30px "Nunito", sans-serif';g.fillText('✦  Merry Christmas '+new Date().getFullYear()+'  ✦',W/2,H-62);
   return c;
 }
 schedulePv();                       /* vẽ khung xem trước lần đầu */

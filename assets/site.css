@@ -6,9 +6,9 @@
    ========================================================= */
 :root {
   --font-display: "Great Vibes", cursive;                  /* tiêu đề lớn viết tay (tên trang) */
-  --font-heading: "Playfair Display", Georgia, serif;      /* tiêu đề phần, tiêu đề thẻ, số đếm ngược */
+  --font-heading: "Nunito", system-ui, sans-serif;         /* tiêu đề phần, tiêu đề thẻ, số đếm ngược (bo tròn, đậm) */
   --font-accent: "Dancing Script", cursive;                /* chữ ký, tên người gửi, lời nhắn ngắn */
-  --font-body: "Be Vietnam Pro", system-ui, sans-serif;    /* mô tả, chữ thường, nút bấm */
+  --font-body: "Nunito", system-ui, sans-serif;    /* mô tả, chữ thường, nút bấm */
 
   --fs-display: clamp(3rem, 10vw, 5.5rem);   /* tiêu đề trang */
   --fs-h2: clamp(1.7rem, 4vw, 2.5rem);       /* tiêu đề phần */
@@ -22,7 +22,7 @@
   --fs-label: .85rem;                        /* nhãn ô nhập, chip, footer */
   --fs-small: .78rem;                        /* chữ phụ nhỏ nhất (đơn vị đếm ngược, huy hiệu) */
   --fw-body: 400;
-  --fw-heading: 600;
+  --fw-heading: 800;
   --lh-body: 1.6;
 }
 
