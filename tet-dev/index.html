@@ -174,6 +174,92 @@
   .soon .tag{font-size:var(--fs-small);font-weight:700;color:var(--gold)}
   :root[data-theme="light"] .soon .tag{color:var(--red)}
 
+  /* ---------- Lì xì online: tạo link ---------- */
+  .lxo{margin-top:44px;text-align:center}
+  .lxo h2{font:var(--fw-heading) var(--fs-h2)/1.25 var(--font-heading)}
+  .lxo>p{color:var(--muted);max-width:520px;margin:6px auto 0;text-wrap:balance}
+  .mk{margin:20px auto 0;max-width:560px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+  .mk label{display:block;font-weight:700;font-size:var(--fs-label);color:var(--muted);margin:14px 0 6px}
+  .mk label:first-child{margin-top:0}
+  .mk .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mk .row label{margin-top:0}
+  @media(max-width:480px){.mk .row{grid-template-columns:1fr}.mk .row>div+div label{margin-top:2px}}
+  .mk input,.mk textarea{width:100%;font:inherit;font-size:var(--fs-body-sm);padding:.7rem .85rem;border-radius:12px;border:1px solid var(--line);background:var(--surface2);color:var(--text)}
+  .mk textarea{min-height:92px;resize:vertical}
+  .mk input:focus,.mk textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips button{font:600 var(--fs-label) var(--font-body);padding:.42rem .8rem;border-radius:999px;cursor:pointer;color:var(--text);background:var(--surface2);border:1px solid var(--line);transition:background .2s,color .2s,transform .15s}
+  .chips button:hover{transform:translateY(-1px)}
+  .chips button[aria-pressed="true"]{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:transparent}
+  .chips .add{display:inline-flex;gap:6px}
+  .chips .add input{width:130px;padding:.42rem .7rem;border-radius:999px}
+  .mk .note{font-size:var(--fs-small);color:var(--muted);margin-top:8px}
+  .mk .go{text-align:center;margin-top:18px}
+  .lxout{margin-top:16px;padding:14px;border-radius:16px;background:var(--surface2);border:1px dashed var(--gold)}
+  .lxout[hidden]{display:none}
+  .lxout input{font-size:var(--fs-small)}
+  .lxout .acts{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+  .lxout .acts .btn{margin:0;padding:.6rem 1rem}
+
+  /* ---------- Lì xì online: người nhận chọn bao ---------- */
+  .rv{position:fixed;inset:0;z-index:78;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:84px 16px 40px;text-align:center;
+      background:var(--bg);background-image:radial-gradient(70% 50% at 50% 0%,var(--bg2),transparent 75%),radial-gradient(50% 40% at 50% 100%,rgba(246,196,83,.16),transparent 70%)}
+  .rv[hidden]{display:none}
+  .rv h2{font-family:var(--font-display);font-weight:400;font-size:clamp(2.6rem,9vw,4.4rem);line-height:1.15;margin-top:10px;
+         background:linear-gradient(100deg,var(--g1),var(--g2) 50%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .2em}
+  .rv .hint{color:var(--muted);font-weight:600;margin-top:4px;min-height:1.6em}
+  .pks{display:grid;grid-template-columns:repeat(var(--cols,3),auto);justify-content:center;gap:16px;margin-top:26px}
+  .pk{width:clamp(86px,24vw,112px);aspect-ratio:3/4;perspective:700px;border:0;background:none;padding:0;cursor:pointer;
+      animation:envSway var(--t,3s) ease-in-out infinite alternate;animation-delay:var(--d,0s);transform-origin:50% -20%}
+  .pk:disabled{cursor:default}
+  .pk-in{display:block;position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.3,1.3,.5,1)}
+  .pk:not(:disabled):hover .pk-in{transform:translateY(-6px) rotate(-2deg)}
+  .pk-f,.pk-b{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center}
+  .pk-f{background:linear-gradient(160deg,#ef3b3b,#a3141c);box-shadow:0 14px 28px rgba(0,0,0,.35),inset 0 0 0 2px rgba(246,196,83,.7)}
+  .pk-f::before{content:"";position:absolute;left:0;right:0;top:0;height:42%;background:linear-gradient(180deg,#f04848,#c41d26);clip-path:polygon(0 0,100% 0,100% 30%,50% 100%,0 30%);border-radius:14px 14px 0 0}
+  .pk-f b{position:relative;width:44%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;margin-top:8%;
+          background:radial-gradient(circle at 35% 30%,#ffe39a,#f2b23a 60%,#c98410);color:#a3141c;font:700 clamp(.95rem,3.4vw,1.2rem)/1 var(--font-accent);box-shadow:0 4px 10px rgba(0,0,0,.3)}
+  .pk-b{transform:rotateY(180deg);background:linear-gradient(180deg,#fffaf0,#ffe9c2);color:#a3141c;box-shadow:0 14px 28px rgba(0,0,0,.3),inset 0 0 0 2px #f6c453;
+        font:800 clamp(.85rem,3.2vw,1.05rem)/1.2 var(--font-heading);padding:6px;word-break:break-word}
+  .pk.flip .pk-in{transform:rotateY(180deg)}
+  .pk.mine{animation:none;z-index:2}
+  .pk.mine .pk-in{transform:rotateY(180deg) scale(1.08)}
+  .pk.mine .pk-b{background:linear-gradient(180deg,#fff7d6,#ffd979);box-shadow:0 0 0 3px #f6c453,0 0 34px rgba(246,196,83,.75)}
+  .pk.other{animation:none;opacity:.55;transition:opacity .6s}
+  .pk.other .pk-b{font-weight:700;color:#8a5440}
+  .res{margin-top:30px;width:min(460px,100%);background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);
+       opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
+  .res[hidden]{display:none}
+  .res.show{opacity:1;transform:none}
+  .res small{color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:var(--fs-small)}
+  .res .amt{font:900 clamp(2.2rem,9vw,3rem)/1.15 var(--font-heading);margin:4px 0 10px;background:linear-gradient(100deg,var(--g1),var(--g2) 55%,var(--g3));
+            -webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+  .res .msg{font-size:var(--fs-lead);line-height:1.6;white-space:pre-line;text-wrap:pretty}
+  .res .from{font:700 var(--fs-accent)/1.2 var(--font-accent);color:var(--gold);margin-top:10px}
+  :root[data-theme="light"] .res .from{color:var(--red)}
+  .res .sym{font-size:var(--fs-small);color:var(--muted);margin-top:12px}
+  .res .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+  .res .acts .btn{margin:0}
+  /* hiệu ứng: bao rơi xuống lần lượt, ánh vàng lướt qua, dấu Lộc phát sáng */
+  .pk-in{animation:pkIn .85s cubic-bezier(.2,1.25,.4,1) backwards;animation-delay:calc(var(--i,0) * .12s + .15s)}
+  @keyframes pkIn{from{transform:translateY(-75vh) rotate(var(--r0,-18deg));opacity:0}55%{opacity:1}}
+  .pks.static .pk-in{animation:none}
+  .pk-f{overflow:hidden}
+  .pk-f::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 38%,rgba(255,236,170,.5) 50%,transparent 62%);background-size:260% 100%;
+               animation:pkShine 3.8s ease-in-out infinite;animation-delay:calc(var(--i,0) * .4s + 1s)}
+  @keyframes pkShine{0%,50%{background-position:160% 0}100%{background-position:-110% 0}}
+  .pk-f b{animation:sealGlow 2.2s ease-in-out infinite alternate}
+  @keyframes sealGlow{from{box-shadow:0 4px 10px rgba(0,0,0,.3),0 0 0 0 rgba(255,215,120,0)}to{box-shadow:0 4px 10px rgba(0,0,0,.3),0 0 18px 4px rgba(255,215,120,.6)}}
+  /* lúc chọn: các bao khác mờ đi, bao được chọn rung rồi lật */
+  .pk{transition:opacity .5s,filter .5s}
+  .pks.picking .pk:not(.chosen){opacity:.35;filter:saturate(.5)}
+  .pk.chosen{animation:pkShake .65s cubic-bezier(.36,.07,.19,.97);z-index:3}
+  @keyframes pkShake{0%{transform:scale(1)}15%{transform:scale(1.12) rotate(-7deg)}30%{transform:scale(1.14) rotate(7deg)}45%{transform:scale(1.15) rotate(-6deg)}60%{transform:scale(1.15) rotate(5deg)}80%{transform:scale(1.15) rotate(-2deg)}100%{transform:scale(1.1)}}
+  .pk.mine{transform:scale(1.04)}
+  .rvfx{position:fixed;inset:0;z-index:86;pointer-events:none;width:100%;height:100%}
+  .coin{position:fixed;z-index:86;pointer-events:none;font-size:22px;left:0;top:0}
+  body.rv-open{overflow:hidden}
+
   .toast{position:fixed;left:50%;bottom:24px;z-index:95;transform:translate(-50%,120px);opacity:0;transition:transform .35s,opacity .35s;
          background:var(--text);color:var(--bg);padding:.7rem 1.2rem;border-radius:999px;font-size:.92rem;font-weight:600;box-shadow:var(--shadow);max-width:90vw;text-align:center}
   .toast.show{transform:translate(-50%,0);opacity:1}
@@ -270,8 +356,34 @@
       </div>
     </section>
 
+    <section class="lxo" id="lixi">
+      <h2>🧧 Lì xì online</h2>
+      <p>Tạo bao lì xì kèm lời chúc, gửi link cho người thân. Người nhận chọn một trong những bao úp để xem mình được bao nhiêu.</p>
+      <div class="mk">
+        <div class="row">
+          <div><label for="lxTo">Gửi tới</label><input id="lxTo" maxlength="40" placeholder="Ví dụ: Bà nội, Mẹ, Linh"></div>
+          <div><label for="lxFrom">Từ</label><input id="lxFrom" maxlength="40" placeholder="Tên của bạn"></div>
+        </div>
+        <label>Gợi ý lời chúc</label>
+        <div class="chips" id="lxWho"></div>
+        <label for="lxMsg">Lời chúc</label>
+        <textarea id="lxMsg" maxlength="300" placeholder="Viết vài lời chúc năm mới…"></textarea>
+        <label>Mệnh giá trong các bao úp <span id="lxN"></span></label>
+        <div class="chips" id="lxAmts"></div>
+        <p class="note">Chọn từ 2 đến 6 mệnh giá, mỗi mệnh giá là một bao. Đây là lì xì tượng trưng: trang không chuyển tiền thật.</p>
+        <div class="go"><button class="btn gold" id="lxMake" type="button">🧧 Tạo link lì xì</button></div>
+        <div class="lxout" id="lxOut" hidden>
+          <input id="lxLink" readonly aria-label="Link lì xì">
+          <div class="acts">
+            <button class="btn" id="lxCopy" type="button">📋 Sao chép</button>
+            <button class="btn ghost" id="lxSend" type="button">📤 Gửi</button>
+            <button class="btn ghost" id="lxTry" type="button">👀 Xem thử</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="soon">
-      <div class="c"><span class="tag">SẮP CÓ</span><h3>🧧 Lì xì online</h3><p>Tạo bao lì xì kèm lời chúc riêng, gửi link cho người thân để họ mở.</p></div>
       <div class="c"><span class="tag">SẮP CÓ</span><h3>🌼 Cây điều ước</h3><p>Viết điều ước năm mới, treo lên cành đào, cành mai cùng mọi người.</p></div>
     </section>
   </main>
@@ -301,6 +413,24 @@
         <button class="btn gold" id="again">🌸 Hái lộc nữa</button>
         <button class="btn ghost" id="share">📤 Khoe lộc</button>
       </div>
+    </div>
+  </div>
+</div>
+<!-- Lì xì online: màn người nhận chọn bao -->
+<div class="rv" id="rv" hidden role="dialog" aria-modal="true" aria-labelledby="rvTo">
+  <span class="chip" id="rvChip">🧧 Lì xì năm mới</span>
+  <h2 id="rvTo">Gửi bạn</h2>
+  <p class="hint" id="rvHint">Chọn một bao lì xì nhé</p>
+  <div class="pks" id="pks"></div>
+  <div class="res" id="res" hidden>
+    <small>Bạn nhận được</small>
+    <div class="amt" id="resAmt"></div>
+    <p class="msg" id="resMsg"></p>
+    <p class="from" id="resFrom"></p>
+    <p class="sym">Lì xì tượng trưng kèm lời chúc 🧧</p>
+    <div class="acts">
+      <button class="btn gold" id="rvBack" type="button">🧧 Gửi lì xì lại</button>
+      <button class="btn ghost" id="rvHome" type="button">🌸 Vào trang Tết</button>
     </div>
   </div>
 </div>
@@ -758,6 +888,166 @@ setTree(TREE,false);                     // trạng thái ban đầu của nút 
 
 /* Nút Trang chủ + ngày/đêm + nhạc dùng chung */
 Site.init({homeHref:'../',music:{start:music.start,stop:music.stop}});
+</script>
+<script>
+/* =========================================================
+   LÌ XÌ ONLINE: nội dung nằm hết trong link (?lx=...), không cần máy chủ
+   ========================================================= */
+(function(){
+  const WHO=[
+    ['👵 Ông bà','Chúc ông bà năm mới thật nhiều sức khoẻ, sống lâu trăm tuổi, vui vầy bên con cháu.'],
+    ['👨‍👩‍👧 Bố mẹ','Chúc bố mẹ năm mới mạnh khoẻ, bình an, mọi việc đều thuận lợi. Con thương bố mẹ nhiều!'],
+    ['🧑‍🤝‍🧑 Bạn bè','Năm mới chúc bạn tiền vào như nước, sức khoẻ dồi dào, cười thật nhiều cả năm nhé!'],
+    ['💕 Người thương','Chúc người thương năm mới luôn rạng rỡ, hạnh phúc, và mình vẫn bên nhau thật lâu nhé.'],
+    ['💼 Đồng nghiệp','Chúc bạn năm mới thăng tiến, công việc suôn sẻ, thưởng Tết thật dày!'],
+    ['🧒 Em nhỏ','Chúc em năm mới chăm ngoan, học giỏi, lớn thật nhanh và luôn vui cười nhé!']];
+  const PRESET=[10000,20000,50000,66666,88888,100000,200000,500000];
+  const MIN=2,MAX=6;
+  const fmt=n=>n.toLocaleString('vi-VN')+'đ';
+  const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
+  const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+
+  /* ---- mã hoá link: JSON -> UTF-8 -> base64url ---- */
+  function enc(o){const b=new TextEncoder().encode(JSON.stringify(o));let x='';b.forEach(c=>x+=String.fromCharCode(c));return btoa(x).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+  function dec(str){try{const x=atob(str.replace(/-/g,'+').replace(/_/g,'/'));const o=JSON.parse(new TextDecoder().decode(Uint8Array.from(x,c=>c.charCodeAt(0))));
+      const t=String(o.t||'').slice(0,40),f=String(o.f||'').slice(0,40),m=String(o.m||'').slice(0,300);
+      const a=(Array.isArray(o.a)?o.a:[]).map(n=>Math.round(+n)).filter(n=>n>0&&n<=1e9).slice(0,MAX);
+      return a.length>=MIN?{t,f,m,a}:null}catch(e){return null}}
+  const linkFor=o=>location.origin+location.pathname+'?lx='+enc(o);
+
+  /* ================= Người gửi: tạo link ================= */
+  const who=$('lxWho'),amts=$('lxAmts');
+  WHO.forEach(([k,v])=>{const b=document.createElement('button');b.type='button';b.textContent=k;b.onclick=()=>{$('lxMsg').value=v;$('lxMsg').focus();dirty()};who.appendChild(b)});
+  let picked=new Set(lsGet('lxAmts')||[10000,20000,50000,100000]);
+  let extra=[...picked].filter(n=>!PRESET.includes(n));
+  function drawAmts(){
+    amts.innerHTML='';
+    [...PRESET,...extra].sort((a,b)=>a-b).forEach(n=>{const b=document.createElement('button');b.type='button';b.textContent=fmt(n);b.setAttribute('aria-pressed',picked.has(n));
+      b.onclick=()=>{if(picked.has(n))picked.delete(n);else{if(picked.size>=MAX){toast(`Tối đa ${MAX} bao thôi nhé`);return}picked.add(n)}drawAmts();dirty()};amts.appendChild(b)});
+    const w=document.createElement('span');w.className='add';
+    w.innerHTML='<input id="lxAdd" inputmode="numeric" placeholder="Mệnh giá khác" aria-label="Thêm mệnh giá"><button type="button" id="lxAddB">＋</button>';
+    amts.appendChild(w);
+    const add=()=>{const n=Math.round(+$('lxAdd').value.replace(/\D/g,''));if(!n){$('lxAdd').focus();return}
+      if(n>1e9){toast('Mệnh giá lớn quá rồi 😅');return}
+      if(!PRESET.includes(n)&&!extra.includes(n))extra.push(n);
+      if(!picked.has(n)){if(picked.size>=MAX){toast(`Tối đa ${MAX} bao thôi nhé`);drawAmts();return}picked.add(n)}drawAmts();dirty()};
+    $('lxAddB').onclick=add;$('lxAdd').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();add()}});
+    $('lxN').textContent=`· ${picked.size} bao`;
+  }
+  drawAmts();
+  const saved=lsGet('lxForm');if(saved){$('lxFrom').value=saved.f||''}
+  function dirty(){$('lxOut').hidden=true}
+  ['lxTo','lxFrom','lxMsg'].forEach(id=>$(id).addEventListener('input',dirty));
+
+  let cur=null;
+  $('lxMake').onclick=()=>{
+    const t=$('lxTo').value.trim(),f=$('lxFrom').value.trim(),m=$('lxMsg').value.trim();
+    if(!t){toast('Bạn nhập tên người nhận nhé');$('lxTo').focus();return}
+    if(!f){toast('Bạn nhập tên của mình nhé');$('lxFrom').focus();return}
+    if(picked.size<MIN){toast(`Chọn ít nhất ${MIN} mệnh giá nhé`);return}
+    cur={t,f,m,a:[...picked].sort((a,b)=>a-b)};
+    lsSet('lxForm',{f});lsSet('lxAmts',[...picked]);
+    $('lxLink').value=linkFor(cur);$('lxOut').hidden=false;$('lxLink').select();
+  };
+  $('lxLink').addEventListener('focus',e=>e.target.select());
+  const shareText=()=>`🧧 ${cur.f} gửi lì xì năm mới cho ${cur.t}! Mở bao tại đây nhé:`;
+  $('lxCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('lxLink').value);toast('Đã sao chép link, dán vào Zalo/Messenger để gửi nhé!')}catch(e){$('lxLink').select();toast('Bạn giữ vào ô link để sao chép nhé')}};
+  if(!navigator.share)$('lxSend').hidden=true;      // không có bảng chia sẻ (thường là máy tính): chỉ để nút Sao chép
+  $('lxSend').onclick=async()=>{const url=$('lxLink').value;
+    if(navigator.share){try{await navigator.share({text:shareText(),url});return}catch(e){if(e.name==='AbortError')return}}
+    $('lxCopy').onclick()};
+  $('lxTry').onclick=()=>openRv(cur,true);
+
+  /* ================= Người nhận: chọn bao úp ================= */
+  let rvData=null,rvPreview=false,rvKey='';
+  function shuffle(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+  function openRv(d,preview){
+    rvData=d;rvPreview=!!preview;rvKey='lxPick:'+enc(d).slice(-48);
+    const st=preview?null:lsGet(rvKey);
+    const order=st&&Array.isArray(st.o)&&st.o.length===d.a.length?st.o:shuffle(d.a.length);
+    $('rvChip').textContent=(preview?'👀 Xem thử · ':'')+'🧧 Lì xì từ '+d.f;
+    $('rvTo').textContent='Gửi '+d.t;
+    $('rvHint').textContent='Chọn một bao lì xì nhé';
+    const box=$('pks');box.innerHTML='';box.className='pks'+(st&&st.p!=null?' static':'');box.style.setProperty('--cols',d.a.length===4?2:Math.min(3,d.a.length));
+    order.forEach((ai,i)=>{const b=document.createElement('button');b.type='button';b.className='pk';b.dataset.ai=ai;
+      b.style.setProperty('--t',(2.6+Math.random()*1.2).toFixed(2)+'s');b.style.setProperty('--d',(-Math.random()*3).toFixed(2)+'s');
+      b.style.setProperty('--i',i);b.style.setProperty('--r0',((Math.random()*40-20)|0)+'deg');b.setAttribute('aria-label','Bao lì xì số '+(i+1));
+      b.innerHTML='<span class="pk-in"><span class="pk-f"><b>Lộc</b></span><span class="pk-b"></span></span>';
+      b.querySelector('.pk-b').textContent=fmt(d.a[ai]);
+      b.onclick=()=>pick(b,order);box.appendChild(b)});
+    $('res').hidden=true;$('res').classList.remove('show');
+    $('rv').hidden=false;document.body.classList.add('rv-open');$('rv').scrollTop=0;
+    if(st&&st.p!=null){const b=box.children[st.p];if(b)reveal(b,true)}
+    else if(!preview)lsSet(rvKey,{o:order});
+  }
+  function pick(b,order){
+    if(!rvData||$('pks').dataset.done)return;
+    ensureAudio();
+    const idx=[...$('pks').children].indexOf(b);
+    if(!rvPreview)lsSet(rvKey,{o:order,p:idx});
+    reveal(b,false);
+  }
+  function reveal(b,instant){
+    const box=$('pks');box.dataset.done='1';const all=[...box.children];all.forEach(x=>x.disabled=true);
+    const amt=rvData.a[+b.dataset.ai],big=amt===Math.max(...rvData.a);
+    $('resMsg').textContent=rvData.m||'Chúc mừng năm mới! An khang thịnh vượng, vạn sự như ý.';
+    $('resFrom').textContent='— '+rvData.f;
+    const showRes=()=>{const r=$('res');r.hidden=false;void r.offsetWidth;r.classList.add('show')};
+    if(instant||reduce){b.classList.add('flip','mine');all.forEach(x=>{if(x!==b)x.classList.add('flip','other')});
+      $('rvHint').textContent=instant?'Bạn đã mở bao lì xì này rồi 🧧':(big?'Trúng bao to nhất luôn! 🎉':'Các bao còn lại có những gì nè 👀');
+      $('resAmt').textContent=fmt(amt);showRes();return}
+    // 1) bao được chọn rung lên, các bao khác mờ đi
+    $('rvHint').textContent='Mở ra xem nào…';box.classList.add('picking');b.classList.add('chosen');
+    // 2) lật bao, pháo hoa + xu bay
+    setTimeout(()=>{b.classList.remove('chosen');b.classList.add('flip','mine');
+      const r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+      if(typeof tada==='function')tada();fireworks(cx,cy,big?90:60);coins(b);
+      $('rvHint').textContent=big?'Trúng bao to nhất luôn! 🎉':'Bạn nhận được '+fmt(amt)+' 🧧'},650);
+    // 3) lần lượt lật các bao còn lại
+    const others=all.filter(x=>x!==b);
+    setTimeout(()=>{box.classList.remove('picking');
+      others.forEach((x,i)=>setTimeout(()=>x.classList.add('flip','other'),i*220))},1550);
+    const endOthers=1550+others.length*220+400;
+    if(big)[0,380,760].forEach(d=>setTimeout(()=>fireworks(innerWidth*(.2+Math.random()*.6),innerHeight*(.15+Math.random()*.3),70),endOthers-300+d));
+    // 4) thẻ kết quả + số tiền chạy lên
+    setTimeout(()=>{if(!big)$('rvHint').textContent='Các bao còn lại có những gì nè 👀';
+      $('resAmt').textContent=fmt(0);showRes();countUp($('resAmt'),amt);
+      setTimeout(()=>$('res').scrollIntoView({behavior:'smooth',block:'nearest'}),250)},endOthers);
+  }
+  function countUp(el,to){const t0=performance.now(),d=1000;
+    const step=t=>{const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(to*e/ (to>=1000?1000:1))*(to>=1000?1000:1));if(k<1)requestAnimationFrame(step);else el.textContent=fmt(to)};
+    requestAnimationFrame(step);setTimeout(()=>el.textContent=fmt(to),d+150)}
+  /* pháo hoa trên canvas riêng, chỉ chạy khi còn tia */
+  let fx=null,fg=null,sparks=[],fxRun=false;
+  function fireworks(x,y,n){
+    if(!fx){fx=document.createElement('canvas');fx.className='rvfx';fx.setAttribute('aria-hidden','true');document.body.appendChild(fx);fg=fx.getContext('2d')}
+    const dpr=Math.min(devicePixelRatio||1,2);if(fx.width!==innerWidth*dpr){fx.width=innerWidth*dpr;fx.height=innerHeight*dpr;fg.setTransform(dpr,0,0,dpr,0,0)}
+    const cols=['#ffd76a','#ffef9f','#ff6b5a','#ff9ab8','#fff4d6'];
+    for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,sp=2+Math.random()*5.5;
+      sparks.push({x,y,px:x,py:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,life:1,dec:.011+Math.random()*.012,c:cols[(Math.random()*cols.length)|0],w:1.4+Math.random()*1.8})}
+    if(!fxRun){fxRun=true;let last=performance.now();
+      const loop=t=>{const dt=Math.min((t-last)/16.67,3);last=t;fg.clearRect(0,0,innerWidth,innerHeight);fg.globalCompositeOperation='lighter';
+        for(const p of sparks){p.px=p.x;p.py=p.y;p.vx*=Math.pow(.97,dt);p.vy=p.vy*Math.pow(.97,dt)+.07*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=p.dec*dt;
+          if(p.life<=0)continue;fg.globalAlpha=Math.min(1,p.life*1.4);fg.strokeStyle=p.c;fg.lineWidth=p.w;fg.lineCap='round';
+          fg.beginPath();fg.moveTo(p.px-p.vx*1.5,p.py-p.vy*1.5);fg.lineTo(p.x,p.y);fg.stroke()}
+        fg.globalAlpha=1;fg.globalCompositeOperation='source-over';sparks=sparks.filter(p=>p.life>0);
+        if(sparks.length)requestAnimationFrame(loop);else{fxRun=false;fg.clearRect(0,0,innerWidth,innerHeight)}};
+      requestAnimationFrame(loop)}
+  }
+  function coins(el){const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    for(let i=0;i<18;i++){const c=document.createElement('span');c.className='coin';c.textContent=['🪙','✨','🧧','🌸'][i%4];document.body.appendChild(c);
+      const a=Math.random()*Math.PI*2,d=70+Math.random()*110;
+      c.animate([{transform:`translate(${cx-11}px,${cy-11}px) scale(.4)`,opacity:1},{transform:`translate(${cx-11+Math.cos(a)*d}px,${cy-11+Math.sin(a)*d+60}px) scale(1) rotate(${(Math.random()*360)|0}deg)`,opacity:0}],
+        {duration:1100+Math.random()*500,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>c.remove()}}
+  function closeRv(){$('rv').hidden=true;document.body.classList.remove('rv-open');delete $('pks').dataset.done;
+    if(new URLSearchParams(location.search).has('lx'))history.replaceState(null,'',location.pathname)}
+  $('rvHome').onclick=closeRv;
+  $('rvBack').onclick=()=>{const f=rvData&&!rvPreview?rvData.f:'';closeRv();if(f)$('lxTo').value=f;dirty();$('lixi').scrollIntoView({behavior:reduce?'auto':'smooth'})};
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('rv').hidden&&rvPreview)closeRv()});
+
+  const q=new URLSearchParams(location.search).get('lx');
+  if(q){const d=dec(q);if(d)openRv(d,false);else{toast('Link lì xì không đúng hoặc bị thiếu, bạn xin lại link nhé');history.replaceState(null,'',location.pathname)}}
+})();
 </script>
 </body>
 </html>
