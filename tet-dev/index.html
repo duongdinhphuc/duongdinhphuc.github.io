@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chúc mừng năm mới 🧧 (bản thử)</title>
+<!-- Trang đang phát triển: không đưa lên Google, không có link từ trang chủ. Xong thì chuyển sang /tet/ -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Lắc cây đào, cây mai hái lộc đầu năm, nhận quẻ may mắn và lời chúc năm mới.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧧</text></svg>">
+<script src="../assets/theme-init.js?v=5"></script>
+<link rel="stylesheet" href="../assets/site.css?v=5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /* Đêm: đỏ thẫm ấm. Ngày: kem đào. */
+  :root{
+    --bg:#1b0a0d;--bg2:#4a1219;--surface:rgba(58,18,24,.86);--surface2:rgba(255,255,255,.06);--line:rgba(255,214,150,.16);
+    --text:#fff1e2;--muted:#e0b49f;--red:#d6262f;--red2:#8e1119;--gold:#f6c453;--gold2:#e09a1f;--shadow:0 24px 60px rgba(0,0,0,.45);
+    --g1:#ffd77a;--g2:#ff8a6b;--g3:#ff5c7a;
+  }
+  :root[data-theme="light"]{
+    --bg:#fff5e9;--bg2:#ffe0bf;--surface:rgba(255,255,255,.92);--surface2:rgba(140,40,20,.05);--line:rgba(160,60,30,.14);
+    --text:#4a1610;--muted:#8a5440;--shadow:0 24px 60px rgba(170,70,30,.16);--g1:#d9861a;--g2:#d6262f;--g3:#b0124a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-body);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);background:var(--bg);min-height:100vh;overflow-x:hidden;
+       background-image:radial-gradient(60% 45% at 50% 0%,var(--bg2),transparent 72%),radial-gradient(45% 40% at 0% 100%,rgba(246,196,83,.16),transparent 70%),
+                        radial-gradient(45% 40% at 100% 90%,rgba(214,38,47,.18),transparent 70%);background-attachment:fixed}
+  #petals{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:78px 16px 56px}
+  .dev{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:79;font:700 .72rem/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;
+       padding:.45rem .8rem;border-radius:999px;background:rgba(0,0,0,.55);color:#ffd77a;border:1px dashed rgba(255,215,122,.6)}
+  @media(max-width:480px){.dev{top:auto;bottom:12px}}
+
+  /* ---------- Lồng đèn ---------- */
+  .lanterns{position:fixed;top:0;left:0;right:0;height:0;z-index:2;pointer-events:none}
+  .ln{position:absolute;top:0;left:var(--x);transform-origin:50% 0;animation:sway var(--t) ease-in-out infinite alternate;animation-delay:var(--d)}
+  .ln::before{content:"";display:block;width:2px;height:var(--h);margin:0 auto;background:linear-gradient(#7a3a1a,#c9871f)}
+  .ln b{display:block;width:var(--w);height:calc(var(--w)*1.15);border-radius:46%;position:relative;
+        background:radial-gradient(circle at 50% 40%,#ff6a5a,#d6262f 55%,#8e1119);box-shadow:0 0 28px rgba(255,90,60,.55),inset 0 -6px 10px rgba(0,0,0,.2)}
+  .ln b::before,.ln b::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:55%;height:7px;border-radius:3px;background:var(--gold)}
+  .ln b::before{top:-3px}.ln b::after{bottom:-3px}
+  .ln i{display:block;width:2px;height:22px;margin:3px auto 0;background:var(--gold);box-shadow:0 0 0 0 transparent}
+  .ln i::after{content:"";display:block;width:8px;height:12px;margin:20px 0 0 -3px;border-radius:0 0 4px 4px;background:repeating-linear-gradient(90deg,#f6c453 0 2px,#d6262f 2px 3px)}
+  @keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+  @media(max-width:600px){.ln.hide-sm{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{text-align:center}
+  .chip{display:inline-flex;gap:.45rem;align-items:center;font-size:var(--fs-label);color:var(--muted);background:var(--surface2);border:1px solid var(--line);padding:.35rem .85rem;border-radius:999px}
+  .hero h1{font-family:var(--font-display);font-weight:400;font-size:var(--fs-display);line-height:1.1;margin-top:10px;
+           background:linear-gradient(100deg,var(--g1),var(--g2) 45%,var(--g3) 70%,var(--g1));background-size:250% 100%;
+           -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+  @keyframes shine{to{background-position:-250% 0}}
+  .sub{margin:10px auto 0;max-width:560px;font-weight:600;font-size:var(--fs-lead);line-height:1.55}
+  .sub .g{background:linear-gradient(100deg,var(--g1),var(--g2) 55%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;
+          -webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .count{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .count[hidden]{display:none}
+  .unit{min-width:78px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 10px;text-align:center}
+  .unit b{display:block;font-family:var(--font-heading);font-weight:700;font-size:1.9rem;font-variant-numeric:tabular-nums;color:var(--gold)}
+  :root[data-theme="light"] .unit b{color:var(--red)}
+  .unit small{color:var(--muted);font-size:var(--fs-small);text-transform:uppercase;letter-spacing:.1em}
+
+  /* ---------- Cây mai ---------- */
+  /* Nút chuyển Đào / Mai */
+  .seg{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;margin:22px auto 0;padding:5px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .seg button{position:relative;z-index:1;border:0;background:none;cursor:pointer;color:var(--muted);font:600 var(--fs-button) var(--font-body);padding:.6rem 1.15rem;border-radius:999px;transition:color .3s;white-space:nowrap}
+  .seg button small{font-weight:500;font-size:var(--fs-small);opacity:.8;margin-left:2px}
+  .seg button[aria-checked="true"]{color:#fff}
+  .seg .knob{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:999px;transition:transform .45s cubic-bezier(.3,1.3,.5,1),background .4s;
+             background:linear-gradient(135deg,#f6c453,#e09a1f);box-shadow:0 6px 16px rgba(224,154,31,.4)}
+  .seg[data-t="dao"] .knob{transform:translateX(0);background:linear-gradient(135deg,#ff8fb1,#e0457f);box-shadow:0 6px 16px rgba(224,69,127,.4)}
+  .seg[data-t="mai"] .knob{transform:translateX(100%)}
+  .seg[data-t="mai"] button[data-t="mai"]{color:#4a1610}
+  #flowers{transition:opacity .35s}
+  #flowers.swap{opacity:0}
+  .stage{position:relative;width:min(540px,94vw);aspect-ratio:420/440;margin:18px auto 0;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+  .stage:active{cursor:grabbing}
+  .stage svg.layer{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  /* gốc xoay ở chân thân cây (210,372 trên khung 420x440) */
+  .tree-wrap{position:absolute;inset:0;transform-origin:50% 84.5%;will-change:transform;animation:breeze 6.5s ease-in-out infinite alternate}
+  .tree-wrap.shake{animation:shake .9s cubic-bezier(.36,.07,.19,.97)}
+  @keyframes shake{10%{transform:rotate(-4deg)}25%{transform:rotate(4.5deg)}40%{transform:rotate(-3.5deg)}55%{transform:rotate(2.5deg)}70%{transform:rotate(-1.5deg)}85%{transform:rotate(.8deg)}100%{transform:rotate(0)}}
+  .env{transform-box:fill-box;transform-origin:50% 0;animation:envSway var(--t,3s) ease-in-out infinite alternate;animation-delay:var(--d,0s);transition:opacity .25s}
+  .env.taken{opacity:0}
+  @keyframes envSway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+  .flw{transform-box:fill-box;transform-origin:50% 50%}
+  /* cây khẽ đung đưa theo gió (lớp trong), lắc mạnh khi hái lộc (lớp ngoài) */
+  @keyframes breeze{from{transform:rotate(-.9deg)}to{transform:rotate(.9deg)}}
+  /* hoa nở dần từ gốc ra ngọn */
+  .fi{transform-box:fill-box;transform-origin:50% 50%;animation:bloomIn .8s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:var(--bd,0s)}
+  @keyframes bloomIn{from{transform:scale(0) rotate(-45deg);opacity:0}}
+  .fi.wig{animation:wig .6s ease}
+  @keyframes wig{30%{transform:scale(1.3) rotate(14deg)}65%{transform:scale(.94) rotate(-6deg)}}
+  .lf{transform-box:fill-box;transform-origin:0 50%;animation:leafIn .9s ease-out backwards;animation-delay:var(--bd,0s)}
+  @keyframes leafIn{from{transform:scale(0);opacity:0}}
+  /* đèn nháy trên cành */
+  .tw{animation:twk var(--t) ease-in-out infinite alternate;animation-delay:var(--d)}
+  @keyframes twk{from{opacity:.15}to{opacity:1}}
+  :root[data-theme="light"] .tw{opacity:.7}
+  /* ký hiệu ⓘ cạnh chữ Phúc trên chậu (toạ độ theo khung 420x440 của cây) */
+  .info{position:absolute;left:calc(245 / 420 * 100%);top:calc(392 / 440 * 100%);z-index:6;width:20px;height:20px;padding:0;border-radius:50%;cursor:help;
+        border:1.5px solid #f6c453;background:#7a0e15;color:#f6c453;font:800 italic 12px/17px Georgia,serif;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:transform .2s}
+  .info:hover,.info:focus-visible,.info[aria-expanded="true"]{transform:scale(1.15);outline:none;background:#a3141c}
+  .tip{position:absolute;left:calc(255 / 420 * 100%);bottom:calc(100% - 392 / 440 * 100% + 10px);z-index:7;width:min(290px,84vw);transform:translate(-50%,6px);
+       padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--text);
+       font-size:var(--fs-body-sm);line-height:1.55;text-align:left;opacity:0;pointer-events:none;transition:opacity .2s,transform .25s;backdrop-filter:none}
+  .tip b{color:var(--gold);font-weight:800}
+  :root[data-theme="light"] .tip b{color:var(--red)}
+  .tip::after{content:"";position:absolute;left:50%;margin-left:-8px;top:100%;border:8px solid transparent;border-top-color:var(--surface)}
+  .tip.show{opacity:1;transform:translate(-50%,0)}
+  @media (hover:hover){.info:hover + .tip{opacity:1;transform:translate(-50%,0)}}
+  .fall{position:absolute;z-index:3;width:30px;height:40px;pointer-events:none}
+  .fall svg{width:100%;height:100%}
+
+  .controls{text-align:center;margin-top:8px}
+  .btn{font:600 var(--fs-button) var(--font-body);border:none;border-radius:999px;padding:.85rem 1.6rem;cursor:pointer;color:#fff;margin:.25rem;
+       background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 10px 26px rgba(214,38,47,.35);transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+  .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#4a1610;box-shadow:0 10px 26px rgba(246,196,83,.35)}
+  .btn.ghost{background:var(--surface2);color:var(--text);border:1px solid var(--line);box-shadow:none}
+  .btn[hidden]{display:none}
+  .status{min-height:1.6em;margin-top:8px;color:var(--muted);font-size:var(--fs-body-sm)}
+  .tally{color:var(--gold);font-weight:700;font-size:var(--fs-body-sm)}
+  :root[data-theme="light"] .tally{color:var(--red)}
+
+  /* ---------- Bao lì xì mở ra quẻ ---------- */
+  .modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;background:rgba(20,4,6,.62);opacity:0;pointer-events:none;transition:opacity .35s}
+  .modal.show{opacity:1;pointer-events:auto}
+  .lx{position:relative;width:min(300px,82vw);aspect-ratio:3/4;perspective:900px;transform:translateY(30px) scale(.9);transition:transform .5s cubic-bezier(.2,1.3,.4,1)}
+  .modal.show .lx{transform:none}
+  .lx .body{position:absolute;inset:0;border-radius:18px;background:linear-gradient(160deg,#ef3b3b,#a3141c);box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 0 0 3px rgba(246,196,83,.65);overflow:hidden}
+  .lx .body::after{content:"";position:absolute;inset:10px;border:1.5px dashed rgba(246,196,83,.5);border-radius:12px}
+  .lx .seal{position:absolute;left:50%;top:44%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;z-index:3;display:grid;place-items:center;
+            background:radial-gradient(circle at 35% 30%,#ffe39a,#f2b23a 60%,#c98410);color:#a3141c;font:700 1.55rem/1 var(--font-accent);padding-bottom:4px;box-shadow:0 6px 16px rgba(0,0,0,.3);transition:opacity .3s,transform .4s}
+  .lx .flap{position:absolute;left:0;right:0;top:0;height:52%;z-index:2;transform-origin:50% 0;transition:transform .7s cubic-bezier(.5,0,.3,1);
+            background:linear-gradient(180deg,#f04848,#c41d26);clip-path:polygon(0 0,100% 0,100% 30%,50% 100%,0 30%);
+            filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+  .lx .card{position:absolute;left:8%;right:8%;top:9%;z-index:1;border-radius:14px;padding:18px 16px 16px;text-align:center;
+            background:linear-gradient(180deg,#fffaf0,#fff0d6);color:#5a1a10;box-shadow:0 10px 24px rgba(0,0,0,.25);transition:transform .8s cubic-bezier(.2,1,.3,1) .45s}
+  .lx.open .flap{transform:rotateX(180deg)}
+  .lx.open .seal{opacity:0;transform:scale(.4)}
+  .lx.open .card{transform:translateY(-32%)}
+  .card .rank{display:inline-block;font:800 .78rem/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:.4rem .75rem;border-radius:999px}
+  .card .ic{font-size:2.6rem;line-height:1.2;margin:8px 0 2px}
+  .card h3{font:800 1.3rem/1.3 var(--font-heading);color:#a3141c}
+  .card p{font-size:.95rem;line-height:1.55;margin:.5rem 0}
+  .card .lucky{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:.8rem;font-weight:700;color:#8a3a20}
+  .card .lucky span{background:rgba(214,38,47,.08);border:1px solid rgba(214,38,47,.18);padding:.3rem .6rem;border-radius:999px}
+  .mact{position:absolute;left:6%;right:6%;bottom:7%;z-index:5;display:flex;flex-direction:column;gap:8px;align-items:stretch;opacity:0;pointer-events:none;transition:opacity .4s}
+  .mact .btn{margin:0;padding:.7rem 1rem}
+  .mact .btn[hidden]{display:none}
+  .pform{display:flex;flex-direction:column;gap:6px}
+  .pform[hidden]{display:none}
+  .pform input{font:inherit;font-size:.9rem;padding:.6rem .75rem;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.92);color:#4a1610}
+  .pform input:focus{outline:2px solid #f6c453}
+  /* thẻ trúng giải: viền vàng lấp lánh */
+  .card.win{background:linear-gradient(180deg,#fff7d6,#ffe7a3);box-shadow:0 0 0 3px #f6c453,0 10px 30px rgba(246,196,83,.55)}
+  .card.win .rank{background:linear-gradient(135deg,#f6c453,#e09a1f);color:#4a1610}
+  .mact .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
+  .mact.show{opacity:1;pointer-events:auto}
+  /* nắp mở xong thì thẻ quẻ nằm trên nắp */
+  .lx.out .card{z-index:4}
+  .mwrap{position:relative}
+
+  /* ---------- Sắp có ---------- */
+  .soon{margin-top:38px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .soon .c{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+  .soon h3{font:var(--fw-heading) var(--fs-h3)/1.3 var(--font-heading);margin:6px 0}
+  .soon p{color:var(--muted);font-size:var(--fs-body-sm)}
+  .soon .tag{font-size:var(--fs-small);font-weight:700;color:var(--gold)}
+  :root[data-theme="light"] .soon .tag{color:var(--red)}
+
+  .toast{position:fixed;left:50%;bottom:24px;z-index:95;transform:translate(-50%,120px);opacity:0;transition:transform .35s,opacity .35s;
+         background:var(--text);color:var(--bg);padding:.7rem 1.2rem;border-radius:999px;font-size:.92rem;font-weight:600;box-shadow:var(--shadow);max-width:90vw;text-align:center}
+  .toast.show{transform:translate(-50%,0);opacity:1}
+  footer{text-align:center;color:var(--muted);font-size:var(--fs-label);margin-top:40px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="petals" aria-hidden="true"></canvas>
+<div class="dev">Bản thử · tet-dev</div>
+<div class="lanterns" aria-hidden="true">
+  <div class="ln" style="--x:7%;--h:46px;--w:42px;--t:3.2s;--d:-.4s"><b></b><i></i></div>
+  <div class="ln hide-sm" style="--x:22%;--h:22px;--w:30px;--t:2.7s;--d:-1.2s"><b></b><i></i></div>
+  <div class="ln hide-sm" style="--x:75%;--h:26px;--w:32px;--t:3s;--d:-2s"><b></b><i></i></div>
+  <div class="ln" style="--x:89%;--h:50px;--w:42px;--t:3.4s;--d:-.9s"><b></b><i></i></div>
+</div>
+
+<div class="wrap">
+  <main>
+    <section class="hero">
+      <span class="chip" id="chip">🐐 Xuân Đinh Mùi 2027</span>
+      <h1>Chúc mừng năm mới</h1>
+      <p class="sub" id="sub"><span class="g">Lắc cây để hái lộc đầu năm nhé</span> 🌸</p>
+      <div class="count" id="count" hidden>
+        <div class="unit"><b id="cd">0</b><small>ngày</small></div>
+        <div class="unit"><b id="ch">0</b><small>giờ</small></div>
+        <div class="unit"><b id="cm">0</b><small>phút</small></div>
+        <div class="unit"><b id="cs">0</b><small>giây</small></div>
+      </div>
+
+      <div class="seg" id="seg" role="radiogroup" aria-label="Chọn cây Tết">
+        <button type="button" role="radio" data-t="dao">🌸 Đào</button>
+        <button type="button" role="radio" data-t="mai">🌼 Mai</button>
+        <i class="knob" aria-hidden="true"></i>
+      </div>
+      <div class="stage" id="stage" title="Kéo qua lại hoặc bấm để lắc cây">
+        <button class="info" id="phucInfo" type="button" aria-label="Chữ Phúc nghĩa là gì?" aria-expanded="false" aria-describedby="phucTip">i</button>
+        <div class="tip" id="phucTip" role="tooltip"><b>Phúc</b> nghĩa là phúc lành, may mắn, hạnh phúc. Ngày Tết, người Việt treo chữ Phúc trong nhà để cầu một năm mới an lành, sum vầy. Phúc thường đi cùng <b>Lộc</b> (tài lộc) và <b>Thọ</b> (sống lâu).</div>
+        <svg class="layer" viewBox="0 0 420 440" aria-hidden="true">
+          <defs>
+            <radialGradient id="flwMai"><stop offset="0" stop-color="#fff1a6"/><stop offset=".55" stop-color="#ffd21f"/><stop offset="1" stop-color="#f0a000"/></radialGradient>
+            <radialGradient id="flwDao"><stop offset="0" stop-color="#fff6f8"/><stop offset=".5" stop-color="#ffc2d3"/><stop offset="1" stop-color="#f07aa0"/></radialGradient>
+            <linearGradient id="leafMai" x1="0" x2="1"><stop offset="0" stop-color="#b6e26a"/><stop offset="1" stop-color="#5fa83a"/></linearGradient>
+            <linearGradient id="leafDao" x1="0" x2="1"><stop offset="0" stop-color="#8cc46a"/><stop offset="1" stop-color="#3f7f35"/></linearGradient>
+            <radialGradient id="halo"><stop offset="0" stop-color="#ffd77a" stop-opacity=".42"/><stop offset=".6" stop-color="#ff9a6b" stop-opacity=".12"/><stop offset="1" stop-color="#ff9a6b" stop-opacity="0"/></radialGradient>
+            <radialGradient id="bulb"><stop offset="0" stop-color="#fffbe6"/><stop offset=".35" stop-color="#ffd76a"/><stop offset="1" stop-color="#ffb02e" stop-opacity="0"/></radialGradient>
+            <linearGradient id="pot" x1="0" x2="1"><stop offset="0" stop-color="#8e1119"/><stop offset=".35" stop-color="#e2363d"/><stop offset=".6" stop-color="#c6222b"/><stop offset="1" stop-color="#7a0e15"/></linearGradient>
+            <linearGradient id="potRim" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#d9961d"/></linearGradient>
+            <g id="envShape"><line x1="0" y1="-16" x2="0" y2="0" stroke="#e0a21f" stroke-width="1.2"/>
+              <rect x="-11" y="0" width="22" height="30" rx="3" fill="#d6262f" stroke="#f6c453" stroke-width="1.4"/>
+              <path d="M-11 3 L0 12 L11 3" fill="none" stroke="#f6c453" stroke-width="1.2"/>
+              <circle cx="0" cy="18" r="5" fill="#f6c453"/></g>
+            <g id="coin"><line x1="0" y1="-12" x2="0" y2="0" stroke="#d6262f" stroke-width="1.4"/>
+              <circle cx="0" cy="7" r="7" fill="#f6c453" stroke="#c98410" stroke-width="1.2"/><rect x="-2.2" y="4.8" width="4.4" height="4.4" fill="#a8650d"/></g>
+          </defs>
+          <circle cx="210" cy="200" r="210" fill="url(#halo)"/>
+          <ellipse cx="210" cy="432" rx="128" ry="9" fill="rgba(0,0,0,.2)"/>
+        </svg>
+        <div class="tree-wrap" id="treeWrap">
+          <svg class="layer" id="treeSvg" viewBox="0 0 420 440" aria-hidden="true">
+            <g id="branches" stroke-linecap="round" fill="none"></g>
+            <g id="leaves"></g>
+            <g id="flowers"></g>
+          </svg>
+          <!-- lớp nhỏ, có chuyển động liên tục: đèn nháy, đồng xu, bao lì xì -->
+          <svg class="layer" viewBox="0 0 420 440" aria-hidden="true">
+            <g id="lights"></g>
+            <g id="deco"></g>
+            <g id="envs"></g>
+          </svg>
+        </div>
+        <svg class="layer" viewBox="0 0 420 440" aria-hidden="true">
+          <!-- chậu gốm men đỏ viền vàng -->
+          <ellipse cx="210" cy="370" rx="78" ry="11" fill="#3b2418"/>
+          <g fill="#6aa84f" opacity=".9"><circle cx="176" cy="368" r="4"/><circle cx="186" cy="371" r="3"/><circle cx="236" cy="369" r="4"/><circle cx="248" cy="371" r="3"/><circle cx="222" cy="372" r="2.5"/></g>
+          <path d="M134 372 Q132 410 158 430 H262 Q288 410 286 372 Z" fill="url(#pot)"/>
+          <path d="M150 386 Q210 398 270 386" stroke="#f6c453" stroke-width="2" fill="none" opacity=".85"/>
+          <path d="M156 418 Q210 426 264 418" stroke="#f6c453" stroke-width="1.6" fill="none" opacity=".7"/>
+          <g fill="none" stroke="#f6c453" stroke-width="1.6" opacity=".75">
+            <path d="M160 404 q6 -8 12 0 q6 -8 12 0"/><path d="M236 404 q6 -8 12 0 q6 -8 12 0"/>
+          </g>
+          <ellipse cx="210" cy="370" rx="80" ry="8" fill="none" stroke="url(#potRim)" stroke-width="6"/>
+          <rect x="179" y="391" width="62" height="28" rx="14" fill="#f6c453" stroke="#c98410" stroke-width="1.2"/>
+          <text x="210" y="412" text-anchor="middle" font-size="21" font-weight="700" fill="#a3141c" font-family="'Dancing Script',cursive">Phúc</text>
+          <path d="M146 380 Q144 405 160 422" stroke="rgba(255,255,255,.28)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="controls">
+        <button class="btn gold" id="shakeBtn">🌸 Lắc cây hái lộc</button>
+        <button class="btn ghost" id="motionBtn" hidden>📳 Lắc điện thoại để hái lộc</button>
+        <p class="status" id="status">Kéo cây qua lại, bấm nút, hoặc lắc điện thoại để hái lộc.</p>
+        <p class="tally" id="tally" hidden></p>
+      </div>
+    </section>
+
+    <section class="soon">
+      <div class="c"><span class="tag">SẮP CÓ</span><h3>🧧 Lì xì online</h3><p>Tạo bao lì xì kèm lời chúc riêng, gửi link cho người thân để họ mở.</p></div>
+      <div class="c"><span class="tag">SẮP CÓ</span><h3>🌼 Cây điều ước</h3><p>Viết điều ước năm mới, treo lên cành đào, cành mai cùng mọi người.</p></div>
+    </section>
+  </main>
+  <footer>© <span class="yr">2026</span> · duongdinhphuc.github.io</footer>
+</div>
+
+<!-- Bao lì xì mở ra quẻ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Lộc đầu năm">
+  <div class="mwrap">
+    <div class="lx" id="lx">
+      <div class="body"></div>
+      <div class="card" id="qcard">
+        <span class="rank" id="qRank">Đại Cát</span>
+        <div class="ic" id="qIc">🧧</div>
+        <h3 id="qTitle">Vạn sự như ý</h3>
+        <p id="qText"></p>
+        <div class="lucky"><span id="qNum"></span><span id="qColor"></span></div>
+      </div>
+      <div class="flap"></div>
+      <div class="seal">Phúc</div>
+      <div class="mact" id="mact">
+        <div class="pform" id="pform" hidden>
+          <input id="pname" maxlength="60" placeholder="Tên của bạn" autocomplete="name">
+          <input id="pcontact" maxlength="100" placeholder="SĐT / Zalo / Facebook để nhận quà">
+          <button class="btn gold" id="psend" type="button">🎁 Gửi để nhận quà</button>
+        </div>
+        <button class="btn gold" id="again">🌸 Hái lộc nữa</button>
+        <button class="btn ghost" id="share">📤 Khoe lộc</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>document.querySelectorAll(".yr").forEach(e=>e.textContent=new Date().getFullYear())</script>
+
+<script src="../assets/site.js?v=5"></script>
+<script>
+const $=id=>document.getElementById(id);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const R=(a,b)=>a+Math.random()*(b-a);
+const pad=n=>String(n).padStart(2,'0');
+let toastT=0;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
+
+/* =========================================================
+   TẾT: năm, ngày giao thừa, chế độ theo thời điểm
+   ========================================================= */
+const TET={start:new Date(2027,1,6),can:'Đinh Mùi',animal:'🐐',year:2027};   // mùng 1 Tết Đinh Mùi (6/2/2027)
+/* Cây Tết: 'dao' (đào, miền Bắc) hoặc 'mai' (mai, miền Nam); nhớ lựa chọn của người xem */
+let TREE='mai';try{const t=localStorage.getItem('tetTree');if(t==='dao'||t==='mai')TREE=t}catch(e){}
+const treeName=()=>TREE==='dao'?'cây đào':'cây mai',treeIcon=()=>TREE==='dao'?'🌸':'🌼';
+let subKey='';function setSub(t,e){if(subKey===t+e)return;subKey=t+e;const g=document.createElement('span');g.className='g';g.textContent=t;$('sub').replaceChildren(g,' '+e)}
+let tickNow=()=>{};
+(function(){
+  $('chip').textContent=`${TET.animal} Xuân ${TET.can} ${TET.year}`;
+  const end=new Date(TET.start);end.setDate(end.getDate()+3);      // hết mùng 3
+  const tick=()=>{
+    const now=new Date(),ms=TET.start-now;
+    if(ms>0){
+      $('count').hidden=false;const d=Math.floor(ms/864e5);
+      $('cd').textContent=d;$('ch').textContent=pad(Math.floor(ms/36e5)%24);$('cm').textContent=pad(Math.floor(ms/6e4)%60);$('cs').textContent=pad(Math.floor(ms/1e3)%60);
+      setSub(d>=1?`Còn ${d} ngày nữa là Tết ${TET.can}. Lắc ${treeName()} hái lộc sớm nhé`:`Sắp tới giao thừa rồi! Lắc ${treeName()} hái lộc nhé`,treeIcon());
+    }else if(now<end){$('count').hidden=true;setSub(`Xuân ${TET.can} đã về! Chúc mừng năm mới, lắc ${treeName()} hái lộc nào`,'🎉')}
+    else{$('count').hidden=true;setSub(`Tết đã qua, nhưng lộc thì vẫn còn. Lắc ${treeName()} hái lộc nhé`,treeIcon())}
+  };
+  tickNow=tick;tick();setInterval(tick,1000);
+})();
+
+/* =========================================================
+   CÂY MAI: cành, hoa, bao lì xì treo
+   ========================================================= */
+const BR=[ // [đường cong, độ dày ở gốc]: thân + cành chính
+  ['M210 372 C 205 320, 222 292, 202 250 C 186 220, 212 190, 206 150 C 204 120, 210 92, 212 58',15],
+  ['M204 255 C 160 236, 122 222, 80 182',9],['M200 232 C 250 216, 300 200, 344 160',9],
+  ['M205 192 C 172 162, 150 130, 118 95',7],['M207 182 C 240 152, 270 122, 302 90',7],
+  ['M120 212 C 100 202, 88 192, 64 202',4.5],['M302 190 C 322 190, 342 184, 368 196',4.5],
+  ['M150 140 C 130 135, 114 140, 92 128',4],['M262 132 C 286 126, 302 132, 328 120',4],
+  ['M211 100 C 230 85, 241 74, 256 58',3.5],['M209 112 C 191 96, 180 80, 168 60',3.5],
+  ['M80 182 C 70 168, 66 156, 70 140',3.5],['M344 160 C 352 146, 352 134, 348 118',3.5]];
+const NS='http://www.w3.org/2000/svg',mk=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const brG=$('branches'),flG=$('flowers'),lfG=$('leaves'),ltG=$('lights'),dcG=$('deco'),evG=$('envs');
+// số ngẫu nhiên cố định để dáng cây lần nào cũng giống nhau
+let seed=20270206;const SR=(a,b)=>{seed=(seed*16807)%2147483647;return a+(b-a)*seed/2147483647};
+const paths=[],twigs=[],sampler=mk('g',{},null);      // đường mẫu (không vẽ) để lấy toạ độ dọc cành
+const mkPath=d=>{const q=document.createElementNS(NS,'path');q.setAttribute('d',d);sampler.appendChild(q);return q};
+$('treeSvg').appendChild(sampler);sampler.setAttribute('visibility','hidden');
+BR.forEach(([d])=>paths.push(mkPath(d)));
+// nhánh con mọc ra từ các cành
+paths.forEach((p,i)=>{if(i===0)return;const L=p.getTotalLength(),n=i<5?3:2;
+  for(let k=0;k<n;k++){const t=SR(.25,.9),a=p.getPointAtLength(L*t),b=p.getPointAtLength(Math.min(L,L*t+2));
+    const ang=Math.atan2(b.y-a.y,b.x-a.x)+(SR(0,1)<.5?-1:1)*SR(.5,1.1),len=SR(18,34);
+    const ex=a.x+Math.cos(ang)*len,ey=a.y+Math.sin(ang)*len-SR(2,8),cx=a.x+Math.cos(ang)*len*.5+SR(-6,6),cy=a.y+Math.sin(ang)*len*.5-SR(4,10);
+    twigs.push([mkPath(`M${a.x.toFixed(1)} ${a.y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`),Math.max(1.6,BR[i][1]*.32)])}});
+/* Vẽ cành thuôn dần: chia mỗi đường thành nhiều đoạn, nét nhỏ dần về ngọn; thêm vệt sáng tạo khối */
+const barkG=mk('g',{},brG),hiG=mk('g',{opacity:.35},brG);
+function taper(p,w0,w1){const L=p.getTotalLength(),N=Math.max(6,Math.round(L/14));let prev=p.getPointAtLength(0);
+  for(let k=1;k<=N;k++){const pt=p.getPointAtLength(L*k/N),w=w0+(w1-w0)*(k/N);
+    mk('line',{x1:prev.x.toFixed(1),y1:prev.y.toFixed(1),x2:pt.x.toFixed(1),y2:pt.y.toFixed(1),'stroke-width':w.toFixed(2)},barkG);
+    if(w>3)mk('line',{x1:(prev.x-w*.22).toFixed(1),y1:prev.y.toFixed(1),x2:(pt.x-w*.22).toFixed(1),y2:pt.y.toFixed(1),'stroke-width':(w*.28).toFixed(2)},hiG);
+    prev=pt}}
+paths.forEach((p,i)=>taper(p,BR[i][1],i===0?4:Math.max(1.2,BR[i][1]*.35)));
+twigs.forEach(([p,w])=>taper(p,w,1));
+// mắt gỗ trên thân
+[[205,330,3],[214,286,2.4],[198,238,2.2]].forEach(([x,y,r])=>mk('ellipse',{cx:x,cy:y,rx:r,ry:r*1.5,fill:'rgba(0,0,0,.28)'},brG));
+
+/* Hoa: mai vàng 5 cánh thuôn / đào hồng 5 cánh tròn, nhụy đỏ */
+const FL={mai:{grad:'url(#flwMai)',rx:5.8,ry:4.4,d:6.2,core:'#e0760f',dot:'#9a4300',bud:'#a8d65a',bark:'#5e3320',hi:'#b07a4e',leaf:'url(#leafMai)',leaves:.75},
+          dao:{grad:'url(#flwDao)',rx:5.4,ry:5.4,d:5.6,core:'#d63a6c',dot:'#7a0f3a',bud:'#e8608f',bark:'#4a2622',hi:'#9a6a62',leaf:'url(#leafDao)',leaves:.3}};
+const BASE={x:210,y:372};
+/* Mẫu hoa vẽ một lần (mở / hé, cho mỗi loại cây), từng bông chỉ dùng lại mẫu qua <use> -> nhẹ hơn nhiều */
+const tplDefs=mk('defs',{},$('treeSvg'));
+function makeTpl(kind,open){const f=FL[kind],id=`f-${kind}-${open?'o':'h'}`,g=mk('g',{id},tplDefs);
+  const np=open?5:3,spread=open?72:44;
+  for(let i=0;i<np;i++){const deg=open?i*72:-44+i*spread,a=deg*Math.PI/180,d=open?f.d:f.d*.7,cx=(Math.cos(a)*d).toFixed(2),cy=(Math.sin(a)*d).toFixed(2);
+    mk('ellipse',{cx,cy,rx:f.rx*(open?1:.8),ry:f.ry*(open?1:.8),fill:f.grad,transform:`rotate(${deg} ${cx} ${cy})`},g)}
+  if(open){mk('circle',{r:2.8,fill:f.core},g);const nd=kind==='dao'?8:6,r=kind==='dao'?4.6:4.2;
+    for(let i=0;i<nd;i++){const a=(i*360/nd+20)*Math.PI/180,x=(Math.cos(a)*r).toFixed(2),y=(Math.sin(a)*r).toFixed(2);
+      mk('line',{x1:0,y1:0,x2:x,y2:y,stroke:f.dot,'stroke-width':.5},g);mk('circle',{cx:x,cy:y,r:.85,fill:f.dot},g)}}
+  return '#'+id}
+const TPL={};['mai','dao'].forEach(k=>{TPL[k]={o:makeTpl(k,true),h:makeTpl(k,false)}});
+function flower(x,y,s,f,open){
+  const g=mk('g',{class:'flw',transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(2)}) rotate(${R(0,72)|0})`},flG);
+  const delay=(Math.hypot(x-BASE.x,y-BASE.y)/300*1.2+R(0,.25)).toFixed(2);       // xa gốc thì nở sau
+  const i0=mk('g',{class:'fi',style:`--bd:${delay}s`},g);
+  mk('use',{href:TPL[TREE][open?'o':'h']},i0);
+  return i0;
+}
+function leaf(x,y,ang,s,f){const g=mk('g',{transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(0)}) scale(${s.toFixed(2)})`},lfG);
+  const l=mk('g',{class:'lf',style:`--bd:${(Math.hypot(x-BASE.x,y-BASE.y)/300*1.2+.2).toFixed(2)}s`},g);
+  mk('path',{d:'M0 0 C 5 -5, 13 -5, 18 0 C 13 5, 5 5, 0 0 Z',fill:f.leaf},l);mk('path',{d:'M1 0 L16 0',stroke:'rgba(0,0,0,.18)','stroke-width':.6},l)}
+/* Toạ độ dọc mỗi cành được tính sẵn một lần (mỗi 1.5px), lần dựng hoa nào cũng chỉ tra lại -> nhanh */
+const CACHE=new Map();
+function cacheOf(p){let c=CACHE.get(p);if(!c){const L=p.getTotalLength(),n=Math.ceil(L/1.5),a=new Float32Array((n+1)*2);
+  for(let k=0;k<=n;k++){const q=p.getPointAtLength(Math.min(L,k*1.5));a[k*2]=q.x;a[k*2+1]=q.y}c={L,a,n};CACHE.set(p,c)}return c}
+const LEN=p=>cacheOf(p).L;
+const AT=(p,l)=>{const c=cacheOf(p),k=Math.max(0,Math.min(c.n,Math.round(l/1.5)));return{x:c.a[k*2],y:c.a[k*2+1]}};
+function bloom(){
+  const f=FL[TREE];flG.innerHTML='';lfG.innerHTML='';barkG.setAttribute('stroke',f.bark);hiG.setAttribute('stroke',f.hi);
+  const all=[...paths.map((p,i)=>[p,i]),...twigs.map(([p])=>[p,99])];
+  all.forEach(([p,i])=>{const L=LEN(p),from=i===0?L*.58:L*.12,step=i===0?24:i===99?11:15;
+    for(let l=from;l<L;l+=step+R(-5,5)){const pt=AT(p,l),n=R(0,1)<.45?2:R(0,1)<.15?3:1;
+      for(let k=0;k<n;k++)flower(pt.x+R(-8,8),pt.y+R(-8,8),R(.55,1.08),f,R(0,1)>.16);
+      if(R(0,1)<f.leaves){const b=AT(p,Math.min(L,l+2));leaf(pt.x,pt.y,Math.atan2(b.y-pt.y,b.x-pt.x)*180/Math.PI+(R(0,1)<.5?-55:55),R(.6,1),f)}}
+    const e=AT(p,L);flower(e.x,e.y,R(.85,1.05),f,true);flower(e.x+R(-6,6),e.y-R(4,8),R(.5,.7),f,false)});
+  // nụ
+  all.forEach(([p])=>{const L=LEN(p);for(let k=0;k<2;k++){const pt=AT(p,R(.2,1)*L);mk('circle',{cx:(pt.x+R(-6,6)).toFixed(1),cy:(pt.y+R(-6,6)).toFixed(1),r:R(1.8,2.8).toFixed(1),fill:f.bud},flG)}});
+}
+bloom();
+// đèn nháy quấn quanh cành
+(function(){const list=[...paths.slice(0,5),...paths.slice(5)];
+  list.forEach((p,i)=>{const L=p.getTotalLength(),n=i===0?5:i<5?4:2;for(let k=0;k<n;k++){const pt=p.getPointAtLength(L*SR(i===0?.4:.1,1));
+    mk('circle',{class:'tw',cx:(pt.x+SR(-5,5)).toFixed(1),cy:(pt.y+SR(-4,4)).toFixed(1),r:SR(3.2,4.6).toFixed(1),fill:'url(#bulb)',style:`--t:${SR(.9,1.8).toFixed(2)}s;--d:-${SR(0,2).toFixed(2)}s`},ltG)}})})();
+// đồng xu vàng treo
+[[2,.4],[3,.45],[4,.5],[1,.35]].forEach(([pi,t])=>{const p=paths[pi],pt=p.getPointAtLength(p.getTotalLength()*t);
+  const g=mk('g',{transform:`translate(${pt.x.toFixed(1)} ${(pt.y+12).toFixed(1)})`},dcG),inner=mk('g',{class:'env',style:`--t:${SR(2.2,3.2).toFixed(1)}s;--d:-${SR(0,2).toFixed(1)}s`},g);mk('use',{href:'#coin'},inner)});
+// rê chuột qua bông hoa: bông đó rung nhẹ
+flG.addEventListener('pointerover',e=>{const fi=e.target.closest&&e.target.closest('.fi');if(!fi||fi.classList.contains('wig'))return;
+  fi.style.animationDelay='0s';fi.classList.add('wig');setTimeout(()=>fi.classList.remove('wig'),650)});
+function setTree(t,anim){
+  TREE=t;try{localStorage.setItem('tetTree',t)}catch(e){}
+  const seg=$('seg');seg.dataset.t=t;seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-checked',b.dataset.t===t));
+  $('shakeBtn').textContent=`${treeIcon()} Lắc ${treeName()} hái lộc`;$('status').textContent=`Kéo cây qua lại, bấm nút, hoặc lắc điện thoại để hái lộc.`;
+  tickNow();if(typeof LIXI!=='undefined'&&LIXI.st.mode==='online')renderTree();
+  if(!anim){bloom();return}
+  flG.classList.add('swap');setTimeout(()=>{bloom();flG.classList.remove('swap');petalBurstFromTree(18)},reduce?0:320);
+  ps.forEach(p=>{if(p.amb&&Math.random()<.7)p.c=pcol()});            // hoa đang rơi cũng đổi màu theo
+}
+$('seg').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&b.dataset.t!==TREE)setTree(b.dataset.t,true)});
+// bao lì xì treo ở các vị trí trên cành
+const ENV_AT=[[1,.55],[1,.92],[2,.6],[2,.95],[3,.7],[4,.75],[5,.8],[6,.85],[7,.7],[8,.75],[0,.86]];
+let envs=[];
+function hangEnvelopes(n=ENV_AT.length){
+  evG.innerHTML='';envs=[];
+  ENV_AT.slice(0,n).forEach(([pi,f],i)=>{const p=paths[pi],pt=p.getPointAtLength(p.getTotalLength()*f);
+    const g=mk('g',{transform:`translate(${pt.x.toFixed(1)} ${(pt.y+14).toFixed(1)})`},evG),inner=mk('g',{class:'env',style:`--t:${R(2.4,3.6).toFixed(1)}s;--d:-${R(0,3).toFixed(1)}s`},g);
+    mk('use',{href:'#envShape'},inner);envs.push({g,inner,x:pt.x,y:pt.y+14,taken:false})});
+  updateTally();
+}
+hangEnvelopes();
+function updateTally(){const left=envs.filter(e=>!e.taken).length;const t=$('tally');t.hidden=false;t.textContent=left?`🧧 Còn ${left} bao lì xì trên cây`:''}
+
+/* =========================================================
+   QUẺ ĐẦU NĂM
+   ========================================================= */
+const QUE=[
+  ['Đại Cát','🧧','Vạn sự như ý','Năm mới mọi việc hanh thông, cầu được ước thấy, đi đâu cũng gặp quý nhân.'],
+  ['Đại Cát','💰','Tài lộc dồi dào','Tiền vào như nước sông Đà, tiền ra nhỏ giọt như cà phê phin.'],
+  ['Thượng Cát','💪','Sức khoẻ dồi dào','Thân khoẻ, tâm an, ăn ngon ngủ kỹ, cả năm chẳng phải ghé phòng khám.'],
+  ['Thượng Cát','💖','Tình duyên viên mãn','Người thương luôn ở bên, ai chưa có đôi thì sắp gặp được nửa kia.'],
+  ['Cát','📚','Học hành tấn tới','Học đâu nhớ đó, thi đâu đỗ đó, kiến thức tăng vèo vèo.'],
+  ['Đại Cát','🚀','Sự nghiệp thăng tiến','Công việc thuận buồm xuôi gió, sếp quý, đồng nghiệp thương, lương tăng đều.'],
+  ['Cát','🏡','Gia đạo bình an','Cả nhà sum vầy, ấm êm, tiếng cười rộn rã quanh năm.'],
+  ['Thượng Cát','🍀','May mắn bất ngờ','Năm nay có điều bất ngờ dễ thương đang chờ bạn ở phía trước.'],
+  ['Cát','✈️','Xuất hành đại lợi','Đi xa gặp may, đi gần gặp vui, chuyến đi nào cũng đáng nhớ.'],
+  ['Đại Cát','🌟','Ước mơ thành thật','Điều bạn ấp ủ bấy lâu sẽ có bước tiến lớn trong năm nay.'],
+  ['Thượng Cát','😄','Vui vẻ cả năm','Bớt lo âu, thêm tiếng cười; chuyện gì khó cũng hoá nhẹ tênh.'],
+  ['Cát','🤝','Quý nhân phù trợ','Gặp đúng người, đúng lúc; bạn bè luôn sẵn lòng giúp đỡ.'],
+  ['Thượng Cát','🎯','Mục tiêu trong tầm tay','Đặt mục tiêu nào cũng chạm tới, kế hoạch nào cũng chạy đúng hạn.'],
+  ['Cát','🌸','An nhiên tự tại','Một năm nhẹ nhàng, thong thả, đủ đầy mà không vội vã.']];
+const COLORS=['Đỏ','Vàng','Hồng đào','Xanh ngọc','Cam','Tím','Trắng ngà','Xanh lá'];
+
+/* =========================================================
+   CÂY CHUNG: 86 bao cho mọi người, mỗi người 1 bao mỗi ngày, 5 bao giải thưởng
+   - Firebase Anonymous Auth (mỗi trình duyệt một mã ẩn danh) + Firestore REST
+   - Firebase chưa sẵn sàng (chưa bật đăng nhập ẩn danh / mất mạng) -> chế độ cây riêng
+   ========================================================= */
+const LIXI=(function(){
+  const FB={projectId:'birthday-b79b6',apiKey:'AIzaSyA0jD_7VODdDH0OCumKsjASYpt31Tmr1mo'};
+  const POOL='tet2027',TOTAL=86;
+  const DOCS=`https://firestore.googleapis.com/v1/projects/${FB.projectId}/databases/(default)/documents`;
+  const C=n=>`${POOL}_${n}`;                                   // tên bộ sưu tập: tet2027_claims, tet2027_daily…
+  const envId=n=>'e'+String(n).padStart(2,'0');
+  const dayNum=()=>Math.floor((Date.now()+7*36e5)/864e5);   // ngày theo giờ Việt Nam (UTC+7), khớp với luật trên Firebase
+  const st={mode:'loading',uid:null,tok:null,exp:0,claimed:new Set(),today:null};
+  const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}};
+  const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+
+  /* ---- đăng nhập ẩn danh ---- */
+  async function token(){
+    if(st.tok&&Date.now()<st.exp-60e3)return st.tok;
+    const saved=lsGet('tetAuth');let j;
+    if(saved&&saved.rt){
+      const r=await fetch(`https://securetoken.googleapis.com/v1/token?key=${FB.apiKey}`,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'grant_type=refresh_token&refresh_token='+encodeURIComponent(saved.rt)});
+      if(r.ok){j=await r.json();st.tok=j.id_token;st.uid=j.user_id;st.exp=Date.now()+(+j.expires_in)*1e3;lsSet('tetAuth',{rt:j.refresh_token,uid:j.user_id});return st.tok}
+    }
+    const r=await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FB.apiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:'{"returnSecureToken":true}'});
+    if(!r.ok)throw new Error('auth');
+    j=await r.json();st.tok=j.idToken;st.uid=j.localId;st.exp=Date.now()+(+j.expiresIn)*1e3;lsSet('tetAuth',{rt:j.refreshToken,uid:j.localId});return st.tok;
+  }
+  async function api(path,opt={}){const t=await token();return fetch(DOCS+path,{...opt,headers:{'Content-Type':'application/json',Authorization:'Bearer '+t,...(opt.headers||{})}})}
+  const docName=(col,id)=>`projects/${FB.projectId}/databases/(default)/documents/${C(col)}/${id}`;
+
+  /* ---- đọc trạng thái cây ---- */
+  async function refreshClaimed(){
+    const r=await api(':runQuery',{method:'POST',body:JSON.stringify({structuredQuery:{from:[{collectionId:C('claims')}],select:{fields:[{fieldPath:'__name__'}]},limit:200}})});
+    if(!r.ok)throw new Error('read');
+    const j=await r.json();st.claimed=new Set(j.filter(x=>x.document).map(x=>x.document.name.split('/').pop()));
+  }
+  async function readToday(){
+    const r=await api(`/${C('daily')}/${st.uid}_${dayNum()}`);
+    if(r.status===404)return null;if(!r.ok)throw new Error('read');
+    const j=await r.json();return j.fields?.env?.stringValue||'?';
+  }
+  const remaining=()=>Math.max(0,TOTAL-st.claimed.size);
+
+  async function init(){
+    try{
+      await token();await refreshClaimed();
+      const env=await readToday();st.today=env?{env,...(lsGet('tetToday')?.day===dayNum()?lsGet('tetToday'):{})}:null;
+      st.mode='online';
+    }catch(e){st.mode='local';console.info('Cây chung chưa sẵn sàng, dùng chế độ cây riêng:',e.message)}
+    return st.mode;
+  }
+
+  /* ---- hái 1 bao: ghi cùng lúc "bao eXX đã có người hái" + "hôm nay người này đã hái" ---- */
+  async function pick(){
+    if(st.today)return{ok:false,reason:'today'};
+    for(let tries=0;tries<5;tries++){
+      const free=[];for(let n=1;n<=TOTAL;n++){const id=envId(n);if(!st.claimed.has(id))free.push(id)}
+      if(!free.length)return{ok:false,reason:'empty'};
+      const id=free[(Math.random()*free.length)|0],day=dayNum();
+      const r=await api(':commit',{method:'POST',body:JSON.stringify({writes:[
+        {update:{name:docName('claims',id),fields:{uid:{stringValue:st.uid},day:{integerValue:String(day)}}},currentDocument:{exists:false},updateTransforms:[{fieldPath:'ts',setToServerValue:'REQUEST_TIME'}]},
+        {update:{name:docName('daily',`${st.uid}_${day}`),fields:{env:{stringValue:id}}},currentDocument:{exists:false}}]})});
+      if(r.ok){st.claimed.add(id);
+        let prize=null;const pr=await api(`/${C('prizes')}/${id}`);
+        if(pr.ok){const j=await pr.json();prize={title:j.fields?.title?.stringValue||'Phần quà bất ngờ',note:j.fields?.note?.stringValue||''}}
+        return{ok:true,env:id,prize}}
+      // thất bại: hoặc bao vừa có người khác hái, hoặc hôm nay mình đã hái (ở máy/tab khác)
+      const env=await readToday().catch(()=>null);if(env){st.today={env};return{ok:false,reason:'today'}}
+      st.claimed.add(id);await refreshClaimed().catch(()=>{});
+    }
+    return{ok:false,reason:'busy'};
+  }
+  async function sendWinner(id,name,contact){
+    const r=await api(':commit',{method:'POST',body:JSON.stringify({writes:[{update:{name:docName('winners',id),fields:{name:{stringValue:name},contact:{stringValue:contact}}},currentDocument:{exists:false},updateTransforms:[{fieldPath:'ts',setToServerValue:'REQUEST_TIME'}]}]})});
+    return r.ok;
+  }
+  return{init,pick,sendWinner,refreshClaimed,remaining,TOTAL,st,dayNum,lsGet,lsSet};
+})();
+
+/* =========================================================
+   LẮC CÂY -> rơi bao lì xì -> mở quẻ (hoặc giải thưởng)
+   ========================================================= */
+let busy=false;
+function shakeTree(src){
+  ensureAudio();chime();
+  const tg=$('treeWrap');tg.classList.remove('shake');void tg.getBoundingClientRect();tg.classList.add('shake');
+  tg.addEventListener('animationend',()=>tg.classList.remove('shake'),{once:true});   // lắc xong thì quay lại đung đưa nhẹ
+  try{navigator.vibrate&&navigator.vibrate([20,40,30])}catch(e){}
+  petalBurstFromTree(28);
+  $('status').textContent=src==='motion'?'Đang rung cây… 📳':'Cây đang rung rinh… 🌸';
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function shake(src){
+  if(busy)return;
+  if(LIXI.st.mode==='loading'){toast('Đang chuẩn bị cây, đợi xíu nhé…');return}
+  // chế độ cây riêng (Firebase chưa sẵn sàng): hái thoải mái như trước
+  if(LIXI.st.mode==='local'){
+    const left=envs.filter(e=>!e.taken);if(!left.length){hangEnvelopes();toast(`${treeIcon()} Cây vừa ra lộc mới!`);return}
+    busy=true;shakeTree(src);await wait(reduce?0:550);dropEnvelope(left[(Math.random()*left.length)|0],()=>openFortune(newFortune()));return;
+  }
+  // cây chung
+  if(LIXI.st.today){shakeTree(src);toast('Hôm nay bạn đã hái lộc rồi, mai quay lại hái tiếp nhé 🌸');setTimeout(showToday,reduce?0:600);return}
+  if(LIXI.remaining()<=0){shakeTree(src);toast('Cây đã hết lộc! Hẹn gặp lại xuân sau 🌸');return}
+  busy=true;shakeTree(src);
+  let res;try{[res]=await Promise.all([LIXI.pick(),wait(reduce?0:550)])}catch(e){res={ok:false,reason:'error'}}
+  if(!res.ok){busy=false;
+    if(res.reason==='today'){toast('Hôm nay bạn đã hái lộc rồi, mai quay lại nhé 🌸');renderTree();return}
+    if(res.reason==='empty'){toast('Cây đã hết lộc! Hẹn gặp lại xuân sau 🌸');renderTree();return}
+    toast('Mạng hơi chậm, bạn lắc lại thử nhé');$('status').textContent='Chưa hái được, thử lại nhé.';return}
+  const fo=newFortune();Object.assign(fo,{env:res.env,prize:res.prize,day:LIXI.dayNum()});
+  LIXI.st.today=fo;LIXI.lsSet('tetToday',fo);
+  const left=envs.filter(e=>!e.taken),e=left.length?left[(Math.random()*left.length)|0]:null;
+  dropEnvelope(e,()=>{openFortune(fo);renderTree()});
+}
+function newFortune(){return{q:(Math.random()*QUE.length)|0,num:(Math.random()*99|0)+1,color:(Math.random()*COLORS.length)|0}}
+function dropEnvelope(e,done){
+  const st=$('stage'),sr=st.getBoundingClientRect(),k=sr.width/420;
+  let x=e?e.x:210+R(-60,60),y=e?e.y:200;if(e){e.taken=true;e.inner.classList.add('taken')}
+  const f=document.createElement('div');f.className='fall';
+  f.innerHTML='<svg viewBox="-12 -2 24 34"><use href="#envShape" transform="translate(0 0)"/></svg>';
+  f.style.left=(x*k-15)+'px';f.style.top=(y*k-4)+'px';st.appendChild(f);
+  const dy=sr.height*.9-y*k,dx=R(-40,40);
+  const an=f.animate([{transform:'translate(0,0) rotate(0)'},{transform:`translate(${dx*.4}px,${dy*.45}px) rotate(${R(-60,60)|0}deg)`,offset:.5},{transform:`translate(${dx}px,${dy}px) rotate(${R(-20,20)|0}deg)`}],
+    {duration:reduce?1:800,easing:'cubic-bezier(.45,0,.75,1)',fill:'forwards'});
+  an.onfinish=()=>{f.remove();if(LIXI.st.mode==='local')updateTally();done()};
+}
+function openFortune(fo,replay){
+  const [rank,ic,title,text]=QUE[fo.q??0];
+  const pz=fo.prize;
+  $('qcard').classList.toggle('win',!!pz);
+  $('qRank').textContent=pz?'🎁 Trúng giải':rank;$('qIc').textContent=pz?'🎁':ic;
+  $('qTitle').textContent=pz?pz.title:title;$('qText').textContent=pz?(pz.note||'Chúc mừng! Bạn đã hái trúng bao lì xì đặc biệt.'):text;
+  $('qNum').textContent='🔢 Số may mắn: '+(fo.num||7);$('qColor').textContent='🎨 Màu may mắn: '+COLORS[fo.color||0];
+  // nút: cây chung -> "Xong"; cây riêng -> "Hái lộc nữa"; trúng giải -> form để lại tên
+  const online=LIXI.st.mode==='online';
+  $('again').textContent=online?'✨ Xong':'🌸 Hái lộc nữa';
+  const needForm=!!pz&&!fo.sent;$('pform').hidden=!needForm;$('again').hidden=needForm;$('share').hidden=needForm;
+  const lx=$('lx');lx.classList.remove('open','out');$('mact').classList.remove('show');$('modal').classList.add('show');
+  setTimeout(()=>{lx.classList.add('open');if(!replay)tada()},reduce?0:650);
+  setTimeout(()=>{lx.classList.add('out')},reduce?0:1050);                 // nắp đã lật xong
+  setTimeout(()=>{$('mact').classList.add('show')},reduce?0:1500);
+  $('status').textContent=pz?'Bạn hái trúng bao giải thưởng! 🎁':'Chúc mừng bạn đã hái được lộc! 🧧';busy=false;
+}
+function showToday(){const fo=LIXI.st.today;if(fo&&fo.q!=null)openFortune(fo,true);else toast('Hôm nay bạn đã hái lộc ở máy khác rồi nhé 🌸')}
+function closeModal(){$('modal').classList.remove('show')}
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+$('again').onclick=()=>{closeModal();if(LIXI.st.mode==='local')setTimeout(()=>shake('btn'),350)};
+$('share').onclick=async()=>{
+  const t=`🧧 Lộc đầu năm ${TET.can} của mình: "${$('qTitle').textContent}" (${$('qRank').textContent})\n${$('qText').textContent}\n\nHái lộc tại: ${location.origin}${location.pathname}`;
+  if(navigator.share){try{await navigator.share({text:t});return}catch(e){if(e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(t);toast('Đã sao chép, dán vào Zalo/Messenger để khoe nhé!')}catch(e){prompt('Sao chép:',t)}
+};
+$('psend').onclick=async()=>{
+  const fo=LIXI.st.today,name=$('pname').value.trim().slice(0,60),contact=$('pcontact').value.trim().slice(0,100);
+  if(!name){toast('Bạn nhập tên để mình biết gửi quà cho ai nhé');$('pname').focus();return}
+  $('psend').disabled=true;
+  const ok=await LIXI.sendWinner(fo.env,name,contact).catch(()=>false);
+  $('psend').disabled=false;
+  if(ok){fo.sent=true;LIXI.lsSet('tetToday',fo);$('pform').hidden=true;$('again').hidden=false;$('share').hidden=false;toast('Đã gửi! Mình sẽ liên hệ trao quà nhé 🎁')}
+  else toast('Chưa gửi được, bạn thử lại nhé');
+};
+$('shakeBtn').onclick=()=>{if(LIXI.st.mode==='online'&&LIXI.st.today)showToday();else shake('btn')};
+(function(){const b=$('phucInfo'),t=$('phucTip');
+  const set=on=>{t.classList.toggle('show',on);b.setAttribute('aria-expanded',on)};
+  b.addEventListener('click',e=>{e.stopPropagation();set(!t.classList.contains('show'))});
+  addEventListener('click',e=>{if(!e.target.closest('.info,.tip'))set(false)});
+  addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});})();
+
+/* Cây hiển thị: số bao treo = min(chỗ treo, số bao còn lại); dòng đếm theo chế độ */
+function renderTree(){
+  const online=LIXI.st.mode==='online';
+  const show=online?Math.min(ENV_AT.length,LIXI.remaining()):ENV_AT.length;
+  hangEnvelopes(show);
+  const t=$('tally');t.hidden=false;
+  if(!online){updateTally();return}
+  const left=LIXI.remaining();
+  t.textContent=left?`🧧 Cây chung còn ${left}/${LIXI.TOTAL} bao · mỗi người 1 bao mỗi ngày`:'🧧 Cây đã hết lộc, hẹn gặp lại xuân sau';
+  const b=$('shakeBtn');
+  if(LIXI.st.today){b.textContent='🧧 Xem lại lộc hôm nay';$('status').textContent='Hôm nay bạn đã hái lộc rồi, mai quay lại hái tiếp nhé 🌸'}
+  else b.textContent=`${treeIcon()} Lắc ${treeName()} hái lộc`;
+}
+LIXI.init().then(mode=>{renderTree();
+  if(mode==='online')setInterval(()=>{if(!document.hidden)LIXI.refreshClaimed().then(()=>{if(!busy)renderTree()}).catch(()=>{})},45000);
+});
+
+// Kéo cây qua lại (máy tính / chạm) cũng làm cây rung
+(function(){
+  const st=$('stage');let x0=null,acc=0,last=0,dir=0;
+  st.addEventListener('pointerdown',e=>{if(e.target.closest('.info,.tip'))return;x0=e.clientX;acc=0;dir=0});
+  addEventListener('pointermove',e=>{if(x0===null)return;const dx=e.clientX-x0;x0=e.clientX;const d=Math.sign(dx);
+    if(d&&d!==dir){acc+=Math.abs(dx)>4?1:0;dir=d}if(acc>=3&&Date.now()-last>1200){last=Date.now();acc=0;shake('drag')}});
+  addEventListener('pointerup',e=>{if(x0!==null&&acc===0&&Date.now()-last>1200&&e.target.closest&&e.target.closest('#stage')&&!e.target.closest('.info,.tip')){last=Date.now();shake('tap')}x0=null});
+})();
+
+// Lắc điện thoại (iOS cần xin quyền bằng một lần bấm)
+(function(){
+  const touch=matchMedia('(pointer: coarse)').matches;if(!touch||!('DeviceMotionEvent' in window))return;
+  const btn=$('motionBtn');btn.hidden=false;let on=false,lastShake=0,prev=null;
+  function listen(){if(on)return;on=true;btn.hidden=true;$('status').textContent='Giờ lắc điện thoại để hái lộc nhé 📳';
+    addEventListener('devicemotion',e=>{const a=e.accelerationIncludingGravity;if(!a||a.x==null)return;
+      if(prev){const d=Math.abs(a.x-prev.x)+Math.abs(a.y-prev.y)+Math.abs(a.z-prev.z);if(d>28&&Date.now()-lastShake>1600){lastShake=Date.now();shake('motion')}}
+      prev={x:a.x,y:a.y,z:a.z}})}
+  btn.onclick=async()=>{
+    if(typeof DeviceMotionEvent.requestPermission==='function'){
+      try{const r=await DeviceMotionEvent.requestPermission();if(r!=='granted'){toast('Không có quyền cảm biến, bạn bấm nút hoặc kéo cây nhé');btn.hidden=true;return}}catch(e){toast('Không bật được cảm biến chuyển động');return}
+    }
+    listen();
+  };
+  // Android: không cần xin quyền
+  if(typeof DeviceMotionEvent.requestPermission!=='function')listen();
+})();
+
+/* =========================================================
+   ÂM THANH: tiếng chuông khi lắc, "tada" khi mở, nhạc ngũ cung (đàn tranh)
+   ========================================================= */
+let ac=null;
+function ensureAudio(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume()}
+function pluck(f,t,v,dest,dur=1.4){const o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),g2=ac.createGain();
+  o.type='triangle';o2.type='sine';o.frequency.setValueAtTime(f*1.012,t);o.frequency.exponentialRampToValueAtTime(f,t+.06);o2.frequency.value=f*2;g2.gain.value=.18;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.006);g.gain.exponentialRampToValueAtTime(.0008,t+dur);
+  o.connect(g);o2.connect(g2).connect(g);g.connect(dest);o.start(t);o2.start(t);o.stop(t+dur+.05);o2.stop(t+dur+.05)}
+function chime(){if(!ac)return;const t=ac.currentTime;[1318.5,1568,1760,2093].forEach((f,i)=>pluck(f,t+i*.07,.08,ac.destination,.9))}
+function tada(){if(!ac)return;const t=ac.currentTime;[523.25,659.25,783.99,1046.5].forEach((f,i)=>pluck(f,t+i*.09,.12,ac.destination,1.6))}
+
+const music=(function(){
+  let master=null,delay=null,timer=0,nextT=0,step=0,on=false;
+  const SC=[0,2,4,7,9],BASE=261.63,note=(deg,oct=0)=>BASE*Math.pow(2,(SC[((deg%5)+5)%5]+12*(Math.floor(deg/5)+oct))/12);
+  let deg=5;
+  function setup(){ensureAudio();master=ac.createGain();master.gain.value=0;master.connect(ac.destination);
+    delay=ac.createDelay(1);delay.delayTime.value=.36;const fb=ac.createGain();fb.gain.value=.32;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2200;
+    const wet=ac.createGain();wet.gain.value=.4;delay.connect(lp).connect(fb).connect(delay);lp.connect(wet).connect(master)}
+  function sched(){const B=.3;
+    while(nextT<ac.currentTime+.25){
+      const b=step%16;
+      if(b===0){pluck(note(0,-1),nextT,.1,master,3);pluck(note(3,-1),nextT+.02,.06,master,3)}
+      if(b===8)pluck(note(Math.random()<.5?2:4,-1),nextT,.07,master,2.5);
+      if(Math.random()<(b%2?.42:.82)){deg+=[-2,-1,-1,1,1,2][(Math.random()*6)|0];deg=Math.max(2,Math.min(11,deg));
+        const f=note(deg),v=b%4===0?.16:.1;pluck(f,nextT,v,master);const tap=ac.createGain();tap.gain.value=.5;pluck(f,nextT,v*.5,delay);
+        if(Math.random()<.18)pluck(note(deg-2),nextT+.02,v*.6,master)}
+      nextT+=B;step++}}
+  return{start(){if(!master)setup();ensureAudio();on=true;nextT=ac.currentTime+.1;master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);
+      master.gain.linearRampToValueAtTime(.6,ac.currentTime+2);clearInterval(timer);timer=setInterval(sched,90);sched()},
+    stop(){if(!master)return;on=false;clearInterval(timer);master.gain.cancelScheduledValues(ac.currentTime);master.gain.setValueAtTime(master.gain.value,ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.8)}};
+})();
+
+/* =========================================================
+   HOA MAI / ĐÀO RƠI + cánh hoa theo con trỏ + bấm bung hoa
+   ========================================================= */
+const cv=$('petals'),g=cv.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2);let W,H,ps=[];
+const PC={mai:[['#ffd23f','#f0a800'],['#ffe27a','#f2b20f']],dao:[['#ffc6d4','#ff7a9c'],['#ffe0e8','#ff8fab']]};
+// phần lớn cánh hoa theo cây đang chọn, thỉnh thoảng lẫn vài cánh của cây còn lại
+const pcol=()=>{const k=Math.random()<.85?TREE:(TREE==='dao'?'mai':'dao'),a=PC[k];return a[(Math.random()*a.length)|0]};
+function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;g.setTransform(DPR,0,0,DPR,0,0)}size();addEventListener('resize',size);
+function petal(x,y,o={}){const c=pcol();return{x,y,vx:o.vx??R(-.3,.3),vy:o.vy??R(.4,1),s:o.s??R(5,9),r:R(0,6.28),vr:R(-.04,.04),ph:R(0,6.28),c,life:o.life??Infinity,dec:o.dec??0,amb:!!o.amb}}
+if(!reduce)for(let i=0;i<(innerWidth<600?16:26);i++)ps.push(petal(R(0,W),R(-H,H),{amb:true}));
+function draw(p){g.save();g.translate(p.x,p.y);g.rotate(p.r);g.scale(1,.55+.45*Math.sin(p.ph));
+  const gr=g.createLinearGradient(-p.s,0,p.s,0);gr.addColorStop(0,p.c[0]);gr.addColorStop(1,p.c[1]);g.fillStyle=gr;
+  g.beginPath();g.moveTo(0,-p.s);g.bezierCurveTo(p.s*.9,-p.s*.6,p.s*.8,p.s*.6,0,p.s);g.bezierCurveTo(-p.s*.8,p.s*.6,-p.s*.9,-p.s*.6,0,-p.s);g.fill();g.restore()}
+let last=performance.now();
+function loop(t){const dt=Math.min((t-last)/16.67,3);last=t;g.clearRect(0,0,W,H);
+  for(const p of ps){p.ph+=.04*dt;p.x+=(p.vx+Math.sin(p.ph*.5)*.35)*dt;p.y+=p.vy*dt;p.r+=p.vr*dt;
+    if(!p.amb){p.vy+=.04*dt;p.vx*=.99;p.life-=p.dec*dt}
+    else if(p.y>H+20){p.y=-20;p.x=R(0,W);p.c=pcol()}
+    if(p.life>0){g.globalAlpha=Math.min(1,p.life);draw(p)}}
+  g.globalAlpha=1;ps=ps.filter(p=>p.amb||p.life>0);requestAnimationFrame(loop)}
+if(!reduce)requestAnimationFrame(loop);
+/* Cánh hoa tự rụng khỏi cây: mỗi lúc một cánh rơi từ một bông ngẫu nhiên */
+if(!reduce)setInterval(()=>{if(document.hidden)return;const fs=flG.querySelectorAll('.fi');if(!fs.length)return;
+  const r=fs[(Math.random()*fs.length)|0].getBoundingClientRect();if(r.width===0||r.bottom<0||r.top>innerHeight)return;
+  ps.push(petal(r.left+r.width/2,r.top+r.height/2,{vx:R(-.5,.5),vy:R(.2,.6),s:R(4,6.5),life:1.4,dec:R(.004,.007)}))},700);
+function petalBurstFromTree(n){if(reduce)return;const r=$('stage').getBoundingClientRect();
+  for(let i=0;i<n;i++)ps.push(petal(r.left+r.width*R(.15,.85),r.top+r.height*R(.1,.55),{vx:R(-2,2),vy:R(-1,1.5),life:1,dec:R(.006,.012)}))}
+if(!reduce){
+  if(matchMedia('(hover: hover) and (pointer: fine)').matches){let lx=-1,ly=-1;
+    addEventListener('pointermove',e=>{const d=lx<0?99:Math.hypot(e.clientX-lx,e.clientY-ly);if(d<14)return;lx=e.clientX;ly=e.clientY;
+      ps.push(petal(e.clientX,e.clientY,{vx:R(-.6,.6),vy:R(.2,.8),s:R(3.5,6),life:1,dec:R(.015,.025)}))},{passive:true})}
+  addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('a,button,.stage,.modal,.site-ctrls,.site-home'))return;
+    for(let i=0;i<14;i++){const a=R(-Math.PI,0),sp=R(1.5,4.5);ps.push(petal(e.clientX,e.clientY,{vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,dec:R(.012,.02)}))}});
+}
+
+setTree(TREE,false);                     // trạng thái ban đầu của nút Đào / Mai
+
+/* Nút Trang chủ + ngày/đêm + nhạc dùng chung */
+Site.init({homeHref:'../',music:{start:music.start,stop:music.stop}});
+</script>
+</body>
+</html>
