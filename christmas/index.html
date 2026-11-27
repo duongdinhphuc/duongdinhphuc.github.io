@@ -155,7 +155,7 @@
   .unit span.pop{animation:pop .4s ease}
   @keyframes pop{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
   .unit small{color:var(--muted);text-transform:uppercase;letter-spacing:.15em;font-size:var(--fs-small)}
-  #xmas-msg{text-align:center;font-family:var(--f-script);font-size:2.4rem;color:var(--gold);margin-top:1.5rem}
+  #xmas-msg{text-align:center;font-family:var(--f-script);font-size:2.4rem;color:var(--gold);margin-top:1.5rem;text-wrap:balance;max-width:640px;margin-inline:auto}
 
   /* ===== Fireplace ===== */
   .fp-wrap{position:relative;width:min(560px,86vw);margin:5rem auto 1rem}
@@ -481,8 +481,8 @@
 
 <main>
   <section id="countdown" class="reveal">
-    <h2>Còn bao lâu nữa đến Giáng Sinh?</h2>
-    <div class="countdown">
+    <h2 id="cdTitle">Còn bao lâu nữa đến Giáng Sinh?</h2>
+    <div class="countdown" id="cdBox">
       <div class="unit"><span id="d">0</span><small>Ngày</small></div>
       <div class="unit"><span id="h">0</span><small>Giờ</small></div>
       <div class="unit"><span id="m">0</span><small>Phút</small></div>
@@ -886,14 +886,19 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ---------- Countdown ---------- */
 function setNum(id,v){const el=$(id);if(el.textContent!==String(v)){el.textContent=v;el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}}
+/* Theo ngày: 24/12 đêm Noel (vẫn đếm tới 0h) · 25/12 Giáng Sinh · 26–31/12 mùa lễ hội · còn lại đếm ngược */
+let cdMode='';
+function setMode(m,title,msg){if(cdMode===m)return;cdMode=m;$('cdTitle').textContent=title;$('xmas-msg').textContent=msg;$('cdBox').style.display=(m==='day'||m==='after')?'none':''}
 function tick(){
-  const now=new Date(),y=now.getFullYear();
-  if(now.getMonth()===11&&now.getDate()===25){$('xmas-msg').textContent='Hôm nay là Giáng Sinh – Merry Christmas! 🎉';['d','h','m','s'].forEach(k=>setNum(k,0));return}
+  const now=new Date(),y=now.getFullYear(),dec=now.getMonth()===11,d=now.getDate();
+  if(dec&&d===25){setMode('day','Giáng Sinh đã đến rồi! 🎄','Chúc bạn một mùa Giáng\u00a0Sinh thật ấm áp, an lành bên những người thương\u00a0✨');return}
+  if(dec&&d>25){setMode('after','Mùa lễ hội vẫn còn đây 🎁','Vẫn kịp treo tất và gửi thiệp cho người thương nhé');return}
+  if(dec&&d===24)setMode('eve','Đêm nay là đêm Noel ✨','');
+  else setMode('count','Còn bao lâu nữa đến Giáng Sinh?','');
   let target=new Date(y,11,25);if(now>target)target=new Date(y+1,11,25);
   const diff=target-now;
   setNum('d',Math.floor(diff/864e5));setNum('h',String(Math.floor(diff/36e5)%24).padStart(2,'0'));
   setNum('m',String(Math.floor(diff/6e4)%60).padStart(2,'0'));setNum('s',String(Math.floor(diff/1e3)%60).padStart(2,'0'));
-  $('xmas-msg').textContent='';
 }
 tick();setInterval(tick,1000);
 

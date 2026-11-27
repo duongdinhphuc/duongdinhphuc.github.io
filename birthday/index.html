@@ -61,7 +61,7 @@
   @keyframes shine{to{background-position:-250% 0}}
   .who{font-family:"Dancing Script",cursive;font-weight:700;font-size:clamp(2.2rem,8vw,3.4rem);line-height:1.15;color:var(--text);word-break:break-word}
   /* câu đếm ngược: cùng font với chữ hướng dẫn, đậm hơn, màu chuyển vàng-hồng-tím (biểu tượng cảm xúc giữ màu gốc) */
-  .sub{margin:10px auto 0;max-width:560px;font-family:var(--font-body);font-weight:600;font-size:var(--fs-lead);line-height:1.55}
+  .sub{margin:10px auto 0;max-width:560px;font-family:var(--font-body);font-weight:600;font-size:var(--fs-lead);line-height:1.55;text-wrap:balance}
   .sub .g{background:linear-gradient(100deg,var(--g1),var(--g2) 55%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;
           -webkit-box-decoration-break:clone;box-decoration-break:clone;filter:drop-shadow(0 2px 10px rgba(255,126,179,.25))}
 
@@ -95,7 +95,7 @@
   .btn:active{transform:scale(.97)}
   .btn.ghost{background:var(--surface2);color:var(--text);border:1px solid var(--line);box-shadow:none}
   .btn[hidden]{display:none}
-  .status{min-height:1.6em;margin-top:10px;color:var(--muted);font-size:var(--fs-body-sm)}
+  .status{min-height:1.6em;margin-top:10px;color:var(--muted);font-size:var(--fs-body-sm);text-wrap:balance}
   .meter{width:180px;height:6px;margin:10px auto 0;border-radius:6px;background:var(--surface2);overflow:hidden;opacity:0;transition:opacity .3s}
   .meter.on{opacity:1}
   .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--accent));border-radius:6px;transition:width .08s}
@@ -309,14 +309,18 @@ const viewing=true;
 const today=new Date();today.setHours(0,0,0,0);
 function nextBday(){let t=new Date(today.getFullYear(),month-1,day);if(t<today)t.setFullYear(t.getFullYear()+1);return t}
 const MONTHS=['tháng 1','tháng 2','tháng 3','tháng 4','tháng 5','tháng 6','tháng 7','tháng 8','tháng 9','tháng 10','tháng 11','tháng 12'];
-let isToday=false,age=0;
+const AFTER_DAYS=14;                          // số ngày sau sinh nhật vẫn hiện chế độ "vừa qua sinh nhật"
+function lastBday(){let t=new Date(today.getFullYear(),month-1,day);if(t>today)t.setFullYear(t.getFullYear()-1);return t}
+let isToday=false,isAfter=false,age=0;
 if(viewing){
-  const nb=nextBday();isToday=nb.getTime()===today.getTime();
-  if(year)age=nb.getFullYear()-year;
+  const nb=nextBday(),lb=lastBday();isToday=nb.getTime()===today.getTime();
+  const since=Math.round((today-lb)/864e5);isAfter=!isToday&&since>=1&&since<=AFTER_DAYS;
+  if(year)age=(isAfter?lb:nb).getFullYear()-year;
   function setSub(t,e){const g=document.createElement('span');g.className='g';g.textContent=t;$('sub').replaceChildren(g,' '+e)}
   document.title='Sinh nhật 05/12 🎂';
   $('who').hidden=true;$('chip').textContent=`🎂 ${day} ${MONTHS[month-1]}`;
   if(isToday){$('title').textContent='Chúc mừng sinh nhật';setSub('Hôm nay là sinh nhật của mình! Thổi nến chúc mừng mình nhé','🌟')}
+  else if(isAfter){$('title').textContent='Cảm ơn mọi người';setSub('Sinh nhật vừa qua rồi, nhưng vẫn có thể thổi nến và để lại lời chúc nhé','💖')}
   else{
     $('title').textContent='Sắp đến sinh nhật';
     $('count').hidden=false;
